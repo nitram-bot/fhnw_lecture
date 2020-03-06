@@ -12,8 +12,8 @@ dataset = fetch_20newsgroups(subset='all', shuffle=True, download_if_missing=Tru
 np.random.seed(123)
 texts = dataset.data # Extract text
 target = dataset.target # Extract target
-texts[0:10]
-target[0:10]
+#texts[0:10]
+#target[0:10]
 
 vectorizer = TfidfVectorizer(stop_words='english', max_df = 0.3)
 X = vectorizer.fit_transform(texts)
@@ -37,6 +37,40 @@ connectivity = csc_matrix((data, (row, col)), shape = (X.shape[0], X.shape[0]))
 
 from scipy.sparse.csgraph import laplacian as csgraph_laplacian
 
+##### Versuch, alle eigenvalues zu bekommen #########################
+from sklearn.utils import check_array
+from sklearn.utils import check_random_state
+from sklearn.utils.fixes import lobpcg
+from sklearn.manifold._spectral_embedding import _set_diag
+from scipy import sparse
+from pyamg import smoothed_aggregation_solver
+import matplotlib.pyplot as plt
+plt.grid()
+
+norm_laplacian = True
+n_components = laplacian.shape[0]
+random_state = check_random_state(1234)
+
+laplacian, dd = csgraph_laplacian(connectivity, normed=norm_laplacian, return_diag=True)
+laplacian = check_array(laplacian, dtype=np.float64, accept_sparse=True)
+                                
+laplacian = _set_diag(laplacian, 1, norm_laplacian)
+diag_shift = 1e-5 * sparse.eye(laplacian.shape[0])
+laplacian += diag_shift
+ml = smoothed_aggregation_solver(check_array(laplacian, 'csr'))
+laplacian -= diag_shift
+
+M = ml.aspreconditioner()
+X = random_state.rand(laplacian.shape[0], n_components + 1)
+X[:, 0] = dd.ravel()
+eigs, diffusion_map = lobpcg(laplacian, X, M=M, tol=1.e-5, largest=False)
+plt.scatter(np.arange(len(eigs)), eigs)
+plt.grid()
+plt.show()
+# funktioniert
+#####################################################################
+
+##
 #solution = SpectralClustering(n_clusters=20, assign_labels='kmeans', \
 #                              affinity='precomputed', n_neighbors=20).fit(affinity_matrix)
 
