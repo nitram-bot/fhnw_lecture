@@ -92,3 +92,44 @@ axes.plot(X[:,0], y, 'ro', x[:,0], y_hat.reshape((-1,)))
 #axes = plt.gca()
 axes.set_ylim([np.min(y)-5, np.max(y) +5])
 
+
+
+## test for singular matrix
+y = np.load('/home/martin/python/fhnw_lecture/scripts/regression_y.pickle.npy')
+X = np.load('/home/martin/python/fhnw_lecture/scripts/regression_X.pickle.npy')
+
+X = np.c_[X, X**2, X**3, X**4, X**5, X**6, X**7]
+# for plotting purpose:
+x = np.arange(-1, 12, 0.05).reshape((-1, 1))
+x = np.c_[x, x**2, x**3, x**4, x**5, x**6, x**7]
+from sklearn.linear_model import Ridge
+Xc = X - np.mean(X, axis=0)
+xc = x - np.mean(x, axis = 0)
+yc = y - np.mean(y)
+model = Ridge(alpha=2, fit_intercept=False)
+model.fit(Xc, yc)
+
+inverse = np.linalg.inv(np.dot(np.transpose(Xc), Xc) + np.eye(Xc.shape[1]) * 2)
+Xy = np.dot(np.transpose(Xc),y)
+
+params = np.dot(inverse, Xy)
+
+y_hat = np.dot(xc , model.coef_.T)  + model.intercept_
+
+f = plt.figure(figsize=(5, 5), dpi=100)
+plt.title(label='regression line for polynome of 10th degree', fontdict={'fontsize':20})
+axes = f.add_subplot(111)
+
+axes.plot(X[:,0], y, 'ro', x[:,0], y_hat.reshape((-1,)) + np.mean(y))
+#axes = plt.gca()
+axes.set_ylim([np.min(y)-10, np.max(y) +20])
+
+## for comparison
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X, y)
+y_overfitted = np.dot(x , model.coef_.T)  + model.intercept_
+
+
+
+plt.plot(x[:, 0], y_overfitted, 'g-')
