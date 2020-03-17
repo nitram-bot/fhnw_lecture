@@ -133,3 +133,85 @@ y_overfitted = np.dot(x , model.coef_.T)  + model.intercept_
 
 
 plt.plot(x[:, 0], y_overfitted, 'g-')
+
+
+####################################################################
+## make contour plots for visualizing l1 and l2 error
+
+X1 = np.random.normal(loc = 1.0, scale = 0.8, size = 100)
+X2 = np.random.normal(loc = 0.5, scale = 1.2, size = 100)
+beta1 = 1.5
+beta2 = 0.5
+Y = beta1 * X1 + beta2 * X2
+X = np.c_[X1, X2]
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X, Y)
+model.intercept_ # essentiall zero
+model.coef_ # essentially 0.2 and 0.5
+
+b1 = np.linspace(beta1 - 0.9, beta1 + 0.9, 100)
+b2 = np.linspace(beta2 - 0.9, beta2 + 0.9, 100)
+
+bb1, bb2 = np.meshgrid(b1, b2)
+
+Yhat = bb1.reshape(-1, 1) * X1.reshape(1, -1) + bb2.reshape(-1, 1) * X2.reshape(1, -1)
+errors = np.square(Yhat - Y.reshape(1, -1))
+error = np.sum(errors, axis = 1)/len(Y)
+error_to_plot = error.reshape(bb1.shape)
+
+
+f = plt.figure(figsize=(5, 5), dpi=100)
+plt.title(label='minimal errors with penalties', fontdict={'fontsize':13})
+axes = f.add_subplot(111)
+
+cp = plt.contour(bb1, bb2, error_to_plot)
+plt.clabel(cp, inline=1, fontsize=10)
+axes.set_xlabel('b1') 
+axes.set_ylabel('b2')
+axes.set_ylim([np.min(b2)-0.5, np.max(b2) + 0.5])
+axes.set_xlim([np.min(b1)-0.5, np.max(b1) + 0.5])
+plt.show()
+
+## next l2 error
+constraint_error = 1.0
+values = np.linspace(0, 1.0, 100)
+constraint_l2 = np.sqrt(constraint_error - values**2)
+axes.plot(values, constraint_l2, 'y-', label = 'ridge')
+axes.plot(-values, constraint_l2, 'y-')
+axes.plot(values, -constraint_l2, 'y-')
+
+
+constraint_l1 = constraint_error -values
+axes.plot(values, constraint_l1, 'r-', label = 'lasso')
+axes.plot(-values, constraint_l1, 'r-')
+axes.plot(values, -constraint_l1, 'r-')
+
+axes.scatter(beta1, beta2, s = 20)
+axes.annotate('$\hat{b}$', xy=(beta1 , beta2 + 0.1), xycoords='data',
+              horizontalalignment = 'center', size = 20)             
+
+
+legs = axes.legend()
+# least error for ridge:
+Yhat_ridge = np.concatenate((values, values)).reshape(-1,1) * X1.reshape(1, -1) + \
+np.concatenate((constraint_l2, -constraint_l2)).reshape(-1,1) * X2.reshape(1, -1)
+errors_ridge = np.square(Yhat_ridge - Y.reshape(1, -1))
+error_ridge = np.sum(errors_ridge, axis = 1)/len(Y)
+index_ridge = np.where(error_ridge ==np.amin(error_ridge))[0][0]
+axes.scatter(np.concatenate((values, values))[index_ridge],
+             np.concatenate((constraint_l2, -constraint_l2))[index_ridge],
+             s=20, c='y')
+
+
+Yhat_lasso = np.concatenate((values, values)).reshape(-1,1) * X1.reshape(1, -1) + \
+np.concatenate((constraint_l1, -constraint_l1)).reshape(-1,1) * X2.reshape(1, -1)
+errors_lasso = np.square(Yhat_lasso - Y.reshape(1, -1))
+error_lasso = np.sum(errors_lasso, axis = 1)/len(Y)
+index_lasso = np.where(error_lasso ==np.amin(error_lasso))[0][0]
+axes.scatter(np.concatenate((values, values))[index_lasso],
+             np.concatenate((constraint_l1, -constraint_l1))[index_lasso],
+             s=20, c='r')
+
+
+
