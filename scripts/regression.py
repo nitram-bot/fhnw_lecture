@@ -149,6 +149,7 @@ model = LinearRegression()
 model.fit(X, Y)
 model.intercept_ # essentiall zero
 model.coef_ # essentially 0.2 and 0.5
+print(f'the model parameters from data generation could be recovered: {model.coef_}')
 
 b1 = np.linspace(beta1 - 0.9, beta1 + 0.9, 100)
 b2 = np.linspace(beta2 - 0.9, beta2 + 0.9, 100)
@@ -213,5 +214,63 @@ axes.scatter(np.concatenate((values, values))[index_lasso],
              np.concatenate((constraint_l1, -constraint_l1))[index_lasso],
              s=20, c='r')
 
+print(f'optimal coefficients of the ridge solution: {np.concatenate((values, values))[index_ridge]}'\
+      f' and {np.concatenate((constraint_l2, -constraint_l2))[index_ridge]}')
+
+print(f'optimal coefficients of the lasso solution: {np.concatenate((values, values))[index_lasso]}'\
+      f' and {np.concatenate((constraint_l1, -constraint_l1))[index_lasso]}')
 
 
+#######################################################################
+## interaction
+#######################################################################
+
+
+from statsmodels.graphics.factorplots import interaction_plot
+import pandas as pd
+
+income = np.random.randint(0, 2, size = 80) # low vs high
+marital = np.random.randint(1, 4, size = 80) # single, married, married & kids
+
+probability = np.random.rand(80) + income * np.random.rand(80) * marital
+probability = (probability - np.min(probability))
+probability = probability/np.max(probability)
+
+marital = pd.Series(marital)
+marital.replace(to_replace = {1:'single', 2:'married', 3:'marrid w kids'}, inplace =True)
+
+income = pd.Series(income)
+income.replace(to_replace = {0:'low', 1:'high'}, inplace = True)
+
+fig = interaction_plot(income, marital, probability,
+                       colors=['mediumorchid', 'cyan', 'fuchsia'], ms=10, xlabel='income',
+                       ylabel='probability of buying a house',
+                       legendtitle='marital status')
+###############
+# continuous
+###############
+import seaborn as sns
+n = 500
+x = np.random.uniform(size=n)
+m = np.random.normal(loc = 0.5, scale = 1, size = n)
+
+#  lin effects + interaction + random error
+y = 2*x + -2*m + -7*(x*m) + np.random.normal(loc = 0, scale = 4, size = n)
+
+newM = pd.cut(m, bins=3, labels = ['small', 'average', 'large'])
+
+
+toy = pd.DataFrame({'x' : x, 'y' : y, 'moderator' : newM})
+sns.lmplot(x="x", y="y", hue="moderator", data=toy);
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+X = np.c_[x, m]
+model.fit(X, y)
+y_hat = model.intercept_  + np.dot(X, model.coef_)
+print(f'without considering the interaction, the mse is: {np.mean((y-y_hat)**2)}')
+
+X = np.c_[x, m, x * m]
+model.fit(X, y)
+y_hat = model.intercept_  + np.dot(X, model.coef_)
+print(f'considering the interaction, the mse drops to: {np.mean((y-y_hat)**2)}')
