@@ -92,13 +92,35 @@ y = np.load('/home/martin/python/fhnw_lecture/scripts/regression_y.pickle.npy')
 X = np.load('/home/martin/python/fhnw_lecture/scripts/regression_X.pickle.npy')
 
 
-X = np.c_[np.ones(X.shape[0]), X, X**2, X**3, X**4]
+#X = np.c_[np.ones(X.shape[0]), X, X**2, X**3, X**4]
+X = np.c_[X, X**2, X**3, X**4]
 x = np.arange(1, 12, 0.05).reshape((-1, 1))
-x = np.c_[np.ones(x.shape[0]), x, x**2, x**3, x**4]
+#x = np.c_[np.ones(x.shape[0]), x, x**2, x**3, x**4]
+x = np.c_[x, x**2, x**3, x**4]
 indices = np.arange(0, X.shape[0])
 
 drew = choices(indices, k=len(indices))
 
-prediction = Lasso(alpha=2, fit_intercept=True).fit(X[drew,:], y[drew, :]).predict(x)
+sampler = (choices(indices, k = len(indices)) for i in range(200))
 
-                                                          
+CIS = np.percentile(np.array([Lasso(alpha=2, fit_intercept=True).fit(X[drew,:], y[drew, :])\
+                              .predict(x).tolist()
+                              for drew in sampler]), [2.5, 97.5], axis = 0)
+
+model = Lasso(alpha=2, fit_intercept=True)
+model.fit(X, y)
+y_hat = model.predict(x)
+#params_lasso = model.coef_
+#y_hat = np.dot(xc, model.coef_.reshape((-1,1))) + np.mean(y)
+f = plt.figure(figsize=(5, 5), dpi=100)
+plt.title(label='lasso regression for polynome of 7th degree and $\lambda=2$', 
+          fontdict={'fontsize':15})
+axes = f.add_subplot(111)
+
+axes.plot(X[:,0], y, 'ro')
+axes.plot( x[:,0], y_hat.reshape((-1,)), 'b-', label='lasso regression')
+
+axes.plot(x[:, 0], CIS[0, :], color = "blue", linestyle = "--", 
+         label = "Mean Prediction CI")
+axes.plot(x[:, 0], CIS[1, :], color = "blue", linestyle = "--")
+legend()
