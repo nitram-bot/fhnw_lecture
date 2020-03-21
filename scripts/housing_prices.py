@@ -31,9 +31,11 @@ numerical = [var for var in data.columns if data[var].dtype!='O']
 data[categorical] = data[categorical].fillna('None')
 
 # for numerical data, we add an extra column indicating missing values
+
+variables_na = []
 for val in numerical:
     data[val + '_na'] = pd.isnull(data[val])
-    categorical.append(val + '_na')
+    variables_na.append(val + '_na')
     data[val].fillna(data[val].mean(), inplace = True)
 
 
@@ -43,16 +45,32 @@ for val in numerical:
 #skewed_feats = skewed_feats[skewed_feats > 0.75]
 #skewed_feats = skewed_feats.index
 #data[skewed_feats] = np.log1p(data[skewed_feats])
-    
+
+#box_cox = []
+#not_box_cox = []
+#for val in numerical:
+#    if not any(data[val] <= 0):
+#        new_vals, lamb = boxcox(data[val] + 1)
+#        if np.abs(lamb) < 8:
+#            data[val + '_box_cox'] = new_vals
+#            box_cox.append(val + '_box_cox')
+#        else:
+#            not_box_cox.append(val)
+
+
+box_cox = []
 for val in numerical:
-    if not any(data[val] <= 0):
-        new_vals, lamb = boxcox(data[val] + 1)
-        if np.abs(lamb) < 8:
-            data[val] = new_vals
+    new_vals, lamb = boxcox(data[val] + 1)
+    if np.abs(lamb) < 8:
+        data[val + '_box_cox'] = new_vals
+        box_cox.append(val)
 
 
 ## no mean-encoding so far
-data = pd.get_dummies(data)
+data_base = pd.get_dummies(data[[col for col in data.columns if col not in variables_na]])
+data_na = pd.get_dummies(data[variables_na])
+
+
 ## interaction terms
 ## temporarily we need numbers for categorical values
 #for val in categorical:
@@ -60,9 +78,10 @@ data = pd.get_dummies(data)
 #        val_dict = {k:i for i,k in enumerate(data[val].unique())}
 #        data[val] = data[val].map(val_dict)
 
-data = data.astype(np.float32)
+data_base = data_base.astype(np.float32)
+data_na = data_na.astype(np.float32)
 
-
+data = pd.concat([data_base, data_na], axis = 1)
 for col in data.columns:
     if np.isinf(data[col]).any():
         print(f'this variable: {col}')
@@ -78,35 +97,51 @@ gbm.fit(data[: len(train_ID)].values, SalePrice.values)
 indizes = np.argsort(gbm.feature_importances_)
 from itertools import combinations
 
+interactions = []
 for comb in list(combinations(data.columns[indizes[-55:]], 2)):
     data[comb[0] + '_x_' + comb[1]] = data[comb[0]] * data[comb[1]]
+    interactions.append(comb[0] + '_x_' + comb[1])
 
-# scale variables
-scaler = StandardScaler()
-scaler.fit(data) #  fit  the scale        
+data_interactions = data[interactions]    
 
-X_train = scaler.transform(data[:len(train_ID)])
-test = scaler.transform(data[len(train_ID):])
-    
 
+##########
+# box_cox transformed are removed
+base = data_base[[col for col in data_base.columns if not col.endswith('_box_cox')]]
+# box_cox is admitted; original variables removed
+with_box_cox = data_base[[col for col in data_base.columns if not col in box_cox]]
+with_na = pd.concat([with_box_cox, data_na], axis = 1)
+with_interactions = pd.concat([with_na, data_interactions], axis = 1)
 y = np.log1p(SalePrice)
 # lambda parameter for total penalty
-lamb = 10**(np.linspace(-1, 1.1, 15))
-
+lamb = 10**(np.linspace(-1, 0.2, 15))
 # ratio
 ratio = np.linspace(0, 1, 10)
 
-get_results = [(l, r, np.mean(np.sqrt(-cross_val_score(ElasticNet(alpha = l,
-                                                          l1_ratio = r),
-           X_train, y , scoring = 'neg_mean_squared_error',
-           cv = 5, n_jobs = -1))))
-               for l in lamb for r in ratio]
+error = []
+best_parameters = []
+for d in [base, with_box_cox, with_na, with_interactions]:
+    # scale variables
+    scaler = StandardScaler()
+    scaler.fit(d) #  fit  the scale        
 
-least_error = np.min([i[2] for i in get_results])
-parameters = [i[0:2] for i in get_results if i[2] == least_error]
+    X_train = scaler.transform(d[:len(train_ID)])
+    #test = scaler.transform(data[len(train_ID):])
+    
+    get_results = [(l, r, np.mean(np.sqrt(-cross_val_score(ElasticNet(alpha = l,
+                                                            l1_ratio = r),
+            X_train, y , scoring = 'neg_mean_squared_error',
+            cv = 5, n_jobs = -1))))
+                for l in lamb for r in ratio]
+
+    least_error = np.min([i[2] for i in get_results])
+    error.append(least_error)
+    parameters = [i[0:2] for i in get_results if i[2] == least_error]
+    best_parameters.append(parameters)
+    print(f'least error is: {least_error}, best parameters are: {parameters}')
 
 
-lamb = 10**(np.linspace(-1, 0.2, 15))
+
 
 # ratio
 ratio = np.linspace(0, 0.2, 10)
