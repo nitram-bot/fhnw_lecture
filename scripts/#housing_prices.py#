@@ -6,7 +6,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import ElasticNet
 from sklearn.linear_model import Ridge
 from sklearn.ensemble import GradientBoostingRegressor
-
+from random import choices
 # read in data
 train = pd.read_csv('../data/train.csv')
 test = pd.read_csv('../data/test.csv')
@@ -148,27 +148,32 @@ warnings.filterwarnings('ignore')
 
 kf = KFold(n_splits = 5, shuffle=True)
 X = with_interactions[:len(train_ID)]
+CIS = np.empty((2, X.shape[0]))
+y_hat = np.empty((y.shape[0],))
 for train_index, test_index in kf.split(X):
     X_train = scaler.transform(X)[train_index,:]
+    y_train = y[train_index]
     X_test = scaler.transform(X)[test_index, :]
+    y_test = y[test_index]
     indices = np.arange(0, X_train.shape[0])
 
     sampler = (choices(indices, k = len(indices)) for i in range(200))
-    CIS = np.percentile(
+    CIS[:, test_index] = np.percentile(
         np.array(
             [
              Ridge(alpha=best_parameters[-1][0][0], fit_intercept=True)\
-             .fit(X_train[drew,:], y.values[drew])\
-                              .predict(X_train).tolist() for drew in sampler]), [2.5, 97.5], axis = 0)
-    model = Ridge(alpha=best_parameters[-1][0][0], fit_intercept=True).fit(X_train[drew,:], y.values[drew])
-    CIS = np.percentile(np.array([model.predict(X_train[test_index]).tolist() for drew in sampler]), [2.5, 97.5], axis = 0)
-
-y_hat = Ridge(alpha=best_parameters[-1][0][0], fit_intercept=True).fit(X_train, y.values)\
-                              .predict(X_train)
-y_hat_original_scale = exp(y_hat) +1
+             .fit(X_train[drew,:], y_train.values[drew])\
+                              .predict(X_test).tolist()
+             for drew in sampler]
+             ), [2.5, 97.5], axis = 0)
 
 
+    y_hat[test_index] = Ridge(alpha=best_parameters[-1][0][0], fit_intercept=True).fit(X_train, y_train.values)\
+                              .predict(X_test)
 
+
+
+y_hat_original_scale = exp(y_hat) + 1
 
 
 
