@@ -1,0 +1,116 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{tikz}
+\usepackage{forest}
+\usetikzlibrary{fit,positioning}
+
+\tikzset{
+  font=\Large\sffamily\bfseries,
+  red arrow/.style={
+    midway,red,sloped,fill, minimum height=3cm, single arrow, single arrow head extend=.5cm, single arrow head indent=.25cm,xscale=0.3,yscale=0.15,
+    allow upside down
+  },
+  black arrow/.style 2 args={-stealth, shorten >=#1, shorten <=#2,
+    fill, single arrow head extend=.5cm, single arrow head
+    indent=.25cm,xscale=0.3,yscale=0.15, line width=2pt},
+  black arrow/.default={1mm}{1mm},
+  tree box/.style={draw=none,rounded corners, inner sep=1em},
+  node box/.style={white, draw=black, text=black, rectangle, rounded
+    corners},
+  node box2/.style={white, draw=none, text=black, rectangle, rounded corners},
+}
+\begin{document}
+\begin{forest}
+  for tree={l sep=3em, s sep=3em, anchor=center, inner sep=0.7em,
+    where level=1{no edge}{},
+    where level=2{no edge}{},
+    where level=3{no edge}{},    
+        if n children=0{}{
+        circle,
+        draw
+      }}
+[{$\mathbf{f_0(x)=\bar{y};\quad f_M(x) = \sum_{m=1}^M f_m(x) + \alpha T(x, y -
+  f_{m-1}(x))}$}, node box2
+[{$\mathbf{f_1(x) =f_0+\alpha T_1(x, y-f_0(x))}$}, node box
+[{},draw=none,alias=root1        
+[{$x_3$},alias=node11,edge={dashed}, edge label={node[midway,above, fill=white]{$\mathbf{x},\mathbf{(y-f_0(x))}$}} 
+     [{$x_{1}$},edge label={node[midway, left]{$>$}}
+       [{$\hat{y}_{11}$},alias=n1]
+       [{$x_{5}$},edge label={node[midway,left] {$$}}
+         [{$\hat{y}_{21}$},alias=n2]
+         [{$\hat{y}_{31}$},draw=none]
+       ]
+     ]
+     [{$x_8$}, edge label={node[midway, right]{$\leq$}}
+       [{$\hat{y}_{41}$}] 
+       [{$\hat{y}_{51}$},alias=n5]
+     ]
+     ]
+     ]
+]     
+[\large$+\,\,\alpha\,\,\cdot$,scale=2,no edge,fill=none,yshift=-8em]
+[{$\mathbf{f_2(x) =f_1+\alpha T_2(x, y-f_1(x))}$},node box
+[{},draw=none,alias=root2            
+[{$x_9$},alias=node21,edge={dashed}, edge label={node[midway, above, fill=white]{$\mathbf{x}_i,(\mathbf{y-f_1(x)})$}} 
+     [{$x_4$},edge label={node[midway, left]{$>$}}
+       [{$x_{5}$},edge label={node[midway,left] {$$}}
+         [{$\hat{y}_{12}$},alias=n21]
+         [{$\hat{y}_{22}$}]
+       ]
+       [{$\hat{y}_{32}$}]
+     ]
+     [{$x_2$}, edge label={node[midway, right]{$\leq$}}
+       [{$\hat{y}_{42}$}] 
+       [{$\hat{x}_1$}
+        [{$\hat{y}_{52}$}]
+         [{$\hat{y}_{62}$},alias=n26]
+       ]
+     ]
+     ]
+     ]
+]     
+% \hspace*{0.5cm}
+% \draw (0, 0) + (0.6, 2.5) node[align = left, above]{\Large$+$
+%   $\ldots$ $+\quad\alpha\,\cdot$};
+% \hspace*{0.8cm}
+% \hspace{1cm}
+[\large$+\ldots +\,\alpha\,\,\cdot$,scale=2,no edge,fill=none,yshift=-8em]
+[{$\mathbf{f_M(x) =f_{M-1}+\alpha T_{M}(x, y-f_{M-1}(x))}$}, node box
+[{},draw=none,alias=root3            
+[{$x_6$},alias=node31,edge={dashed}, edge label={node[midway, above, fill=white]{$\mathbf{x}_i,\mathbf{(y-f_{M-1}(x))}$}} 
+     [{$x_2$},edge label={node[midway, left]{$>$}}
+       [{$\hat{y}_{1M}$},alias=n31]
+       [{$\hat{y}_{2M}$},edge label={node[midway,left] {$$}}]
+     ]
+     [{$x_7$}, edge label={node[midway, right]{$\leq$}}
+     [{$\hat{x}_4$}
+         [{$\hat{y}_{3M}$},alias=n33]
+         [{$\hat{y}_{4M}$},alias=n34]
+     ] 
+       [{$\hat{y}_{5M}$},name=start,alias=n35]
+     ]
+     ]
+     ]
+     ]
+]     
+\node[tree box, fit=(root1)(n1)(n2)(n5)](t1){};          
+\node[tree box, fit=(root2)(n21)(n26)](t2){};
+\node[tree box, fit=(root3)(n31)(n33)(n34)(n35)](t3){};
+\node[below right=0.5em, inner sep=0pt] at (t1.north west) {$\mathbf{T_1(x, y-f_0(x))}$};
+\node[below right=0.5em, inner sep=0pt] at (t2.north west)
+{$\mathbf{T_2(x,y - f_1(x))}$};
+\node[below right=0.5em, inner sep=0pt] at (t3.north west)
+{$\mathbf{T_M(x, y-f_{M-1}(x))}$};
+%arrows
+\draw[black arrow={7mm}{4mm}] (root1.south) -- (node11.center);
+\draw[black arrow={7mm}{4mm}] (root2.south) -- (node21.center);
+\draw[black arrow={7mm}{4mm}] (root3.south) -- (node31.center);
+\end{forest}
+% End of code
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

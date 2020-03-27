@@ -1,0 +1,105 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{forest}
+\usetikzlibrary{fit,positioning}
+
+\tikzset{
+  font=\Large\sffamily\bfseries,
+  red arrow/.style={
+    midway,red,sloped,fill, minimum height=3cm, single arrow, single arrow head extend=.5cm, single arrow head indent=.25cm,xscale=0.3,yscale=0.15,
+    allow upside down
+  },
+  black arrow/.style 2 args={-stealth, shorten >=#1, shorten <=#2},
+  black arrow/.default={1mm}{1mm},
+  tree box/.style={draw=none, rounded corners, inner sep=1em},
+  node box/.style={white, draw=none, text=black, rectangle, rounded corners},
+}
+
+\begin{document}
+\begin{forest}
+  for tree={l sep=3em, s sep=3em, anchor=center, inner sep=0.7em,
+    where level=1{no edge}{},
+        if n children=0{}{
+        circle,
+        draw
+      }}  
+  %[, node box
+  [{$\mathbf{x,y}$}, node box, alias=bagging, above=4em
+  % trees starting here
+  [{$x_1$},alias=a1%,red!70
+    [{$x_2$},edge label={node[midway, left]{$>$}}
+    [{$\hat{y}_{11}$},alias=a2]
+    [{$\hat{y}_{21}$}]
+    ]
+    [{$x_5$},edge label={node[midway, right]{$\leq$}}%,red!70,edge label={node[above=1ex,red arrow]{}}
+    [{$x_1$}
+    [{$\hat{y}_{31}$}]
+    [{$\hat{y}_{41}$}]
+    ]
+    [{$x_3$}%,red!70,edge label={node[above=1ex,red arrow]{}}
+    [{$\hat{y}_{51}$}]%,red!70,edge label={node[below=1ex,red arrow]{}}]
+    [{$\hat{y}_{61}$},alias=a3]
+    ]
+    ]
+  ]
+  [{$x_8$},alias=b1
+   [{$x_6$},edge label={node[midway, left]{$>$}}%,red!70,edge label={node[below=1ex,red arrow]{}}
+    [{$x_1$}
+     [{$\hat{y}_{12}$},alias=b2]
+     [{$\hat{y}_{22}$}]
+    ]
+    [{$\hat{y}_{32}$}]%,red!70,edge label={node[above=1ex,red arrow]{}}
+   ]
+   [{$x_2$},edge label={node[midway, right]{$\leq$}}
+    [{$\hat{y}_{42}$}]
+    [{$x_6$}
+     [{$\hat{y}_{52}$}]
+     [{$\hat{y}_{62}$},alias=b3]
+    ]
+   ]
+  ]
+  [~~$\dots$~,scale=2,no edge,fill=none,yshift=-4em]
+  [{$x_8$},alias=c1
+    [{$x_3$},edge label={node[midway, left]{$>$}}
+      [{$\hat{y}_{1M}$},alias=c2]
+      [{$\hat{y}_{2M}$}]
+    ]
+    [{$x_1$},edge label={node[midway, right]{$\leq$}}%,red!70,edge label={node[above=1ex,red arrow]{}}
+      [{$x_6$}%,red!70,edge label={node[above=1ex,red arrow]{}}
+        [{$\hat{y}_{3M}$},alias=c3]
+        [{$\hat{y}_{4M}$}%,red!70,edge label={node[above=1ex,red arrow]{}}
+        ]
+       ]
+       [{$\hat{y}_{5M}$},alias=c4]
+     ]
+  ]
+ ]
+  %]
+  %boxes around trees here
+  \node[tree box, fit=(a1)(a2)(a3)](t1){};
+  \node[tree box, fit=(b1)(b2)(b3)](t2){};
+  \node[tree box, fit=(c1)(c2)(c3)(c4)](tn){};
+  % box label here
+  \node[below right=0.5em, inner sep=0pt] at (t1.north west) {$\,\mathbf{T_1}$};
+  \node[below right=0.5em, inner sep=0pt] at (t2.north west) {$\quad\mathbf{T_2}$};
+  \node[below right=0.5em, inner sep=0pt] at (tn.north west) {$\mathbf{T_M}$};
+  % locations for other boxes
+  \path (t1.south west)--(tn.south east) node[midway,below=6em, node
+  box] (mean) {mean/majority vote};
+  \node[below=3em of mean, node box] (pred){prediction}; %{\Large $\mathbf{\hat{y_i}=\frac{1}{M}\sum_{m=1}^M \hat{y}_{im}}$};
+  % arrows
+  \draw[black arrow={5mm}{4mm}] (bagging) -- (t1.north);
+  \draw[black arrow] (bagging) -- (t2.north);
+  \draw[black arrow={5mm}{4mm}] (bagging) -- (tn.north);
+  \draw[black arrow={5mm}{5mm}] (t1.south) -- (mean);
+  \draw[black arrow] (t2.south) -- (mean);
+  \draw[black arrow={5mm}{5mm}] (tn.south) -- (mean);
+  \draw[black arrow] (mean) -- (pred);
+\end{forest}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
