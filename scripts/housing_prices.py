@@ -189,10 +189,6 @@ get_results = [(l, r, np.mean(np.sqrt(-cross_val_score(ElasticNet(alpha = l,
                for l in lamb for r in ratio]
 
 
-
-
-
-
 model = ElasticNet(alpha = parameters[0][0], l1_ratio =parameters[0][1])
 model.fit(train, SalePrice)
 
