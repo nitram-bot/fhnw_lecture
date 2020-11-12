@@ -1,3 +1,5 @@
+import numpy as np
+import pandas as pd
 from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
@@ -31,7 +33,7 @@ class ParameterSearchNestedCV:
 
         key = list(self.metric.keys())[0]
         self.gs = GridSearchCV(estimator = model,
-                               param_grid = param_grid,
+                               param_grid = self.param_grid,
                                cv = inner_folds,
                                scoring = make_scorer(self.metric[key]),
                                n_jobs = n_jobs)

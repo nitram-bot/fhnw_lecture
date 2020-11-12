@@ -48,9 +48,10 @@ new_test = my_encoder.transform(test)
 lamb = 10**(np.linspace(-1, 0.2, 15))
 # ratio
 ratio = np.linspace(0, 1, 10)
-param_grid = [dict('alpha' = 10**(np.linspace(-1,0.2,15))),
-                   'l1_ratio' = np.linspace(0,1,10)]
+param_grid = [dict(alpha = 10**(np.linspace(-1,0.2,15)),
+                   l1_ratio = np.linspace(0,1,10))]
 
+from parametersearchnestedcv import ParameterSearchNestedCV
 search = ParameterSearchNestedCV()
 acc, best_parameters = search.fit(train[numerical], SalePrice)
 
@@ -83,7 +84,6 @@ class ParameterSearchNestedCV:
                                param_grid = param_grid,
                                cv = inner_folds,
                                scoring = make_scorer(self.metric[key])
-                                                     
                                n_jobs = n_jobs)
         
         
@@ -104,3 +104,10 @@ class ParameterSearchNestedCV:
 
 
     
+df = pd.DataFrame(dict(category = ['A', 'A', 'A', 'A', 'A',
+                                'A', 'B', 'B', 'B', 'C',
+                                'C', 'C', 'C'],
+                         y = [ 1, 0, 1, 0, 1,
+                                 1, 0, 0, 0, 1,
+                                 1, 1, 0]
+                  ))
