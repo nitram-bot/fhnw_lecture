@@ -143,3 +143,6 @@ checklink/cookies.txt
 *.zip
 *.csv
 *.json
+
+# dbs:
+*.sqlite
