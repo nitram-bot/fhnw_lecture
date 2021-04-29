@@ -13,20 +13,24 @@ class InteractionsTransformer(BaseEstimator, TransformerMixin):
         self.gbm = GradientBoostingRegressor(n_estimators=32, max_depth=4)
         self.sorted_idx = None
 
-    def fit(self, X: pd.DataFrame, y=None):
-        self.gbm.fit(X, y)
-        result = permutation_importance(self. gbm, X, y, n_repeats=10,
-                               random_state=42, n_jobs=2)
+    def fit(self, X, y=None):
+        X = pd.DataFrame(X)
+        self.gbm.fit(X.values, y.values)
+        result = permutation_importance(self.gbm, X.values, y.values, n_repeats=5,
+                               random_state=42, n_jobs=-1)
         self.sorted_idx = result.importances_mean.argsort()
 
-    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+    def transform(self, X) -> pd.DataFrame:
+        X = pd.DataFrame(X)
         for comb in list(combinations(X.columns[self.sorted_idx[-15:]], 2)):
             X[comb[0] + '_x_' + comb[1]] = X[comb[0]] * X[comb[1]]
 
         return X
 
-    def fit_transform(self, X, y=None, **fit_params):
+    def fit_transform(self, X, y=None):
+        X = pd.DataFrame(X)
         self.fit(X, y)
         out = self.transform(X)
 
         return out
+
