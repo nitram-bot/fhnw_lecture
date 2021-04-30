@@ -8,7 +8,7 @@ class ValidatedStackedMeanEncoder:
     """
     repeated cross-validation in constructing mean-encoding
     """
-    def __init__(self, cols: list, target_encoder = JamesSteinEncoder, k_folds: int = 5, repeats: int = 3):
+    def __init__(self, cols: list, target_encoder=JamesSteinEncoder, k_folds: int = 5, repeats: int = 3):
         """
         :param cols: Categorical columns
         :param encoders_names_tuple: Tuple of str with encoders
@@ -43,7 +43,6 @@ class ValidatedStackedMeanEncoder:
         X.drop(self.cols, axis=1, inplace=True)
         return X
 
-
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
         cols_representation = np.zeros((X.shape[0], len(self.cols)))
 
@@ -54,6 +53,6 @@ class ValidatedStackedMeanEncoder:
             cols_representation = cols_representation + test_tr / self.n_folds / self.n_repeats
 
         cols_representation = pd.DataFrame(cols_representation)
-        X = pd.concat([X, cols_representation], axis = 1)
+        X = pd.concat([X, cols_representation], axis=1)
         X.drop(self.cols, axis=1, inplace=True)
         return X
