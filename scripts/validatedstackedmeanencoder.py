@@ -18,11 +18,9 @@ class ValidatedStackedMeanEncoder(BaseEstimator, TransformerMixin):
         :param encoders_names_tuple: Tuple of str with encoders
         """
         #target_encoder = JamesSteinEncoder
-        target_encoder = CatBoostEncoder
+        self.target_encoder = CatBoostEncoder
         k_folds = 5
         n_repeats = 3
-
-        self.target_encoder = target_encoder
         
         self.k_folds, self.n_repeats = k_folds, n_repeats
         self.model_validation = RepeatedStratifiedKFold(n_splits=self.k_folds, n_repeats=self.n_repeats, random_state=0)
@@ -33,30 +31,30 @@ class ValidatedStackedMeanEncoder(BaseEstimator, TransformerMixin):
         X = pd.DataFrame(X).reset_index(drop=True)
         y = pd.Series(y).reset_index(drop=True)
         self._fit_index = X.index
+        self.list_of_encoders=[]
 
         for n_fold, (train_idx, val_idx) in enumerate(self.model_validation.split(X, y)):
-            encoder = self.target_encoder(self.cols)
-            X_train = X.lic[train_idx]
-            y_train = y[train_idx]
+            encoder = self.target_encoder(cols=X.columns)
+            X_train = X.loc[train_idx, :]
+            y_train = y.loc[train_idx]
             encoder.fit(X_train, y_train)
             self.list_of_encoders.append(encoder)
 
         return self
 
     def fit_transform(self, X, y):
-        cols_representation = np.zeros_like(X, dtype=float)
         X = pd.DataFrame(X).reset_index(drop=True)
         y = pd.Series(y).reset_index(drop=True)
+        cols_representation = np.zeros_like(X, dtype=float)
         cols = X.columns
         self.list_of_encoders = []
         for n_fold, (train_idx, val_idx) in enumerate(self.model_validation.split(X, y)):
             print('in fit_transform')
             
-            encoder = self.target_encoder(X.columns)
+            encoder = self.target_encoder(cols=X.columns)
             X_train, X_val = X.loc[train_idx, :], X.loc[val_idx, :]
-            # X_train, X_val = X[train_idx], X[val_idx]
             y_train, y_val = y[train_idx], y[val_idx]
-            _ = encoder.fit_transform(X_train, y_train)
+            encoder.fit(X_train, y_train)
 
             # transform validation part and get all necessary cols
             val_t = encoder.transform(X_val)
@@ -66,7 +64,6 @@ class ValidatedStackedMeanEncoder(BaseEstimator, TransformerMixin):
 
         cols_representation = pd.DataFrame(cols_representation, columns=['mean_enc_' + c for c in cols])
         X = pd.concat([X, cols_representation], axis=1)
-        # X.drop(cols, axis=1, inplace=True)
         return X
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
