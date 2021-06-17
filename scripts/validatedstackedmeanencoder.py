@@ -17,7 +17,7 @@ class ValidatedStackedMeanEncoder(BaseEstimator, TransformerMixin):
         :param cols: Categorical columns
         :param encoders_names_tuple: Tuple of str with encoders
         """
-        #target_encoder = JamesSteinEncoder
+        #self.target_encoder = JamesSteinEncoder
         self.target_encoder = CatBoostEncoder
         k_folds = 5
         n_repeats = 3
