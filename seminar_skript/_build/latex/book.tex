@@ -92,10 +92,10 @@
 This is a small sample book to give you a feel for how book content is
 structured.
 
-\begin{sphinxadmonition}{note}{Note:}
 \sphinxAtStartPar
+:::\{note\}
 Here is a note!
-\end{sphinxadmonition}
+:::
 
 \sphinxAtStartPar
 And here is a code block:
@@ -107,229 +107,1065 @@ And here is a code block:
 \sphinxAtStartPar
 Check out the content pages bundled with this sample book to see more.
 
-
-\chapter{Markdown Files}
-\label{\detokenize{markdown:markdown-files}}\label{\detokenize{markdown::doc}}
 \sphinxAtStartPar
-Whether you write your book’s content in Jupyter Notebooks (\sphinxcode{\sphinxupquote{.ipynb}}) or
-in regular markdown files (\sphinxcode{\sphinxupquote{.md}}), you’ll write in the same flavor of markdown
-called \sphinxstylestrong{MyST Markdown}.
+I wonder if we can have some math formulae as well:
 
-
-\section{What is MyST?}
-\label{\detokenize{markdown:what-is-myst}}
 \sphinxAtStartPar
-MyST stands for “Markedly Structured Text”. It
-is a slight variation on a flavor of markdown called “CommonMark” markdown,
-with small syntax extensions to allow you to write \sphinxstylestrong{roles} and \sphinxstylestrong{directives}
-in the Sphinx ecosystem.
+\(\alpha = 3\)
 
-
-\section{What are roles and directives?}
-\label{\detokenize{markdown:what-are-roles-and-directives}}
 \sphinxAtStartPar
-Roles and directives are two of the most powerful tools in Jupyter Book. They
-are kind of like functions, but written in a markup language. They both
-serve a similar purpose, but \sphinxstylestrong{roles are written in one line}, whereas
-\sphinxstylestrong{directives span many lines}. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.
-
-
-\subsection{Using a directive}
-\label{\detokenize{markdown:using-a-directive}}
-\sphinxAtStartPar
-At its simplest, you can insert a directive into your book’s content like so:
+or like this:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-```\PYGZob{}mydirectivename\PYGZcb{}
-My directive content
-```
+\PYGZdl{}\PYGZbs{}alpha = 3\PYGZdl{}
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-This will only work if a directive with name \sphinxcode{\sphinxupquote{mydirectivename}} already exists
-(which it doesn’t). There are many pre\sphinxhyphen{}defined directives associated with
-Jupyter Book. For example, to insert a note box into your content, you can
-use the following directive:
+and even the more advanced stuff?
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-```\PYGZob{}note\PYGZcb{}
-Here is a note
-```
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-This results in:
-
-\begin{sphinxadmonition}{note}{Note:}
-\sphinxAtStartPar
-Here is a note
-\end{sphinxadmonition}
-
-\sphinxAtStartPar
-In your built book.
-
-\sphinxAtStartPar
-For more information on writing directives, see the
-\sphinxhref{https://myst-parser.readthedocs.io/}{MyST documentation}.
-
-
-\subsection{Using a role}
-\label{\detokenize{markdown:using-a-role}}
-\sphinxAtStartPar
-Roles are very similar to directives, but they are less\sphinxhyphen{}complex and written
-entirely on one line. You can insert a role into your book’s content with
-this pattern:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-Some content \PYGZob{}rolename\PYGZcb{}`and here is my role\PYGZsq{}s content!`
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-Again, roles will only work if \sphinxcode{\sphinxupquote{rolename}} is a valid role’s name. For example,
-the \sphinxcode{\sphinxupquote{doc}} role can be used to refer to another page in your book. You can
-refer directly to another page by its relative path. For example, the
-role syntax \sphinxcode{\sphinxupquote{\{doc\}`intro`}} will result in: {\hyperref[\detokenize{intro::doc}]{\sphinxcrossref{\DUrole{doc}{Welcome to your Jupyter Book}}}}.
-
-\sphinxAtStartPar
-For more information on writing roles, see the
-\sphinxhref{https://myst-parser.readthedocs.io/}{MyST documentation}.
-
-
-\subsection{Adding a citation}
-\label{\detokenize{markdown:adding-a-citation}}
-\sphinxAtStartPar
-You can also cite references that are stored in a \sphinxcode{\sphinxupquote{bibtex}} file. For example,
-the following syntax: \sphinxcode{\sphinxupquote{\{cite\}`holdgraf\_evidence\_2014`}} will render like
-this: {[}\hyperlink{cite.markdown:id3}{HdHPK14}{]}.
-
-\sphinxAtStartPar
-Moreoever, you can insert a bibliography into your page with this syntax:
-The \sphinxcode{\sphinxupquote{\{bibliography\}}} directive must be used for all the \sphinxcode{\sphinxupquote{\{cite\}}} roles to
-render properly.
-For example, if the references for your book are stored in \sphinxcode{\sphinxupquote{references.bib}},
-then the bibliography is inserted with:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-```\PYGZob{}bibliography\PYGZcb{}
-```
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-Resulting in a rendered bibliography that looks like:
-
-\sphinxAtStartPar
-
-
-
-\subsection{Executing code in your markdown files}
-\label{\detokenize{markdown:executing-code-in-your-markdown-files}}
-\sphinxAtStartPar
-If you’d like to include computational content inside these markdown files,
-you can use MyST Markdown to define cells that will be executed when your
-book is built. Jupyter Book uses \sphinxstyleemphasis{jupytext} to do this.
-
-\sphinxAtStartPar
-First, add Jupytext metadata to the file. For example, to add Jupytext metadata
-to this markdown page, run this command:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{jupyter}\PYG{o}{\PYGZhy{}}\PYG{n}{book} \PYG{n}{myst} \PYG{n}{init} \PYG{n}{markdown}\PYG{o}{.}\PYG{n}{md}
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-Once a markdown file has Jupytext metadata in it, you can add the following
-directive to run the code at build time:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-```\PYGZob{}code\PYGZhy{}cell\PYGZcb{}
-print(\PYGZdq{}Here is some code to execute\PYGZdq{})
-```
-\end{sphinxVerbatim}
-
-\sphinxAtStartPar
-When your book is built, the contents of any \sphinxcode{\sphinxupquote{\{code\sphinxhyphen{}cell\}}} blocks will be
-executed with your default Jupyter kernel, and their outputs will be displayed
-in\sphinxhyphen{}line with the rest of your content.
-
-\sphinxAtStartPar
-For more information about executing computational content with Jupyter Book,
-see \sphinxhref{https://myst-nb.readthedocs.io/}{The MyST\sphinxhyphen{}NB documentation}.
-
-
-\chapter{Content with notebooks}
-\label{\detokenize{notebooks:content-with-notebooks}}\label{\detokenize{notebooks::doc}}
-\sphinxAtStartPar
-You can also create content with Jupyter Notebooks. This means that you can include
-code blocks and their outputs in your book.
-
-
-\section{Markdown + notebooks}
-\label{\detokenize{notebooks:markdown-notebooks}}
-\sphinxAtStartPar
-As it is markdown, you can embed images, HTML, etc into your posts!
-
-\sphinxAtStartPar
-
-
-\sphinxAtStartPar
-You can also \(add_{math}\) and
-\begin{equation*}
-\begin{split}
-math^{blocks}
-\end{split}
-\end{equation*}
-\sphinxAtStartPar
-or
-\begin{equation*}
-\begin{split}
-\begin{aligned}
-\mbox{mean} la_{tex} \\ \\
-math blocks
-\end{aligned}
-\end{split}
-\end{equation*}
-\sphinxAtStartPar
-But make sure you \$Escape \$your \$dollar signs \$you want to keep!
-
-
-\section{MyST markdown}
-\label{\detokenize{notebooks:myst-markdown}}
-\sphinxAtStartPar
-MyST markdown works in Jupyter Notebooks as well. For more information about MyST markdown, check
-out \sphinxhref{https://jupyterbook.org/content/myst.html}{the MyST guide in Jupyter Book},
-or see \sphinxhref{https://myst-parser.readthedocs.io/en/latest/}{the MyST markdown documentation}.
-
-
-\section{Code blocks and outputs}
-\label{\detokenize{notebooks:code-blocks-and-outputs}}
-\sphinxAtStartPar
-Jupyter Book will also embed your code blocks and output in your book.
-For example, here’s some sample Matplotlib code:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{matplotlib} \PYG{k+kn}{import} \PYG{n}{rcParams}\PYG{p}{,} \PYG{n}{cycler}
 \PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{o}{\PYGZpc{}}\PYG{k}{matplotlib} inline
+\end{sphinxVerbatim}
+
+
+\chapter{Lineare Regression}
+\label{\detokenize{Regression_Techniques:lineare-regression}}\label{\detokenize{Regression_Techniques::doc}}
+\sphinxAtStartPar
+In der nachfolgenden Zelle werden zuerst Daten geladen, die zur Veranschaulichung der linearen Regression dienen.
+Anschliessend wird ein lineares Modell mit Hilfe der der Klasse Lineare Regression aus \sphinxcode{\sphinxupquote{sklearn.linear\_model}} gerechnet. Die Vorhersage (d.h. die Geradengleichung) ergibt sich aus den Koeffizienten durch \(y = a + bX\).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LinearRegression}
 \PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
-\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ion}\PYG{p}{(}\PYG{p}{)}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}} \PYG{o}{*} \PYG{n}{X} \PYG{o}{+} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+Warum wird für \(\mathbf{X}\) immer ein Grossbuchstabe verwendet und für \(\mathbf{y}\) ein kleiner Buchstabe ?
+
+\sphinxAtStartPar
+Die Matrix der Variablen X wird gross geschrieben, da in Matrix\sphinxhyphen{}Notation Matrizen immer mit grossen Buchstaben bezeichnet werden, Vektoren \sphinxhyphen{} so wie die abhängige Variable y \sphinxhyphen{} werden mit kleinen Buchstaben benannt.
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_5_0}.png}
+
+\sphinxAtStartPar
+Der Plot zeigt die berechnete Regressionsgerade, sowie die Abweichungen (die Fehler) der wirklichen Messwerte von dieser Geraden. Diese Abweichungen werden als \sphinxstylestrong{Residuen} bezeichnet, weil es der Anteil der gemessenen Werte ist, der “übrig bleibt”, d.h. nicht durch das Modell erklärt werden kann. Vorhergesagte Variablen werden meist mit einem Dach (Hut) bezeichnet, sowie \(\hat{y}\).
+
+
+\chapter{Analytische Herleitung der Parameter der Linearen Regression}
+\label{\detokenize{Regression_Techniques:analytische-herleitung-der-parameter-der-linearen-regression}}
+\sphinxAtStartPar
+Allgemein kann man den Nullpunkt einer quadratischen Funktion bestimmen, indem man ihre erste Ableitung gleich \(0\) setzt. Die erste Ableitung gibt die Steigung der Funktion an. In der Physik ist dies of die Beschleunigung. Die Steigung ist am Minimum der Funktion schliesslich \(0\). Man beachte, dass quadratische Funktionen immer nur einen Maximalwert haben können.
+
+\sphinxAtStartPar
+Nachfolgend ist dieser Sachverhalt für die quadratische Funktion \(f(x) = (x-1)^2\) dargestellt. Die Ableitung
+\(2x-2\) ist ebenfalls eingetragen. Bei dem Minimum der Funktion ist die erste Ableitung gleich \(0\) (die Stelle an der der Funktionsgraph, der der ersten Ableitung und die rote, horizontale Linie sich schneiden).
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_8_0}.png}
+
+\sphinxAtStartPar
+Die Parameter einer linearen Regression können analytisch berechnet werden. Dazu wird der quadrierte Fehler \((y_i-\hat{y}_i)^2\) über alle Messwerte aufsummiert. Diese Summe wird nach den Parametern abgeleitet und gleich \(0\) gesetzt. Somit erhält man die Stelle an der die quadratische Funktion keine Steigung (erste Ableitung ist Steigung) hat. Weil eine quadratische Funktion als einzige Nullstelle der Steigung ein Minimum hat, erhalten wir somit die Parameter an dem Minimum unserer quadratischen Fehlerfunktion.
+
+
+\chapter{derivative of the error term \protect\((y - \hat{y})^2\protect\):}
+\label{\detokenize{Regression_Techniques:derivative-of-the-error-term-y-hat-y-2}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+für \(\hat{y}\) können wir auch schreiben: \(a + b\cdot x\), dies ist die Vorhersage mit Hilfe der Regression\sphinxhyphen{}Gerade (der Geraden\sphinxhyphen{}Gleichung):
+
+\end{itemize}
+\begin{equation*}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\end{split}
+\end{equation*}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+wir leiten diese Fehler\sphinxhyphen{}Funktion nach \(a\) ab und setzen diese erste Ableitung gleich \(0\) (Hierbei wird die Kettenregel verwendet):
+
+\end{itemize}
+\begin{align*}
+\frac{\delta \sum_i^{n}(y_i - \hat{y_i})^2}{\delta a} = -2\sum_i^{n}y_i + 2b\sum_i^{n}x_i + 2na =& 0\\
+2na =& 2\sum_i^{n}y_i - 2b\sum_i^{n}x_i\\
+  a =& \frac{2\sum_i^{n}y_i}{2n} - \frac{2b\sum_i^{n}x_i}{2n}
+\end{align*}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+die Summe über alle \(x_i\) geteilt durch \(n\) – die Anzahl aller Beobachtungen – ergibt den Mittelwert \(\bar{x}\), gleiches gilt für \(\bar{y}\):
+
+\end{itemize}
+\begin{equation*}
+\begin{split}a = \bar{y} - b\bar{x}\end{split}
+\end{equation*}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+die Lösung für \(b\) ergibt sich analog; hier ersetzen wir \(a\) mit obigen Ergebnis und erhalten:
+
+\end{itemize}
+\begin{equation*}
+\begin{split} b = \frac{\frac{1}{n}\sum_i^n(x_i - \bar{x})(y_i - \bar{y})}{\frac{1}{n}\sum_i^n (x_i - \bar{x})^2} = 
+\frac{\text{cov}_{xy}}{\text{var}_x}\end{split}
+\end{equation*}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+Vereinfacht ist die Former: Kovarianz der beiden Variablen \(x\) und \(y\) geteilt durch die Varianz von \(x\).
+
+\end{itemize}
+
+\sphinxAtStartPar
+Nachfolgend wird demonstriert, wie die hergeleiteten Formeln, in python angewendet dieselben Parameter\sphinxhyphen{}Schätzer ergeben wie die aus der Klasse \sphinxcode{\sphinxupquote{LineareRegression}} aus \sphinxcode{\sphinxupquote{sklearn.linear\_model}}. Dies soll einfach nur demonstrieren, dass die alles ganz leicht zu rechnen ist und keiner komplizierten Algorithmen bedarf.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} we can easily verify these results}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameter b is the coefficient of the linear model }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameter a is called the intercept of the model because it indicates}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ where the regression line intercepts the y\PYGZhy{}axis at x=0 }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{cov\PYGZus{}xy} \PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,}\PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{var\PYGZus{}x} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{b} \PYG{o}{=} \PYG{n}{cov\PYGZus{}xy}\PYG{o}{/}\PYG{n}{var\PYGZus{}x}
+\PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{n}{b}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{our empirical b parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{b}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{our empircial a parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{a}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYGZlt{}matplotlib.pyplot.\PYGZus{}IonContext at 0x7f77b19f7750\PYGZgt{}
+the parameter b is the coefficient of the linear model [[8.07912445]]
+the parameter a is called the intercept of the model because it indicates
+ where the regression line intercepts the y\PYGZhy{}axis at x=0 [\PYGZhy{}8.49032154]
+
+our empirical b parameter is: 8.079124453577005
+our empircial a parameter is: \PYGZhy{}8.490321540681798
 \end{sphinxVerbatim}
 
-\noindent\sphinxincludegraphics{{notebooks_2_0}.png}
+
+\chapter{multivariate case: more than one x variable}
+\label{\detokenize{Regression_Techniques:multivariate-case-more-than-one-x-variable}}\begin{align*}
+    y_1&=a+b_1\cdot x_{11}+b_2\cdot x_{21}+\cdots + b_p\cdot x_{p1}\\
+    y_2&=a+b_1\cdot x_{12}+b_2\cdot x_{22}+\cdots + b_p\cdot x_{p2}\\
+    \ldots& \ldots\\
+    y_i&=a+b_1\cdot x_{1i}+b_2\cdot x_{2i}+\cdots + b_p\cdot x_{pi}\\
+\end{align*}\begin{equation*}
+    \begin{bmatrix}
+      y_1\\
+      y_2\\
+      .  \\
+      .  \\
+      .  \\
+      y_i
+    \end{bmatrix}
+    = a+
+    \begin{bmatrix}
+      x_{11} & x_{21} & x_{31} & \ldots & x_{p1}\\
+      x_{12} & x_{22} & x_{32} & \ldots & x_{p2}\\
+      \ldots&\ldots&\ldots&\ldots&\ldots\\
+      \ldots&\ldots&\ldots&\ldots&\ldots\\
+      \ldots&\ldots&\ldots&\ldots&\ldots\\
+      x_{1i} & x_{2i} & x_{3i} & \ldots & x_{pi}\\
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+ b_1\\
+      b_2\\
+      .\\
+      .\\
+      .\\
+      b_p
+    \end{bmatrix}
+\end{equation*}
+\sphinxAtStartPar
+Next, we can include the constant term \(a\) into the vector \(b\). This is done by adding an all\sphinxhyphen{}ones column to \(\mathbf{X}\):
+\begin{equation*}
+     \begin{bmatrix}
+      y_1\\
+      y_2\\
+      .  \\
+      .  \\
+      .  \\
+      y_i
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      1& x_{11} & x_{21} & x_{31} & \ldots & x_{p1}\\
+      1 &  x_{12} & x_{22} & x_{32} & \ldots & x_{p2}\\
+      &\ldots&\ldots&\ldots&\ldots&\ldots\\
+      &\ldots&\ldots&\ldots&\ldots&\ldots\\
+      1& x_{1i} & x_{2i} & x_{3i} & \ldots & x_{pi}
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+      a\\
+      b_1\\
+      b_2\\
+      .\\
+      .\\
+      b_p
+    \end{bmatrix}
+  \end{equation*}
+\sphinxAtStartPar
+In matrix notation this is written:
+\$\(\mathbf{y} = \mathbf{X}\mathbf{b}\)\$
+
+
+\chapter{derivation of \protect\(\mathbf{b}\protect\) for the matrix notation}
+\label{\detokenize{Regression_Techniques:derivation-of-mathbf-b-for-the-matrix-notation}}
+\sphinxAtStartPar
+We apply the same steps as for the derivation above:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+we expand the error term:
+\begin{align*}
+    \text{min}=&(\mathbf{y}-\hat{\mathbf{y}})^2=(\mathbf{y}-\mathbf{X}\mathbf{b})'(\mathbf{y}-\mathbf{X}\mathbf{b})=\\
+    &(\mathbf{y}'-\mathbf{b}'\mathbf{X}')(\mathbf{y}-\mathbf{X}\mathbf{b})=\\
+    &\mathbf{y}'\mathbf{y}-\mathbf{b}'\mathbf{X}'\mathbf{y}-\mathbf{y}'
+    \mathbf{X}\mathbf{b}+\mathbf{b}'\mathbf{X}'\mathbf{X}\mathbf{b}=\\
+    &\mathbf{y}'\mathbf{y}-2\mathbf{b}'\mathbf{X}'\mathbf{y}+\mathbf{b}'\mathbf{X}'
+    \mathbf{X}\mathbf{b}\\
+  \end{align*}
+\item {} 
+\sphinxAtStartPar
+derivative of the error term with respect to \(\mathbf{b}\)
+
+\item {} 
+\sphinxAtStartPar
+we set the result equal to zero and solve for \(\mathbf{b}\)
+
+\end{itemize}
+\begin{align*}
+    \frac{\delta}{\delta
+      \mathbf{b}}=&-2\mathbf{X}'\mathbf{y}+2\mathbf{X}'\mathbf{X}\mathbf{b}=0\\
+    2\mathbf{X}'\mathbf{X}\mathbf{b}=&2\mathbf{X}'\mathbf{y}\\
+    \mathbf{b}=&(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\quad
+  \end{align*}
+\sphinxAtStartPar
+For the last step, we need the inverse of a matrix: \((\mathbf{X}'\mathbf{X})^{-1}\)
+
+
+\chapter{Polynomial regression as an example for more than one variable}
+\label{\detokenize{Regression_Techniques:polynomial-regression-as-an-example-for-more-than-one-variable}}
+\sphinxAtStartPar
+In order to easily demonstrate multiple linear regression, we can derive a new variable out of the variable x. For example we could take log(x) or – as done here – take the square of it \(x^2\) (the quadratic term): \(y = a + b_1 x + b_2 x^2\)
 
 \sphinxAtStartPar
-There is a lot more that you can do with outputs (such as including interactive outputs)
-with your book. For more information about this, see \sphinxhref{https://jupyterbook.org}{the Jupyter Book documentation}
-
-\begin{sphinxthebibliography}{HdHPK14}
-\bibitem[HdHPK14]{markdown:id3}
+Some important points are:
+\begin{itemize}
+\item {} 
 \sphinxAtStartPar
-Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In \sphinxstyleemphasis{International Conference on Cognitive Neuroscience}. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.
-\end{sphinxthebibliography}
+we now have two variables, i.e. we can apply our formula for matrix notation
+
+\item {} 
+\sphinxAtStartPar
+more variables will probably lead to a better fit
+
+\item {} 
+\sphinxAtStartPar
+the resulting regression line is not a straight line. \sphinxstylestrong{The term “linear” in linear regression signifies that the equation is linear in its parameters a, \(\textbf{b}_\textbf{1}\), \(\textbf{b}_\textbf{2}\). It does not mean that the regression line has to be a straight linear line!!}
+
+\end{itemize}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{numpy}\PYG{n+nn}{.}\PYG{n+nn}{linalg} \PYG{k+kn}{import} \PYG{n}{inv}
+\PYG{c+c1}{\PYGZsh{} polynomial}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} underdetermined, ill\PYGZhy{}posed: infinitely many solutions}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} the x (small x) is just for plotting purpose}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{]}
+
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{x} \PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{o}{.}\PYG{n}{T}\PYG{p}{)}  \PYG{o}{+} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+(\PYGZhy{}5.0, 110.77315979942053)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_19_1}.png}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} again we can compare the parameters of the model with those resulting from }
+\PYG{c+c1}{\PYGZsh{} our derived equation:}
+\PYG{c+c1}{\PYGZsh{} b=(X\PYGZsq{}X)\PYGZca{}\PYGZob{}\PYGZhy{}1\PYGZcb{} X\PYGZsq{}y}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy}\PYG{n+nn}{.}\PYG{n+nn}{linalg} \PYG{k+kn}{import} \PYG{n}{inv}
+
+\PYG{c+c1}{\PYGZsh{} first we have to add the intercept into our X\PYGZhy{}Variable; we rename it X\PYGZus{}intercept}
+\PYG{n}{X\PYGZus{}intercept} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{X}\PYG{p}{]}
+\PYG{n}{coefs} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X\PYGZus{}intercept}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,}\PYG{n}{X\PYGZus{}intercept}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,}\PYG{n}{X\PYGZus{}intercept}\PYG{o}{.}\PYG{n}{T}\PYG{p}{)}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameter b is the coefficient of the linear model }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameter a is called the intercept of the model because it indicates}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ where the regression line intercepts the y\PYGZhy{}axis at x=0 }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{our coefs already include the intercept: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{coefs}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+the parameter b is the coefficient of the linear model [[\PYGZhy{}12.14930516   1.68570247]]
+the parameter a is called the intercept of the model because it indicates
+ where the regression line intercepts the y\PYGZhy{}axis at x=0 [35.33794262]
+our coefs already include the intercept: [[ 35.33794262]
+ [\PYGZhy{}12.14930516]
+ [  1.68570247]]
+\end{sphinxVerbatim}
+
+
+\section{Overfitting}
+\label{\detokenize{Regression_Techniques:overfitting}}
+\sphinxAtStartPar
+We continue with adding variables and exagerate a little bit
+
+\sphinxAtStartPar
+The important points to note here:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+the fit to our empirical y\sphinxhyphen{}values gets better
+
+\item {} 
+\sphinxAtStartPar
+at the same time, the regression line starts behaving strangly
+
+\item {} 
+\sphinxAtStartPar
+the predictions made by the regression line in between the empirical y\sphinxhyphen{}values are grossly wrong: this is an example of \sphinxstylestrong{overfitting}
+
+\end{itemize}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} underdetermined, ill\PYGZhy{}posed: infinitely many solutions}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{9}\PYG{p}{]}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{9}\PYG{p}{]}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{x} \PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{o}{.}\PYG{n}{T}\PYG{p}{)}  \PYG{o}{+} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+(\PYGZhy{}10.0, 115.77315979942053)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_23_1}.png}
+
+
+\section{perfect fit: as many variables as data samples}
+\label{\detokenize{Regression_Techniques:perfect-fit-as-many-variables-as-data-samples}}
+\sphinxAtStartPar
+A perfect fit is possible as is demonstrated next. We have as many variables (terms derived from x) as observations (data points). So for each data point we have a variable to accommodate it.
+\sphinxstylestrong{Note}, that a perfect fit is achieved with 10 variables + intercept. The intercept is also a parameter and in this case the number of observations \(n\) equals the number of variables \(p\), i.e. \(p=n\).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} underdetermined, ill\PYGZhy{}posed: infinitely many solutions}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{9}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{p}{]}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{9}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{p}{]}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{x} \PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{o}{.}\PYG{n}{T}\PYG{p}{)}  \PYG{o}{+} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the intercept and the coefficients are: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{, }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+the intercept and the coefficients are: [\PYGZhy{}3441.3761578], [[ 9.78847039e+03 \PYGZhy{}1.13028575e+04  7.22272630e+03 \PYGZhy{}2.87529040e+03
+   7.50863939e+02 \PYGZhy{}1.30675765e+02  1.49834150e+01 \PYGZhy{}1.08409478e+00
+   4.47395935e\PYGZhy{}02 \PYGZhy{}8.00879370e\PYGZhy{}04]]
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+(\PYGZhy{}10.0, 125.77315979942053)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_27_1}.png}
+
+
+\chapter{What happens if we have more variables than data points?}
+\label{\detokenize{Regression_Techniques:what-happens-if-we-have-more-variables-than-data-points}}
+\sphinxAtStartPar
+The short answer: a unique solution is not possible because there are infinitifely many possible ways to adjust \(p\) parameters to accommodate \(n\) observations when \(p > n\).
+
+\sphinxAtStartPar
+The long answer: inversion of the matrix \(\mathbf{X}'\mathbf{X}\) is not possible.
+
+\sphinxAtStartPar
+However, there are decompositions for matrix inversions that allow to invert singular matrices. Numpy is using such a decomposition, called LU\sphinxhyphen{}decomposition.
+
+\sphinxAtStartPar
+One way to see in python that the solution is erroneous is to use the scipy.linalg.solve package and solve for the matix S that solves \((\mathbf{X}'\mathbf{X})^{-1} \mathbf{S} = \mathbf{I}\). \(\mathbf{I}\) is called the eye\sphinxhyphen{}matrix with 1s in the diagonale and zeros otherwise:
+\$\(
+\mathbf{I}=\left[
+\begin{array}{ccc}
+   1 & \cdots & 0 \\
+   \vdots & \ddots & \vdots \\
+   0 & \cdots & 1
+\end{array}
+\right]
+\)\$
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{warnings}\PYG{o}{.}\PYG{n}{filterwarnings}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{default}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy}\PYG{n+nn}{.}\PYG{n+nn}{linalg} \PYG{k+kn}{import} \PYG{n}{inv}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy}\PYG{n+nn}{.}\PYG{n+nn}{linalg} \PYG{k+kn}{import} \PYG{n}{solve}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} underdetermined, ill\PYGZhy{}posed: infinitely many solutions}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{9}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{11}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{12}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{13}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} this should give at least a warning, because matrix inversion as done above is not possible}
+\PYG{c+c1}{\PYGZsh{} any more, due to singular covariance matrix [X\PYGZsq{}X]}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}y\PYGZus{}hat = np.dot(x , model.coef\PYGZus{}.T)  + model.intercept\PYGZus{}}
+\PYG{n}{S} \PYG{o}{=} \PYG{n}{solve}\PYG{p}{(}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{l+m+mi}{13}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+/home/martin/miniconda3/envs/book/lib/python3.7/site\PYGZhy{}packages/ipykernel\PYGZus{}launcher.py:15: LinAlgWarning: Ill\PYGZhy{}conditioned matrix (rcond=3.8573e\PYGZhy{}21): result may not be accurate.
+  from ipykernel import kernelapp as app
+\end{sphinxVerbatim}
+
+
+\chapter{statistical package R}
+\label{\detokenize{Regression_Techniques:statistical-package-r}}
+\sphinxAtStartPar
+The R statistical package is behaving still in another way. No warning is issued but coefficients are only computed for 11 variables (intercept included).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+/home/martin/miniconda3/envs/book/lib/python3.7/site\PYGZhy{}packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should\PYGZus{}run\PYGZus{}async` will not call `transform\PYGZus{}cell` automatically in the future. Please pass the result to `transformed\PYGZus{}cell` argument and any exception that happen during thetransform in `preprocessing\PYGZus{}exc\PYGZus{}tuple` in IPython 7.17 and above.
+  and should\PYGZus{}run\PYGZus{}async(code)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_31_1}.png}
+
+
+\chapter{Dealing with overfitting}
+\label{\detokenize{Regression_Techniques:dealing-with-overfitting}}
+\sphinxAtStartPar
+As we could see, if there are many variables and only few observations, classical linear regression tends to overfit heavily.
+One solution for this problem is to shrink the coefficients \(b_1, b_2, b_3, \ldots\). This can be achieved by making the error bigger with bigger coefficients. The algorithm strives to reduce the error and hence has to shrink the coefficients to lower values.
+
+
+\section{Ridge regression}
+\label{\detokenize{Regression_Techniques:ridge-regression}}
+\sphinxAtStartPar
+Remember this formula:
+\$\(\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\)\$
+
+\sphinxAtStartPar
+To make the error term bigger, we could simply add \(\lambda\cdot b^2\) to the error:
+\begin{equation*}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda b^2\end{split}
+\end{equation*}
+\sphinxAtStartPar
+The parameter \(\lambda\) is for scaling the amount of shrinkage.
+
+\sphinxAtStartPar
+For two variables we can write:
+\begin{equation*}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b_1^2 + \lambda b_2^2= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda b_1^2 + \lambda b_2^2\end{split}
+\end{equation*}
+\sphinxAtStartPar
+And in matrix notation for an arbitrary number of variables:
+\begin{align*}
+    \text{min}=&(\mathbf{y}-\hat{\mathbf{y}})^2 + \lambda \mathbf{b}^2=(\mathbf{y}-\mathbf{X}\mathbf{b})'(\mathbf{y}-\mathbf{X}\mathbf{b}) + \lambda \mathbf{b}'\mathbf{b}
+  \end{align*}
+\sphinxAtStartPar
+Interestingly, this error term has a closed form solution, i.e. there is a analytical solution and we do not have to resort to iterative algorithms. However, remember that we included the intercept parameter \(a\) in \(\mathbf{b}\) and added an extra column with ones to the matrix \(\mathbf{X}\). By computing \(\lambda \mathbf{b}'\mathbf{b}\) we would also shrink the intercept parameter \sphinxhyphen{} what is not meaningfull since its effect is to account for the means of the variables: \(a=\bar{y} - b\bar{x}\)
+In order to remove this term, we have to center the variables. When \(\bar{y}=0\) and \(\bar{x}=0\) then \(a\) vanishes.
+The solution for \(\mathbf{b}\) is then given as:
+\$\(\hat{\mathbf{b}} = (\mathbf{X}'\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}'\mathbf{y}\)\$
+
+\sphinxAtStartPar
+Following Hastie et al., originally, this was introduced to cope the rank deficency problems. When the algorithm was first proposed, it was not possible to invert a square matrix not of full rank. Hence, adding a small positive amount to its diagonal solved this problem. This can be demonstrated with our numerical example:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{X\PYGZus{}6} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{]}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{With 6 variables (polynom of 6th degree), the rank of the quare matrix}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ is }\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+      \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}rank}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X\PYGZus{}6}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{X\PYGZus{}6}\PYG{p}{)}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{X\PYGZus{}7} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{With 7 variables (polynom of 7th degree), the rank of the quare matrix}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ is }\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+      \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}rank}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X\PYGZus{}7}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{X\PYGZus{}7}\PYG{p}{)}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{By adding a small amount to the diagonal of the matrix, it is of full rank}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ again: }\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}rank}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X\PYGZus{}7}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{X\PYGZus{}7}\PYG{p}{)} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}\PYGZsh{} you can see how small this amount is, by having a glimpse on the diagonal elements:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{to see how small the added amount in reality is, we display the diagonal elements:}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{diag}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X\PYGZus{}7}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{X\PYGZus{}7}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+With 6 variables (polynom of 6th degree), the rank of the quare matrix
+ is 6
+With 7 variables (polynom of 7th degree), the rank of the quare matrix
+ is 6
+By adding a small amount to the diagonal of the matrix, it is of full rank
+ again: 7
+
+to see how small the added amount in reality is, we display the diagonal elements:
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+array([            506,           39974,         3749966,       382090214,
+           40851766526,   4505856912854, 507787636536686])
+\end{sphinxVerbatim}
+
+
+\subsection{example of ridge regression}
+\label{\detokenize{Regression_Techniques:example-of-ridge-regression}}
+\sphinxAtStartPar
+Next, we will apply ridge regression as implemented in the python sklearn library and compare the results to the analytical solution. Note, that we have to center the variables.
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+we can center \(\mathbf{X}\) and \(\mathbf{y}\) and display the result in the centered coordinate system
+
+\item {} 
+\sphinxAtStartPar
+or we can center \(\mathbf{X}\) and add the mean of \(\mathbf{y}\) to the predicted values to display the result in the original coordinate system. This approaches allows for an easy comparison to the overfitted result
+
+\end{itemize}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{Ridge}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{n}{Xc} \PYG{o}{=} \PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} for plotting purpose}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{n}{xc} \PYG{o}{=} \PYG{n}{x} \PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{axis} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} the result as obtained from the sklearn library}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{Ridge}\PYG{p}{(}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{fit\PYGZus{}intercept}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{Xc}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameters from the sklearn library:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} the analytical result as discussed above}
+\PYG{n}{inverse} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{inv}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{transpose}\PYG{p}{(}\PYG{n}{Xc}\PYG{p}{)}\PYG{p}{,} \PYG{n}{Xc}\PYG{p}{)} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{n}{Xc}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n}{Xy} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{transpose}\PYG{p}{(}\PYG{n}{Xc}\PYG{p}{)}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{n}{params} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{inverse}\PYG{p}{,} \PYG{n}{Xy}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameters as obtained from the analytical solution:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{transpose}\PYG{p}{(}\PYG{n}{params}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{params\PYGZus{}ridge} \PYG{o}{=} \PYG{n}{params}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+the parameters from the sklearn library:
+[[\PYGZhy{}1.96523108e\PYGZhy{}01 \PYGZhy{}6.47914003e\PYGZhy{}01 \PYGZhy{}9.37247119e\PYGZhy{}01  1.55320112e\PYGZhy{}01
+   3.20681202e\PYGZhy{}02 \PYGZhy{}6.80277139e\PYGZhy{}03  3.08899915e\PYGZhy{}04]]
+the parameters as obtained from the analytical solution:
+[[\PYGZhy{}1.96523119e\PYGZhy{}01 \PYGZhy{}6.47914004e\PYGZhy{}01 \PYGZhy{}9.37247118e\PYGZhy{}01  1.55320112e\PYGZhy{}01
+   3.20681203e\PYGZhy{}02 \PYGZhy{}6.80277139e\PYGZhy{}03  3.08899915e\PYGZhy{}04]]
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_39_0}.png}
+
+
+\section{Lasso}
+\label{\detokenize{Regression_Techniques:lasso}}
+\sphinxAtStartPar
+To make the error term bigger, alternatively, we could add the absolute value \(\lambda\cdot |b|\) to the error:
+\begin{equation*}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda |b|\end{split}
+\end{equation*}
+\sphinxAtStartPar
+For two variables we can write:
+\begin{equation*}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda |b_1| + \lambda |b_2|= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda |b_1| + \lambda |b_2|\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Unfortunately, and contrarily to ridge regression, there exists no closed form expression for computing the coefficients for the lasso.
+
+
+\subsection{lasso regression}
+\label{\detokenize{Regression_Techniques:lasso-regression}}
+\sphinxAtStartPar
+Next, we will apply lasso regression as implemented in the python sklearn library and compare the results to the unconstraint regression results.
+As before, we have to center the variables (\sphinxhyphen{}> see discussion above)
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{Lasso}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{n}{Xc} \PYG{o}{=} \PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} for plotting purpose}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{n}{xc} \PYG{o}{=} \PYG{n}{x} \PYG{o}{\PYGZhy{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{axis} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} the result as obtained from the sklearn library}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{Lasso}\PYG{p}{(}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{fit\PYGZus{}intercept}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{Xc}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{params\PYGZus{}lasso} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}
+
+\PYG{c+c1}{\PYGZsh{} comparison of parameters ridge vs. lasso:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameters of the ridge regression:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{transpose}\PYG{p}{(}\PYG{n}{params\PYGZus{}ridge}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{the parameters of the lasso regression:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{params\PYGZus{}lasso}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+the parameters of the ridge regression:
+[[\PYGZhy{}1.96523119e\PYGZhy{}01 \PYGZhy{}6.47914004e\PYGZhy{}01 \PYGZhy{}9.37247118e\PYGZhy{}01  1.55320112e\PYGZhy{}01
+   3.20681203e\PYGZhy{}02 \PYGZhy{}6.80277139e\PYGZhy{}03  3.08899915e\PYGZhy{}04]]
+the parameters of the lasso regression:
+[\PYGZhy{}0.00000000e+00 \PYGZhy{}1.27169261e+00  2.49755651e\PYGZhy{}01  7.47152651e\PYGZhy{}04
+ \PYGZhy{}5.77539403e\PYGZhy{}04 \PYGZhy{}2.73002774e\PYGZhy{}05  1.76588437e\PYGZhy{}06]
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_43_0}.png}
+
+
+\section{the difference between ridge and lasso}
+\label{\detokenize{Regression_Techniques:the-difference-between-ridge-and-lasso}}
+\sphinxAtStartPar
+Ridge regression tends to shrink all parameters in an equal manner. Lasso often leads to solutions with some parameters converged to zero. Hence lasso can also be a variable selection algorithm. Compare the results for our little toy example. Essentially, lasso has only two parameters (for \(X^2\) and \(X^3\)) that are different from zero. All other parameters’ absolute values are smaller than \(0.0007\).
+To see why lasso shrinks parameters to zero, we will:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+generate a random dataset \(y = 1.5 \cdot x_1 + 0.5 \cdot x_2\)
+
+\item {} 
+\sphinxAtStartPar
+compute mean squared error (MSE) for a grid of different values for \(b_1\) and \(b_2\)
+
+\item {} 
+\sphinxAtStartPar
+plot error contour
+
+\item {} 
+\sphinxAtStartPar
+show the geometric shape of the penalties: \(\lambda \sum_j b_j^2\) and \(\lambda \sum_j |b_j|\)
+
+\item {} 
+\sphinxAtStartPar
+indicate the optimal point for the combination of penalty and MSE\sphinxhyphen{}error
+
+\end{itemize}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+the model parameters from data generation could be recovered: [1.5 0.5]
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_45_1}.png}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+optimal coefficients of the ridge solution: 0.8787878787878789 and 0.47721259842495806
+optimal coefficients of the lasso solution: 0.8989898989898991 and 0.10101010101010088
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+In the figure above the optimal solution (without regularization) is at (1.5, 0.5) and is indicated by \(\hat{b}\). This solution is associated with 0 mean squared error (MSE).
+The contour lines indicate the mse\sphinxhyphen{}error corresponding to the respective choice of the parameter values.
+The yellow ball like line and the red triangular line indicate parameter values corresponding to a penalty budget of 1 for the ridge and the lasso respectively. The best solution is given by the point on the line associated with the least mse\sphinxhyphen{}error. These points are also indicated.
+As can be seen, the ridge regression shrinks both parameters whereas the lasso drives the \(b_2\) estimate towards zero and the \(b_1\) estimate towards one.
+
+
+\chapter{Elastic net}
+\label{\detokenize{Regression_Techniques:elastic-net}}
+\sphinxAtStartPar
+The ridge regression and the lasso tend to shrink parameters quiet differently. A compromise that gaines huge popularity is a combination of the two:
+\$\( \lambda\sum_j (\alpha b_j^2 + (1-\alpha)|b_j|)\)\(
+Besides \)\textbackslash{}lambda\( which gears the amount of regularization, a new parameter, \)\textbackslash{}alpha\( weights the contribution of the \)l\_2\( penalty originating from ridge regession and the \)l\_1\$ penalty due to lasso regression.
+We will use elastic net in our data example.
+
+
+\chapter{Interaction}
+\label{\detokenize{Regression_Techniques:interaction}}
+\sphinxAtStartPar
+If the effect of one variable on the outcome depends on the value of another variable. As an example we could try to model the probability that someone is going to buy a house. A very important variable for buying a house will be the monthly income. Another one could be the marital status (single, maried, maried with kids). Maried persons with kids will be very inclined to buy a house if the income situation is favorable. Singles, even with high income will not be considering buying a house. So, the effect of income is different for the levels of marital status:
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_49_0}.png}
+
+\sphinxAtStartPar
+This introducing example comprised categorical variables. Interaction effects may also exist for continuous variables. In this case it is just harder to visualize. Again, we will construct our own data example and build a strong interaction into it. To properly visualize the data, we have to put one variable into bins. However, the scatter plot allows for an intuitive understanding of the interaction of two continuous variables.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{g+gt}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{n+ne}{ModuleNotFoundError}\PYG{g+gWhitespace}{                       }Traceback (most recent call last)
+\PYG{o}{\PYGZlt{}}\PYG{n}{ipython}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{input}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{25}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{32891}\PYG{n}{ff7e5e0}\PYG{o}{\PYGZgt{}} \PYG{o+ow}{in} \PYG{o}{\PYGZlt{}}\PYG{n}{module}\PYG{o}{\PYGZgt{}}
+\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1} \PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{2} \PYG{n}{n} \PYG{o}{=} \PYG{l+m+mi}{500}
+\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{3} \PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{n}{size}\PYG{o}{=}\PYG{n}{n}\PYG{p}{)}
+\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{4} \PYG{n}{m} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{loc} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{scale} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{)}
+\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{5} 
+
+\PYG{n+ne}{ModuleNotFoundError}: No module named \PYGZsq{}seaborn\PYGZsq{}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+As can be seen, the interaction effect is build into the example data, by simply multiplying two variables. Lets see, if we can recover the coefficients. We will also see that the model fit is better when the interaction term is included:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LinearRegression}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{m}\PYG{p}{]}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}  \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{without considering the interaction, the mse is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{(}\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y\PYGZus{}hat}\PYG{p}{)}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{m}\PYG{p}{,} \PYG{n}{x} \PYG{o}{*} \PYG{n}{m}\PYG{p}{]}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}  \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{considering the interaction, the mse drops to: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{(}\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y\PYGZus{}hat}\PYG{p}{)}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{the coefficients are given by }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{; compare these values}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{ to the values }\PYG{l+s+s1}{\PYGZsq{}}\PYGZbs{}
+     \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{we used for generating the data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+
+\section{some considerations}
+\label{\detokenize{Regression_Techniques:some-considerations}}
+\sphinxAtStartPar
+Let’s assume, we have a data set with 70 different variables. Since we do not know anything about the relationsship of the variables to the dependent variable (y), nor of the variables among each other, we are inclined to construct a lot of new variables:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+we can add all 70 quadratic terms (\(x_j^2\))
+
+\item {} 
+\sphinxAtStartPar
+we can add all 70 cubic terms (\(x_j^3\))
+
+\item {} 
+\sphinxAtStartPar
+we could add all \(\binom{70}{2} = 2415\) first\sphinxhyphen{}order interactions among the 70 variables
+
+\item {} 
+\sphinxAtStartPar
+instead, we could add all first\sphinxhyphen{}order interactions among the 210 variables including the quadratic and the cubic terms: \(\binom{210}{2} = 21945\)
+
+\item {} 
+\sphinxAtStartPar
+besides quadratic and cubic transformations, there my be other transformations leading to better results, like the log\sphinxhyphen{}transform.
+
+\end{itemize}
+
+\sphinxAtStartPar
+As you can see, the number of possible variables can grow very fast, when considering all possible effects that might be present in the data. Sometimes, there exists second\sphinxhyphen{}order interaction effects, that were not mentioned in the considerations above.
+All these variables would likely lead to severe overfitting if we would naively include them in our linear regression model. \sphinxstylestrong{That’s why we introduced regularization techniques like the elastic net and its components, the ridge and the lasso}.
+
+
+\chapter{How confident are we about our predictions}
+\label{\detokenize{Regression_Techniques:how-confident-are-we-about-our-predictions}}
+\sphinxAtStartPar
+Essentially, there are two questions that one could ask after fitting a linear model:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+How confident are we about the estimated parameters \(\mathbf{b}\)? This is most often asked by statisticians because for them, the interpretation of the coefficients is of paramount interest.
+
+\item {} 
+\sphinxAtStartPar
+How confident are we about the predictions? This is asked in machine learning because we want to apply the model to unseen data and use the predictions in our business process.
+Here, we have to deal with two different questions:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+How much will the mean response, our prediction \sphinxhyphen{} the regression line \sphinxhyphen{} vary?
+
+\item {} 
+\sphinxAtStartPar
+How much variation is in the observations \(y\) given the level of \(X\)?
+
+\end{itemize}
+
+\end{itemize}
+
+
+\section{Recap of assumptions underlying regression}
+\label{\detokenize{Regression_Techniques:recap-of-assumptions-underlying-regression}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Linearity}: The regression line is a good fit for the relation between \(\mathbf{X}\) and \(\mathbf{y}\), i.e., if there is a quadratic trend in the data and we fit a model without quadratic term, the assumptions are not met (–> \sphinxstylestrong{bias}).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Homoscedasticity}: The variance of the residuals is identical for all values of \(\mathbf{X}\).
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Normality}: The  values of \(\mathbf{y}\) given a certain \(\mathbf{x}\), i.e. of \(\mathbf{y}|\mathbf{x}\) are normaly distributed.
+
+\end{itemize}
+
+\sphinxAtStartPar
+Image taken from \sphinxhref{https://janhove.github.io/analysis/2019/04/11/assumptions-relevance}{here}
+
+\sphinxAtStartPar
+Now, with respect to our confidence need:
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Prediction interval}: The interval around our prediction, 95\% (97.5\%) of all observed values are supposed to fall in; This interval is symmetrical around the regression line. This fact follows from the assumptions discussed above. The standard error of prediction (or forecast) is given by: \$\(\hat{\sigma}_e = \sqrt{\frac{1}{N-(p+1)}\sum_i^N e_i^2},\)\(
+with \)p\( being the number of parameters (the term \)+1\( is for the intercept); \)e\_i\( are the residuals, i.e., the differences between the observed data points \)y\_i\( and the prediction \)\textbackslash{}hat\{y\}\sphinxstyleemphasis{i\(. The confidence interval is given by:
+\)\( CI_i = y_i \pm t_{1-\alpha/2, N-p} \cdot \hat{\sigma}_e.\)\(
+Here, \)t}\{1\sphinxhyphen{}\textbackslash{}alpha/2, N\sphinxhyphen{}p\}\( is the value of the student-t-distribution for a confidence level of \)1\sphinxhyphen{}\textbackslash{}alpha/2\( and \)N\sphinxhyphen{}p\$ degrees of freedom.
+
+\end{enumerate}
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{Confidence interval}: In a similar manner (a bit more involved) we could derive the confidence interval for the predicted mean \(\hat{y}_i\). Remember, that data is supposed to be normally distributed. The regression line we fit, is an estimate of the mean for a given configuration \(\mathbf{x}_i\). Of course, we do not fit the empirical values exactly; some may be lying above the regression line, some beneath. This confidence interval gives an upper and a lower bound for the mean estimate, i.e. the regression line. This confidence interval is not equidistant from the regression line for all values of \(\mathbf{x}\). In the regions where data is sparse, the regression line can not be estimated with high confidence. In contrast, near the mean of \(\mathbf{x}\) the estimate is supposed to be more accurate (normaly distributed \(\mathbf{x}\) assumed).
+
+\end{enumerate}
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+\sphinxstylestrong{CI for regression coefficients}: Again, the derivation of the formulae for this CI is more involved than this for the prediction interval. This interval gives the upper and lower boundary for the coefficients \(\mathbf{b}\). These coefficients indicate how important the respectiv variable is in the regression equation. The interpretation of these coefficients is linked to \sphinxcode{\sphinxupquote{real}} science, where the epistemological caveat is the matter of interest. For example: “is closing schools and universities related to lower base reproduction numbers (\(R_0\))”. This is typically not the kind of questions a data scientist is trying to answer ;\sphinxhyphen{})
+
+\end{enumerate}
+
+\sphinxAtStartPar
+In the following code examples, first, we display the classical summary statistics. In the middle of the printed output, you can find the confidence intervals for the regression coefficients ‘const’ (intercept) and \(x_1\), the \(b_1\) coefficient. The plots illustrate te he points 1 and 2.
+
+\sphinxAtStartPar
+If someone has a strong interest in these more statistical models, I can recommend this \sphinxhref{http://web.vu.lt/mif/a.buteikis/wp-content/uploads/PE\_Book/3-7-UnivarPredict.html}{source}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{statsmodels}\PYG{n+nn}{.}\PYG{n+nn}{api} \PYG{k}{as} \PYG{n+nn}{sm}
+
+\PYG{c+c1}{\PYGZsh{} data example}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} the x (small x) is just for plotting purpose}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x\PYGZus{}intercept} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{x}\PYG{p}{]}
+
+
+\PYG{n}{X\PYGZus{}intercept} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{X}\PYG{p}{]}
+
+\PYG{n}{ols\PYGZus{}result\PYGZus{}lin} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{OLS}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X\PYGZus{}intercept}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat\PYGZus{}lin} \PYG{o}{=} \PYG{n}{ols\PYGZus{}result\PYGZus{}lin}\PYG{o}{.}\PYG{n}{get\PYGZus{}prediction}\PYG{p}{(}\PYG{n}{x\PYGZus{}intercept}\PYG{p}{)}
+
+
+
+\PYG{n}{dt\PYGZus{}lin} \PYG{o}{=} \PYG{n}{y\PYGZus{}hat\PYGZus{}lin}\PYG{o}{.}\PYG{n}{summary\PYGZus{}frame}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{mean\PYGZus{}lin} \PYG{o}{=} \PYG{n}{dt\PYGZus{}lin}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{meanCIs\PYGZus{}lin} \PYG{o}{=} \PYG{n}{dt\PYGZus{}lin}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean\PYGZus{}ci\PYGZus{}lower}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean\PYGZus{}ci\PYGZus{}upper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}
+\PYG{n}{obsCIs\PYGZus{}lin} \PYG{o}{=} \PYG{n}{dt\PYGZus{}lin}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}lower}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}upper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+The same plot is derived for an equation including a quadratic term:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{X\PYGZus{}intercept\PYGZus{}quad} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X\PYGZus{}intercept}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} for plotting:}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{x\PYGZus{}intercept\PYGZus{}quad} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{]}
+
+\PYG{n}{ols\PYGZus{}result\PYGZus{}quad} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{OLS}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X\PYGZus{}intercept\PYGZus{}quad}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{p}{)}
+
+
+\PYG{n}{y\PYGZus{}hat\PYGZus{}quad} \PYG{o}{=} \PYG{n}{ols\PYGZus{}result\PYGZus{}quad}\PYG{o}{.}\PYG{n}{get\PYGZus{}prediction}\PYG{p}{(}\PYG{n}{x\PYGZus{}intercept\PYGZus{}quad}\PYG{p}{)}
+\PYG{n}{dt\PYGZus{}quad} \PYG{o}{=} \PYG{n}{y\PYGZus{}hat\PYGZus{}quad}\PYG{o}{.}\PYG{n}{summary\PYGZus{}frame}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{mean\PYGZus{}quad} \PYG{o}{=} \PYG{n}{dt\PYGZus{}quad}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{meanCIs\PYGZus{}quad} \PYG{o}{=} \PYG{n}{dt\PYGZus{}quad}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean\PYGZus{}ci\PYGZus{}lower}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean\PYGZus{}ci\PYGZus{}upper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}
+\PYG{n}{obsCIs\PYGZus{}quad} \PYG{o}{=} \PYG{n}{dt\PYGZus{}quad}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}lower}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}upper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{ols\PYGZus{}result\PYGZus{}quad}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+
+\section{Bootstrap}
+\label{\detokenize{Regression_Techniques:bootstrap}}
+\sphinxAtStartPar
+With real, messy data it is rather seldom to meet all the assumptions underlying the theory of confidence intervals. A robust alternative, without any assumptions is the bootstrap. We view our data sample as the population and draw samples from it, with replacement. We fit the model to each of these samples and gather the statistics of relevance. Then we report the 2.5\% quantile and the 97.5\% quantile as the boundaries of our confidence interval with confidence level of \(\alpha=5\%\).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{random} \PYG{k+kn}{import} \PYG{n}{choices}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{Lasso}
+\PYG{k+kn}{import} \PYG{n+nn}{warnings}
+\PYG{n}{warnings}\PYG{o}{.}\PYG{n}{filterwarnings}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ignore}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{}X = np.c\PYGZus{}[np.ones(X.shape[0]), X, X**2, X**3, X**4]}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{]}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mf}{0.05}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}x = np.c\PYGZus{}[np.ones(x.shape[0]), x, x**2, x**3, x**4]}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{x}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{]}
+\PYG{n}{indices} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
+
+\PYG{n}{drew} \PYG{o}{=} \PYG{n}{choices}\PYG{p}{(}\PYG{n}{indices}\PYG{p}{,} \PYG{n}{k}\PYG{o}{=}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{indices}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{n}{sampler} \PYG{o}{=} \PYG{p}{(}\PYG{n}{choices}\PYG{p}{(}\PYG{n}{indices}\PYG{p}{,} \PYG{n}{k} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{indices}\PYG{p}{)}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{200}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{n}{CIS} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{n}{Lasso}\PYG{p}{(}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{fit\PYGZus{}intercept}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[}\PYG{n}{drew}\PYG{p}{,}\PYG{p}{:}\PYG{p}{]}\PYG{p}{,} \PYG{n}{y}\PYG{p}{[}\PYG{n}{drew}\PYG{p}{,} \PYG{p}{:}\PYG{p}{]}\PYG{p}{)}\PYGZbs{}
+                              \PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{(}\PYG{p}{)}
+                              \PYG{k}{for} \PYG{n}{drew} \PYG{o+ow}{in} \PYG{n}{sampler}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{p}{[}\PYG{l+m+mf}{2.5}\PYG{p}{,} \PYG{l+m+mf}{97.5}\PYG{p}{]}\PYG{p}{,} \PYG{n}{axis} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} x is 220 long}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{Lasso}\PYG{p}{(}\PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{fit\PYGZus{}intercept}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+
+\chapter{Extension: logistic regression and the GLM}
+\label{\detokenize{Regression_Techniques:extension-logistic-regression-and-the-glm}}
+\sphinxAtStartPar
+There are other models that are relatives of the linear model that we discussed in this notebook. One of the most prominent is the \sphinxstylestrong{logistic regression}. This model belongs to the “\sphinxstylestrong{generalized} linear model” (GLM). The GLM may not be confounded with the “\sphinxstylestrong{general} linear model”. The latter essentially expresses analysis of variance (ANOVA) in terms of linear regression.
+The \sphinxstylestrong{GLM} extends the
+linear regression beyond models with normal error distributions. This
+remark in the corresponding wiki\sphinxhyphen{}article is enlightening:
+\sphinxhref{https://en.wikipedia.org/wiki/Generalized\_linear\_model\#Confusion\_with\_general\_linear\_models}{read wikipedia for this}
+
+
+\section{exponential family of distributions}
+\label{\detokenize{Regression_Techniques:exponential-family-of-distributions}}
+\sphinxAtStartPar
+From the perspective of modern statistics the GLM comprises many
+different linear models, among others the classical linear model. Every
+distribution in the exponential family can be written in the following
+form:
+\$\(f(y| \theta) = \exp\left(\frac{y \theta + b(\theta)}{\Phi} + c(y, \Phi)\right),\)\(
+where \)\textbackslash{}theta\( is called the canonical parameter that in turn is a
+function of \)\textbackslash{}mu\(, the mean. This function is called the canonical link
+function that links \)\textbackslash{}mu\( to a linear function of the regression
+parameters. In short: it is this function that linearizes the relation
+between the dependent and the independent variables. For the sake of
+completeness: \)b(\textbackslash{}theta)\( is a function of the canonical parameter and
+hence, also depends on \)\textbackslash{}mu\(. \)\textbackslash{}Phi\( is called the dispersion parameter
+and \)c(y, \textbackslash{}Phi)\$ is a function depending on the observation and the
+dispersion parameter.
+
+
+\subsection{Normal distribution}
+\label{\detokenize{Regression_Techniques:normal-distribution}}\begin{eqnarray*}
+f(y| \mu, \sigma) =& (2\pi \sigma^2)^{-\frac{1}{2}} \exp\left(-\frac{1}{2}\frac{y^2 -2y\mu + \mu^2}{\sigma^2}\right) \\
+ =&\quad \exp \left(\frac{y\mu -\frac{\mu^2}{2}}{\sigma^2} - \frac{1}{2}\left(\frac{y^2}{\sigma^2} + \log(2\pi\sigma^2\right)\right),\quad \text{with}
+\end{eqnarray*}
+\sphinxAtStartPar
+\(\mu = \theta(\mu)\), i.e. \(\mu\) is the canonical parameter and the link
+function is given by the identity function. Hence, the mean can be
+modeled directly without any transformation. The dispersion parameter \(\Phi\) is given by \(\sigma^2\), the variance. This case is the classical
+linear regression.
+
+
+\subsection{Poisson distribution}
+\label{\detokenize{Regression_Techniques:poisson-distribution}}
+\sphinxAtStartPar
+Now, for the Poisson distribution we have
+\begin{eqnarray*}
+f(y| \mu) =& \frac{\mu^{y} e^{-\mu}}{y!} = \mu^y e^{-\mu}\frac{1}{y!}\\
+=& \quad\exp\left(y \log(\mu) - \mu - \log(y!)\right), \quad\text{where}
+\end{eqnarray*}
+\sphinxAtStartPar
+the link function is given by \(\log(\mu)\). Note that the Poisson
+distribution does not have any dispersion parameter.
+
+
+\subsection{Bernoulli distribution \protect\(\Rightarrow\protect\) logistic regression}
+\label{\detokenize{Regression_Techniques:bernoulli-distribution-rightarrow-logistic-regression}}
+\sphinxAtStartPar
+And finally the Bernoulli distribution from which we derive the logistic
+regression. Using the Bernoulli distribution, we can calculate the probabilities of experiments consisting of binary events. The classical example is coin flipping. Here, \(\pi\) is the probability of the coin showing ‘head’; \((1-\pi)\) is the probability of the coin showing ‘tail’. We can now calculate the probability of getting exactly 7 times head for 10 tosses with a fair coin:
+\$\(\pi^7 (1-\pi)^3 = 0.5^7 0.5^3 = 0.5^{10} = 0.0009765625\)\$
+
+\sphinxAtStartPar
+Next, I demonstrate how we can rewrite the Bernoulli distribution to fit into the framework of the exponential family:
+\begin{eqnarray*}
+f(y |\pi) =& \pi^y (1-\pi)^{1-y} = \exp\left(y \log(\pi) + (1-y) \log(1-\pi)\right)\\
+= & \quad \exp\left(y \log(\pi) + \log(1-\pi) - y\log(1-\pi)\right)\\
+=&\quad \exp\left(y\log(\frac{\pi}{1-\pi}) + \log(1-\pi)\right),\quad\text{where}
+\end{eqnarray*}
+\sphinxAtStartPar
+the link function evaluates to \(\log(\frac{\pi}{1-\pi})\). This function
+is also called the logit function whose reverse function is the logistic
+function. Hence, it is the logit that is modeled by a lineare function
+of the regressors:
+\(\log(\frac{\pi}{1-\pi}) = a + b_{1}x_1 + \ldots + b_jx_j\). If we plug
+the right hand term into the logistic function we get the estimated
+probabilities:
+\$\(P(y=1 |x) = \frac{\exp(a + b_{1}x_1 + \ldots + b_jx_j)}{1 + \exp(a + b_{1}x_1 + \ldots + b_jx_j)}.\)\$
+
+\sphinxAtStartPar
+Here, I showed that the classical linear regression with normal
+error terms can be seen as a special case of a much wider family of
+models comprising all distributions out of the exponential family. (For
+a more complete treatment of other distributions see again
+https://en.wikipedia.org/wiki/Generalized\_linear\_model.)
+
+
+\chapter{GLMNET}
+\label{\detokenize{Regression_Techniques:glmnet}}
+\sphinxAtStartPar
+In the statistical language R, there exists a library called ‘glmnet’. This package implements the elastic net as we discussed here but for the glm and not only for the classical linear regession.
+https://web.stanford.edu/\textasciitilde{}hastie/glmnet/glmnet\_alpha.html
+
+\sphinxAtStartPar
+There exists also a python package implementing glmnet by using the exact same fortran code: \sphinxstylestrong{glmnet\sphinxhyphen{}python}.
+There are some subtleties in the implementation that are different from the elastic net version as provided by sklearn.
+https://pypi.org/project/glmnet\sphinxhyphen{}python/
+
+
+\chapter{Neural Network}
+\label{\detokenize{Regression_Techniques:neural-network}}
+\sphinxAtStartPar
+We can also cast linear regression into a neural network context. The network has no hidden layer. The activation function in the output neuron is either the identity function \(y=x\) for classical linear regression or the logistic function for logistic regression.
+
+
+\section{classical linear regression}
+\label{\detokenize{Regression_Techniques:classical-linear-regression}}
+
+
+\sphinxAtStartPar
+Remember, we included the intercept \(\alpha\) into the vector \(\mathbf{\beta}\) by including an all\sphinxhyphen{}ones vector into the matrix \(\mathbf{X}\). The equation is hence written:
+\$\(\mathbf{y} = \mathbf{X} \mathbf{\beta}\)\(
+In neurall network context, the vector \)\textbackslash{}mathbf\{\textbackslash{}beta\}\( is called the network weights and often is denotedn as \)\textbackslash{}mathbf\{W\}\$.
+
+\sphinxAtStartPar
+Why are the weight\sphinxhyphen{}vectors \(\mathbf{W}\) in upper\sphinxhyphen{}case?In a regression\sphinxhyphen{}context, we usually use lower\sphinxhyphen{}case letters like \(\mathbf{\beta}\) or \(\mathbf{b}\)?
+
+
+\section{logistic regression}
+\label{\detokenize{Regression_Techniques:logistic-regression}}
+
+
+\sphinxAtStartPar
+For logistic regression, the activation function is changed. Now, it is not the identity function, but the logistic function:
+\$\(P(y=1 |x) = \frac{\exp(a + b_{1}x_1 + \ldots + b_jx_j)}{1 + \exp(a + b_{1}x_1 + \ldots + b_jx_j)}\)\$
+This function approaches 0, 1 asymptotically.
+
+
+\subsection{Weight decay}
+\label{\detokenize{Regression_Techniques:weight-decay}}
+\sphinxAtStartPar
+In the neural network literature, the \(l_2\)\sphinxhyphen{}penalty term is called “weight decay”. It is not a parameter of the single layers or neurons, but of the optimizer. As with regularized regression, the weight decay is written:
+\$\(L' = L + \lambda\sum_i w_i^2, \)\(
+where \)L\( is the actual loss and \)w\_i\$ are the weights of the incoming connections of a neuron.
 
 
 

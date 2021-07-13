@@ -14,3 +14,14 @@ e = mc^2
 ```
 
 Check out the content pages bundled with this sample book to see more.
+
+I wonder if we can have some math formulae as well:
+
+$\alpha = 3$
+
+or like this:
+
+```
+$\alpha = 3$
+```
+and even the more advanced stuff?

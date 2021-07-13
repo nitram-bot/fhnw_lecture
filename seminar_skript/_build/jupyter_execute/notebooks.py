@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# 
 # # Content with notebooks
 # 
 # You can also create content with Jupyter Notebooks. This means that you can include
@@ -11,6 +12,7 @@
 # As it is markdown, you can embed images, HTML, etc into your posts!
 # 
 # ![](https://myst-parser.readthedocs.io/en/latest/_static/logo.png)
+# ![](logo.png)
 # 
 # You can also $add_{math}$ and
 # 
@@ -74,3 +76,40 @@ ax.legend(custom_lines, ['Cold', 'Medium', 'Hot']);
 
 # There is a lot more that you can do with outputs (such as including interactive outputs)
 # with your book. For more information about this, see [the Jupyter Book documentation](https://jupyterbook.org)
+
+# Next, we can include the constant term $a$ into the vector $b$. This is done by adding an all-ones column to $\mathbf{X}$: 
+#     
+# \begin{equation*}
+#      \begin{bmatrix}
+#       y_1\\
+#       y_2\\
+#       .  \\
+#       .  \\
+#       .  \\
+#       y_i
+#     \end{bmatrix}
+#     =
+#     \begin{bmatrix}
+#       1& x_{11} & x_{21} & x_{31} & \ldots & x_{p1}\\
+#       1 &  x_{12} & x_{22} & x_{32} & \ldots & x_{p2}\\
+#       &\ldots&\ldots&\ldots&\ldots&\ldots\\
+#       &\ldots&\ldots&\ldots&\ldots&\ldots\\
+#       1& x_{1i} & x_{2i} & x_{3i} & \ldots & x_{pi}
+#     \end{bmatrix}
+#     \cdot
+#     \begin{bmatrix}
+#       a\\
+#       b_1\\
+#       b_2\\
+#       .\\
+#       .\\
+#       b_p
+#     \end{bmatrix}
+# \end{equation*}
+
+# \begin{align*}
+#     y_1&=a+b_1\cdot x_{11}+b_2\cdot x_{21}+\cdots + b_p\cdot x_{p1}\\
+#     y_2&=a+b_1\cdot x_{12}+b_2\cdot x_{22}+\cdots + b_p\cdot x_{p2}\\
+#     \ldots& \ldots\\
+#     y_i&=a+b_1\cdot x_{1i}+b_2\cdot x_{2i}+\cdots + b_p\cdot x_{pi}\\
+# \end{align*}
