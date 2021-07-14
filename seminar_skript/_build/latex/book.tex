@@ -72,7 +72,7 @@
         
 
 \title{My sample book}
-\date{Jul 13, 2021}
+\date{Jul 14, 2021}
 \release{}
 \author{The Jupyter Book Community}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -173,7 +173,7 @@ Nachfolgend ist dieser Sachverhalt für die quadratische Funktion \(f(x) = (x-1)
 Die Parameter einer linearen Regression können analytisch berechnet werden. Dazu wird der quadrierte Fehler \((y_i-\hat{y}_i)^2\) über alle Messwerte aufsummiert. Diese Summe wird nach den Parametern abgeleitet und gleich \(0\) gesetzt. Somit erhält man die Stelle an der die quadratische Funktion keine Steigung (erste Ableitung ist Steigung) hat. Weil eine quadratische Funktion als einzige Nullstelle der Steigung ein Minimum hat, erhalten wir somit die Parameter an dem Minimum unserer quadratischen Fehlerfunktion.
 
 
-\chapter{derivative of the error term \protect\((y - \hat{y})^2\protect\):}
+\section{derivative of the error term \protect\((y - \hat{y})^2\protect\):}
 \label{\detokenize{Regression_Techniques:derivative-of-the-error-term-y-hat-y-2}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
@@ -228,8 +228,8 @@ Nachfolgend wird demonstriert, wie die hergeleiteten Formeln, in python angewend
 \PYG{n}{var\PYGZus{}x} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
 \PYG{n}{b} \PYG{o}{=} \PYG{n}{cov\PYGZus{}xy}\PYG{o}{/}\PYG{n}{var\PYGZus{}x}
 \PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{n}{b}\PYG{o}{*}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
-\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{our empirical b parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{b}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
-\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{our empircial a parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{a}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{our self\PYGZhy{}computed b parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{b}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{our self\PYGZhy{}computed a parameter is: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{a}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
@@ -237,13 +237,16 @@ the parameter b is the coefficient of the linear model [[8.07912445]]
 the parameter a is called the intercept of the model because it indicates
  where the regression line intercepts the y\PYGZhy{}axis at x=0 [\PYGZhy{}8.49032154]
 
-our empirical b parameter is: 8.079124453577005
-our empircial a parameter is: \PYGZhy{}8.490321540681798
+our self\PYGZhy{}computed b parameter is: 8.079124453577005
+our self\PYGZhy{}computed a parameter is: \PYGZhy{}8.490321540681798
 \end{sphinxVerbatim}
 
 
 \chapter{multivariate case: more than one x variable}
-\label{\detokenize{Regression_Techniques:multivariate-case-more-than-one-x-variable}}\begin{align*}
+\label{\detokenize{Regression_Techniques:multivariate-case-more-than-one-x-variable}}
+\sphinxAtStartPar
+Für Multivariate Lineare Regression kann die Schreibweise mit Matrizen zusammengefasst werden. Dafür kann es lohnend sein, sich die Matrizen\sphinxhyphen{}Multiplikation noch einmal kurz anzusehen.
+\begin{align*}
     y_1&=a+b_1\cdot x_{11}+b_2\cdot x_{21}+\cdots + b_p\cdot x_{p1}\\
     y_2&=a+b_1\cdot x_{12}+b_2\cdot x_{22}+\cdots + b_p\cdot x_{p2}\\
     \ldots& \ldots\\
@@ -277,7 +280,7 @@ our empircial a parameter is: \PYGZhy{}8.490321540681798
     \end{bmatrix}
 \end{equation*}
 \sphinxAtStartPar
-Next, we can include the constant term \(a\) into the vector \(b\). This is done by adding an all\sphinxhyphen{}ones column to \(\mathbf{X}\):
+Den konstanten inercept Term (\(a\)) können wir mit in den Vektor der Parameter \(\mathbf{b}\) aufnehmen, indem wir in \(\mathbf{X}\) eine Einser\sphinxhyphen{}Spalte hinzufügen. Somit wird die Schreibweise sehr kompakt und der intercept \(a\) wird nicht mehr explizit aufgeführt:
 \begin{equation*}
      \begin{bmatrix}
       y_1\\
@@ -306,14 +309,14 @@ Next, we can include the constant term \(a\) into the vector \(b\). This is done
     \end{bmatrix}
   \end{equation*}
 \sphinxAtStartPar
-In matrix notation this is written:
-\$\(\mathbf{y} = \mathbf{X}\mathbf{b}\)\$
+In Matrizen\sphinxhyphen{}Schreibweise können wir jetzt einfach schreiben:
+\(\mathbf{y} = \mathbf{X}\mathbf{b}\)
 
 
 \chapter{derivation of \protect\(\mathbf{b}\protect\) for the matrix notation}
 \label{\detokenize{Regression_Techniques:derivation-of-mathbf-b-for-the-matrix-notation}}
 \sphinxAtStartPar
-We apply the same steps as for the derivation above:
+Anschliessend wird die Berechnung der Parameter der Multivariaten Regression in Matrizen\sphinxhyphen{}Schreibweise erläutert.  Konzeptionell ist dies nicht vom univariaten Fall verschieden. Diese Formel wird nur hergeleitet um demonstrieren zu können, wie das Ergebnis der expliziten Berechnung in Python mit dem aus der sklearn Klasse \sphinxcode{\sphinxupquote{LinearRegression}} übereinstimmt.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
@@ -342,30 +345,37 @@ we set the result equal to zero and solve for \(\mathbf{b}\)
     \mathbf{b}=&(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\quad
   \end{align*}
 \sphinxAtStartPar
-For the last step, we need the inverse of a matrix: \((\mathbf{X}'\mathbf{X})^{-1}\)
+Hierbei bedarf es der Inversion des Kreuzproduktes der Variablen\sphinxhyphen{}Matrix \((\mathbf{X}'\mathbf{X})^{-1}\). Die Matrizen\sphinxhyphen{}Inversion ist für grosse Anzahl von Variablen mathematisch sehr aufwändig und kann unter Umständen zu Ungenauigkeiten führen. In der Vergangenheit wurde viel an Algorithmen geforscht um die Inversion schneller und stabiler zu machen. Oftmals stehen Fehlermeldungen in Zusammenhang mit diesem Berechnungsschritt.
 
 
 \chapter{Polynomial regression as an example for more than one variable}
 \label{\detokenize{Regression_Techniques:polynomial-regression-as-an-example-for-more-than-one-variable}}
 \sphinxAtStartPar
-In order to easily demonstrate multiple linear regression, we can derive a new variable out of the variable x. For example we could take log(x) or – as done here – take the square of it \(x^2\) (the quadratic term): \(y = a + b_1 x + b_2 x^2\)
+Um einfach Multivariate Lineare Regression an einem Beispiel zeigen zu können wird die quadratische Regression (ein Spezial\sphinxhyphen{}Fall der Multivariaten Regression) eingeführt. Eine neue Variable entsteht durch das Quadrieren der bisherigen univiaraten Variable x. Das Praktische ist, dass sich der Sachverhalt der Multivariaten Regression noch immer sehr schön 2\sphinxhyphen{}dimensional darstellen lässt.
+\(y = a + b_1 x + b_2 x^2\)
 
 \sphinxAtStartPar
-Some important points are:
+Hier ist zu beachten:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-we now have two variables, i.e. we can apply our formula for matrix notation
+wir haben jetzt zwei Variablen und können folglich unsere Formel in Matrizen\sphinxhyphen{}Schreibweise anwenden
 
 \item {} 
 \sphinxAtStartPar
-more variables will probably lead to a better fit
+mehr Variablen führen hoffentlich zu einem besseren Modell
 
 \item {} 
 \sphinxAtStartPar
-the resulting regression line is not a straight line. \sphinxstylestrong{The term “linear” in linear regression signifies that the equation is linear in its parameters a, \(\textbf{b}_\textbf{1}\), \(\textbf{b}_\textbf{2}\). It does not mean that the regression line has to be a straight linear line!!}
+durch den quadratischen Term ist die resultierende Regressions\sphinxhyphen{}Funktion keine Gerade mehr.
+\sphinxstylestrong{Der Ausdruck “linear” in Linearer Regression bedeutet dass die Funktion linear in den Parametern
+\(a, \mathbf{b}_\mathbf{1}, \mathbf{b}_\mathbf{2}\) ist. Für alle Werte einer Variablen \(\mathbf{x_1}\) gilt der gleiche Parameter \(\mathbf{b_1}\).
+Es bedeutet nicht, dass die Regressions\sphinxhyphen{}Funktion durch eine gerade Linie gegeben ist!}
 
 \end{itemize}
+
+\sphinxAtStartPar
+Nachfolgend fügen wir die weitere Variable durch Quadrieren der bisherigen Variable hinzu und berechnen abermals das Lineare Modell aus \sphinxcode{\sphinxupquote{sklearn.linear\_model}}.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{from} \PYG{n+nn}{numpy}\PYG{n+nn}{.}\PYG{n+nn}{linalg} \PYG{k+kn}{import} \PYG{n}{inv}
@@ -387,8 +397,17 @@ the resulting regression line is not a straight line. \sphinxstylestrong{The ter
 (\PYGZhy{}5.0, 110.77315979942053)
 \end{sphinxVerbatim}
 
-\noindent\sphinxincludegraphics{{Regression_Techniques_19_1}.png}
+\noindent\sphinxincludegraphics{{Regression_Techniques_18_1}.png}
 
+\sphinxAtStartPar
+Jetzt berechnen wir die Parameter der Multiplen Linearen Regression mit Hilfe der hergeleiteten Formeln. Hierfür fügen wir zu den bisherigen Variablen \(x\) und \(x^2\) noch eine Einser\sphinxhyphen{}Spalte für den intercpet ein. \sphinxcode{\sphinxupquote{np.dot}} berechnet das dot\sphinxhyphen{}product zweier Variablen. Um das Kreuzprodukt von \(\mathbf{X}\) berechnen zu können, muss eine der beiden Matrizen transponiert werden. Dies geschieht durch \sphinxcode{\sphinxupquote{.T}}.
+\sphinxcode{\sphinxupquote{inv}} invertiert das Kreuzprodukt.
+
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{coefs = np.dot(np.dot(inv(np.dot(X\_intercept.T,X\_intercept)),X\_intercept.T),y)}} ist gleichbedeutend mit:
+\begin{equation*}
+\mathbf{b}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}
+\end{equation*}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c+c1}{\PYGZsh{} again we can compare the parameters of the model with those resulting from }
 \PYG{c+c1}{\PYGZsh{} our derived equation:}
@@ -417,7 +436,7 @@ our coefs already include the intercept: [[ 35.33794262]
 \section{Overfitting}
 \label{\detokenize{Regression_Techniques:overfitting}}
 \sphinxAtStartPar
-We continue with adding variables and exagerate a little bit
+Nun wird diese Vorgehensweise für weitere Terme höherer Ordnung angewendet. Graphisch lässt sich zeigen, dass die Anpassung des Modells an die Daten immer besser wird, die Vorhersage für \sphinxstylestrong{neue Datenpunkte} aber sehr schlecht sein dürfte. Das Polynom hat an vielen Stellen Schlenker und absurde Kurven eingebaut. Dies ist ein erstes Beispiel für \sphinxstylestrong{“overfitting”}.Einen ‘perfekten’ fit erhält man, wenn man genausoviele Paramter (10 Steigunskoeffizienten + intercept) hat wie Daten\sphinxhyphen{}Messpunkte.
 
 \sphinxAtStartPar
 The important points to note here:
@@ -491,17 +510,16 @@ the intercept and the coefficients are: [\PYGZhy{}3441.3761578], [[ 9.78847039e+
 \chapter{What happens if we have more variables than data points?}
 \label{\detokenize{Regression_Techniques:what-happens-if-we-have-more-variables-than-data-points}}
 \sphinxAtStartPar
-The short answer: a unique solution is not possible because there are infinitifely many possible ways to adjust \(p\) parameters to accommodate \(n\) observations when \(p > n\).
+Gibt es mehr Parameter als Datenpunkte, existieren unendlich viele Lösungen und das Problem ist nicht mehr eindeutig lösbar. Früher gelang die Inversion des Kreuzproduktes der Variablen \(\mathbf{X}'\mathbf{X}\) nicht. Mittlerweile gibt es Näherungsverfahren, die dennoch Ergebnisse liefern \sphinxhyphen{} wenn auch sehr Ungenaue.
 
 \sphinxAtStartPar
-The long answer: inversion of the matrix \(\mathbf{X}'\mathbf{X}\) is not possible.
+Mittlerweile gibt es aber mathematische Näherungsverfahren die es ermöglichen auch singuläre Matrizen zu invertieren.
+\sphinxcode{\sphinxupquote{numpy}} verwendet hierfür die sogenannte LU\sphinxhyphen{}decomposition.
 
 \sphinxAtStartPar
-However, there are decompositions for matrix inversions that allow to invert singular matrices. Numpy is using such a decomposition, called LU\sphinxhyphen{}decomposition.
-
-\sphinxAtStartPar
-One way to see in python that the solution is erroneous is to use the scipy.linalg.solve package and solve for the matix S that solves \((\mathbf{X}'\mathbf{X})^{-1} \mathbf{S} = \mathbf{I}\). \(\mathbf{I}\) is called the eye\sphinxhyphen{}matrix with 1s in the diagonale and zeros otherwise:
-\$\(
+One way to see in python that the solution is erroneous is to use the \sphinxcode{\sphinxupquote{scipy.linalg.solve}} package and solve for the matix S that solves \((\mathbf{X}'\mathbf{X})^{-1} \mathbf{S} = \mathbf{I}\). \(\mathbf{I}\) is called the eye\sphinxhyphen{}matrix wih 1s in the diagonale and zeros otherwise:
+\begin{equation*}
+\begin{split}
 \mathbf{I}=\left[
 \begin{array}{ccc}
    1 & \cdots & 0 \\
@@ -509,7 +527,15 @@ One way to see in python that the solution is erroneous is to use the scipy.lina
    0 & \cdots & 1
 \end{array}
 \right]
-\)\$
+\end{split}
+\end{equation*}
+\sphinxAtStartPar
+Die entscheidende Zeile im nachfolgenden Code ist:
+\sphinxcode{\sphinxupquote{S = solve(inv(np.dot(X.T, X)), np.eye(13))}}
+
+\sphinxAtStartPar
+Sie besagt: gib mir die Matrix \(\mathbf{S}\), die multipliziert mit \((\mathbf{X}'\mathbf{X})^{-1}\) die Matrix \(\mathbf{I}\) gibt.
+Für unseren Fall von mehr Variablen als Beobachtungspunkten werden wir gewarnt, dass das Ergebnis falsch sein könnte. Mit älteren Mathematik\sphinxhyphen{} oder Statistik\sphinxhyphen{}Programmen ist dies überhaupt nicht möglich.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{warnings}\PYG{o}{.}\PYG{n}{filterwarnings}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{default}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
@@ -535,10 +561,10 @@ One way to see in python that the solution is erroneous is to use the scipy.lina
 \end{sphinxVerbatim}
 
 
-\chapter{statistical package R}
+\section{statistical package R}
 \label{\detokenize{Regression_Techniques:statistical-package-r}}
 \sphinxAtStartPar
-The R statistical package is behaving still in another way. No warning is issued but coefficients are only computed for 11 variables (intercept included).
+In der statistischen Programmiersprache R wird keine Warnung herausgegeben. Es werden einfach nur soviele Koeffizienten (intercept ist auch ein Koeffizient) berechnet, wie möglich ist. Alle weiteren Koeffizienten sind \sphinxcode{\sphinxupquote{NA}}.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 /home/martin/miniconda3/envs/book/lib/python3.7/site\PYGZhy{}packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should\PYGZus{}run\PYGZus{}async` will not call `transform\PYGZus{}cell` automatically in the future. Please pass the result to `transformed\PYGZus{}cell` argument and any exception that happen during thetransform in `preprocessing\PYGZus{}exc\PYGZus{}tuple` in IPython 7.17 and above.
@@ -551,42 +577,70 @@ The R statistical package is behaving still in another way. No warning is issued
 \chapter{Dealing with overfitting}
 \label{\detokenize{Regression_Techniques:dealing-with-overfitting}}
 \sphinxAtStartPar
-As we could see, if there are many variables and only few observations, classical linear regression tends to overfit heavily.
-One solution for this problem is to shrink the coefficients \(b_1, b_2, b_3, \ldots\). This can be achieved by making the error bigger with bigger coefficients. The algorithm strives to reduce the error and hence has to shrink the coefficients to lower values.
+Wie wir gesehen haben tendiert klassische Lineare Regression zu ‘overfitting’ sobald es wenige Datenpunkte gibt und mehrere Koeffizienten berechnet werden. 
+Eine Lösung für dieses Problem ist, die Koeffizienten \(b_1, b_2, b_3, \ldots\) kleiner zu machen. Dies kann erreicht werden, wenn der Fehler der Regression mit grösseren Koeffizienten auch grösser wird. Um nun das Minimum der Fehlerfunktion zu finden ist ein probates Mittel, die Koeffizienten kleiner zu machen und somit implizit ‘overfitting’ zu verhindern.
+Parameter können jetzt nur noch sehr gross werden, wenn dadurch gleichzeitig der Fehler stark reduziert werden kann.
+
+\sphinxAtStartPar
+Nachfolgend wird ein Strafterm (‘penalty’) für grosse Parameter eingeführt. Im Falle der Ridge\sphinxhyphen{}Regression gehen die Koeffizienten quadriert in die Fehlerfunktion mit ein. Der Gewichtungsfaktor \(\lambda\) bestimmt die Höhe des Strafterms und ist ein zusätzlicher Parameter für den – je nach Datensatz – ein optimaler Wert gefunden werden muss.
 
 
 \section{Ridge regression}
 \label{\detokenize{Regression_Techniques:ridge-regression}}
 \sphinxAtStartPar
 Remember this formula:
-\$\(\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\)\$
-
+\begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\end{equation*}
 \sphinxAtStartPar
 To make the error term bigger, we could simply add \(\lambda\cdot b^2\) to the error:
-\begin{equation*}
-\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda b^2\end{split}
-\end{equation*}
+\begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda b^2\end{equation*}
 \sphinxAtStartPar
 The parameter \(\lambda\) is for scaling the amount of shrinkage.
+Die beiden Ausdrücke
+\label{equation:Regression_Techniques:9e0ee006-233d-4001-a276-fead6aca26e3}\begin{equation}\sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\label{eq:fehler}\end{equation}\label{equation:Regression_Techniques:e9db3919-f45d-4421-9301-62a089f9975c}\begin{equation}\lambda b^2\label{eq:ridge_error}\end{equation}
+\sphinxAtStartPar
+sind wie Antagonisten. Der Koeffizient \(b\) darf nur gross werden, wenn er es vermag \(\eqref{eq:fehler}\) stark zu verkleinern, so dass der Zugewinn in \(\eqref{eq:fehler}\) den Strafterm in \(\eqref{eq:ridge_error}\) überwiegt.
 
 \sphinxAtStartPar
 For two variables we can write:
-\begin{equation*}
-\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b_1^2 + \lambda b_2^2= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda b_1^2 + \lambda b_2^2\end{split}
-\end{equation*}
+\begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b_1^2 + \lambda b_2^2= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda b_1^2 + \lambda b_2^2\end{equation*}
 \sphinxAtStartPar
 And in matrix notation for an arbitrary number of variables:
 \begin{align*}
     \text{min}=&(\mathbf{y}-\hat{\mathbf{y}})^2 + \lambda \mathbf{b}^2=(\mathbf{y}-\mathbf{X}\mathbf{b})'(\mathbf{y}-\mathbf{X}\mathbf{b}) + \lambda \mathbf{b}'\mathbf{b}
-  \end{align*}
+\end{align*}
 \sphinxAtStartPar
-Interestingly, this error term has a closed form solution, i.e. there is a analytical solution and we do not have to resort to iterative algorithms. However, remember that we included the intercept parameter \(a\) in \(\mathbf{b}\) and added an extra column with ones to the matrix \(\mathbf{X}\). By computing \(\lambda \mathbf{b}'\mathbf{b}\) we would also shrink the intercept parameter \sphinxhyphen{} what is not meaningfull since its effect is to account for the means of the variables: \(a=\bar{y} - b\bar{x}\)
-In order to remove this term, we have to center the variables. When \(\bar{y}=0\) and \(\bar{x}=0\) then \(a\) vanishes.
-The solution for \(\mathbf{b}\) is then given as:
-\$\(\hat{\mathbf{b}} = (\mathbf{X}'\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}'\mathbf{y}\)\$
+Interessanterweise gibt es für diesen Fall ebenfalls eine exakte analytische Lösung. 
+Allerdings haben wir den intercept Koeffizienten \(a\) mit in \(\mathbf{b}\) aufgenommen und die zusätzliche Spalte mit lauter Einsern in \(\mathbf{X}\) hinzugefügt. Wenn wir nun \(\lambda \mathbf{b}'\mathbf{b}\) berechnen, den quadrierten Strafterm für den Parametervektor, dann würden wir auch \(a\) bestrafen. Die Rolle von \(a\) ist aber, die Höhenlage der Regressionsfunktion zu definieren (die Stelle an der die Funktion die y\sphinxhyphen{}Achse schneidet).
+Der intercept \(a\) kann allerdings aus der Gleichung genommen werden, wenn die Variablen vorher standardisiert werden (Mittelwert \(\bar{x} = 0\) und \(\bar{y} = 0\)). Jetzt verschwindet \(a\) von ganz allein, wenn wir die standardisierten Mittelwerte in die Gleichung für \(a\) einfügen:
+\begin{equation*}
+a=\bar{y} - b\bar{x} = 0 - b\cdot 0 = 0
+\end{equation*}
+
 
 \sphinxAtStartPar
-Following Hastie et al., originally, this was introduced to cope the rank deficency problems. When the algorithm was first proposed, it was not possible to invert a square matrix not of full rank. Hence, adding a small positive amount to its diagonal solved this problem. This can be demonstrated with our numerical example:
+Nun muss \(a\) nicht mehr berücksichtigt werden und die Lösung für \(\mathbf{b}\) ergibt sich zu:
+\begin{equation*}\hat{\mathbf{b}} = (\mathbf{X}'\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}'\mathbf{y}\end{equation*}
+\sphinxAtStartPar
+Nach Hastie et al., wurde dieses Verfahren ursprünglich verwendet um ‘rank deficiency’ Probleme zu beheben. Wenn Die Spalten oder Zeilen einer Matrix nicht lineare unabhängig sind, so hat die Matrix nicht vollen Rang. Beispielsweise kann sich eine Spalte durch Addition anderer Spalten ergeben. In diesem Fall funktionierte die Matrix Inversion nicht zufriedenstellend. Als Lösung hat man gefunden, dass es ausreichend ist, einen kleinen positiven Betrag zu den Diagonal\sphinxhyphen{}Elementen der Matrix zu addieren.
+Dies wird nachfolgend in einem numerischen Beispiel gezeigt:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{np.c\_}} fügt die einzelenne Variablen zu einer Matrix zusammen
+
+\item {} 
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{np.dot(X.T, X)}} ist das bekannte Kreuzprodukt der transponierten Matrix \(\mathbf{X'}\) und \(\mathbf{X}\)
+
+\item {} 
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{np.linalg.matrix\_rank}} gibt uns den Rang der Matrix
+
+\item {} 
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{np.eye(7) * 2}} erstellt eine Diagonal\sphinxhyphen{}Matrix mit 2 in der Diagonalen und 0 überall sonst
+
+\end{itemize}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{X\PYGZus{}6} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{]}
@@ -624,7 +678,7 @@ array([            506,           39974,         3749966,       382090214,
 \subsection{example of ridge regression}
 \label{\detokenize{Regression_Techniques:example-of-ridge-regression}}
 \sphinxAtStartPar
-Next, we will apply ridge regression as implemented in the python sklearn library and compare the results to the analytical solution. Note, that we have to center the variables.
+Next, we will apply ridge regression as implemented in the python \sphinxcode{\sphinxupquote{sklearn}} library and compare the results to the linear algebra solution. Note, that we have to center the variables.
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
@@ -636,12 +690,16 @@ or we can center \(\mathbf{X}\) and add the mean of \(\mathbf{y}\) to the predic
 
 \end{itemize}
 
+\sphinxAtStartPar
+Die Zeile \sphinxcode{\sphinxupquote{Xc = X \sphinxhyphen{} np.mean(X, axis=0)}} standardisiert die Variablen auf den Mittelwert von 0
+
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{Ridge}
 \PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}y.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{load}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/home/martin/python/fhnw\PYGZus{}lecture/scripts/regression\PYGZus{}X.pickle.npy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 
 \PYG{n}{X} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{X}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{X}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{7}\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} here is the necessary standardization:}
 \PYG{n}{Xc} \PYG{o}{=} \PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
 
 \PYG{c+c1}{\PYGZsh{} for plotting purpose}
@@ -679,21 +737,21 @@ the parameters as obtained from the analytical solution:
 \section{Lasso}
 \label{\detokenize{Regression_Techniques:lasso}}
 \sphinxAtStartPar
-To make the error term bigger, alternatively, we could add the absolute value \(\lambda\cdot |b|\) to the error:
+Alternativ zu einem quadratischen Strafterm \(b^2\) könnte man auch den absoluten Wert nehmen \(|b|\). In diesem Fall erhält man die sog.\textasciitilde{}Lasso Regression; \(\lambda\cdot |b|\) wird zum Vorhersage\sphinxhyphen{}Fehler addiert:
 \begin{equation*}
-\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda |b|\end{split}
+\begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda |b|= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda |b|\end{split}
 \end{equation*}
 \sphinxAtStartPar
-For two variables we can write:
+Für zwei Variablen würde man folglich schreiben:
 \begin{equation*}
 \begin{split}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda |b_1| + \lambda |b_2|= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda |b_1| + \lambda |b_2|\end{split}
 \end{equation*}
 \sphinxAtStartPar
-Unfortunately, and contrarily to ridge regression, there exists no closed form expression for computing the coefficients for the lasso.
+Leider gibt es im Gegesatz zur Ridge Regression keine eindeutige analytische Lösung um die Koeffizienten der Lasso Regression zu erhalten. Hier kommen iterative Verfahren zum Einsatz, wie wir sie in Session 2 kennen lernen werden.
 
 
-\subsection{lasso regression}
-\label{\detokenize{Regression_Techniques:lasso-regression}}
+\subsection{Vergleich der Koeffizienten der Lasso Regression mit denen der Ridge Regression}
+\label{\detokenize{Regression_Techniques:vergleich-der-koeffizienten-der-lasso-regression-mit-denen-der-ridge-regression}}
 \sphinxAtStartPar
 Next, we will apply lasso regression as implemented in the python sklearn library and compare the results to the unconstraint regression results.
 As before, we have to center the variables (\sphinxhyphen{}> see discussion above)
@@ -734,89 +792,123 @@ the parameters of the lasso regression:
  \PYGZhy{}5.77539403e\PYGZhy{}04 \PYGZhy{}2.73002774e\PYGZhy{}05  1.76588437e\PYGZhy{}06]
 \end{sphinxVerbatim}
 
+\sphinxAtStartPar
+Ridge Regression tendiert dazu alle Koeffizienten im gleichen Mass zu verkleinern. Lasso führt oft zu Lösungen, bei denen einige Koeffizienten ganz zu \(0\) konvergiert sind. Wenn man die Ergebnisse im obigen Beispiel betrachtet, fällt einem auf dass für Lasso eigentlich nur zwei Koeffizienten verschieden von \(0\) sind (for \(X^2\) and \(X^3\)).
+Die Werte alle anderen Koeffizienten sind kleiner als \(0.000747 = 7.47\text{e}-04\).
+
 \noindent\sphinxincludegraphics{{Regression_Techniques_43_0}.png}
 
 
 \section{the difference between ridge and lasso}
 \label{\detokenize{Regression_Techniques:the-difference-between-ridge-and-lasso}}
 \sphinxAtStartPar
-Ridge regression tends to shrink all parameters in an equal manner. Lasso often leads to solutions with some parameters converged to zero. Hence lasso can also be a variable selection algorithm. Compare the results for our little toy example. Essentially, lasso has only two parameters (for \(X^2\) and \(X^3\)) that are different from zero. All other parameters’ absolute values are smaller than \(0.0007\).
-To see why lasso shrinks parameters to zero, we will:
+In der folgenden graphischen Darstellung haben die \sphinxstylestrong{wahren Koeffizienten} die Werte \(b_1=1.5,\quad b_2=0.5\). Für ein grid aus beliebigen Werten für \(b_1\) und \(b_2\) wird der \sphinxstylestrong{mean squared error} (MSE) berechnet und der Fehler als Kontur graphisch dargestellt. Wie man sieht, wird der Fehler umso geringer, je näher die Koeffizienten im grid an den wahren Koeffizienten liegen.
+Als nächstes werden alle Koeffizienten\sphinxhyphen{}Kombinationen aus \(b_1\) und \(b_2\) eingetragen, deren Strafterm (\(b_1^2 + b_2^2\)
+im Falle von Ridge und \(b_1 + b_2\) im Falle von Lasso) den Wert von \(1.0\) nicht übersteigt. Die Lösung, die den \sphinxstylestrong{wahren Koeffizienten} am nähesten ist, wird jeweils durch einen Punkt eingezeichnet.
+
+\sphinxAtStartPar
+Hierbei sieht man, dass sich die besten Lösungen von
+Ridge auf einem Halbkreis bewegen, die von Lasso auf einem Dreieck. An der Stelle, an der die Lasso\sphinxhyphen{}Lösung der eigentlichen Lösung (b=1.5, b2=0.5) am Nähesten ist, ist ein Parameter (\(b_2\)) fast \(0\). Das zeigt die Tendenz von Lasso, einige Parameter gegen \(0\) zu schrumpfen. Dieses Verhalten kann man sich zum Beispiel bei Variablen\sphinxhyphen{}Selektion zu Nutzen machen.
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_45_0}.png}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+optimal coefficients of the ridge solution: 0.9393939393939394 and 0.34283965148438655
+optimal coefficients of the lasso solution: 1.0 and 0.0
+\end{sphinxVerbatim}
+
+
+\chapter{ElasticNet}
+\label{\detokenize{Regression_Techniques:elasticnet}}
+\sphinxAtStartPar
+Aus der Physik kommend werden die Strafterme von Ridge und Lasso als \(\text{L}_2\) und \(\text{L}_1\) bezeichnet. Eigentlich ist die \(\text{L}_2\)\sphinxhyphen{}Norm die Quadratwurzel der Summe der quadrierten Elemente eines Vectors und die \(\text{L}_1\)\sphinxhyphen{}Norm nur die Summe der Vektorelemente.
+ElasticNet ist ein lineares Regressions\sphinxhyphen{}Verfahren, in welches sowohl die regularization\sphinxhyphen{}terms von Lasso (\(\text{L}_1\)), als auch von Ridge (\(\text{L}_2\)) eingehen. Hier gibt es nicht nur einen \(\lambda\)\sphinxhyphen{}Paramter, der das Ausmass von regularization bestimmt, sondern einen zusätzlichen Parameter \(\alpha\), der das Verhältnis von \(\text{L}_1\) und \(\text{L}_2\) regularization angibt.
+
+\sphinxAtStartPar
+Weil Ridge Regression und Lasso die Koeffizienten sehr unterschiedlich regulieren, ist als Kompromiss die Kombination aus beiden Methoden sehr beliebt geworden.
+\begin{equation*}
+\lambda\sum_j (\alpha b_j^2 + (1-\alpha)|b_j|)
+\end{equation*}
+\sphinxAtStartPar
+Die Interpretation der beiden paramter \(\lambda\) und \(\alpha\) ist wie folgt:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-generate a random dataset \(y = 1.5 \cdot x_1 + 0.5 \cdot x_2\)
+\(\lambda\) bestimmt das generelle Mass an regularisation
 
 \item {} 
 \sphinxAtStartPar
-compute mean squared error (MSE) for a grid of different values for \(b_1\) and \(b_2\)
+\(\alpha\) gibt das Verhältnis an, mit dem diese beiden Strafterme indie regularisation einfliessen sollen
 
-\item {} 
-\sphinxAtStartPar
-plot error contour
-
-\item {} 
-\sphinxAtStartPar
-show the geometric shape of the penalties: \(\lambda \sum_j b_j^2\) and \(\lambda \sum_j |b_j|\)
-
-\item {} 
-\sphinxAtStartPar
-indicate the optimal point for the combination of penalty and MSE\sphinxhyphen{}error
 
 \end{itemize}
 
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-the model parameters from data generation could be recovered: [1.5 0.5]
-\end{sphinxVerbatim}
-
-\noindent\sphinxincludegraphics{{Regression_Techniques_45_1}.png}
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-optimal coefficients of the ridge solution: 0.8787878787878789 and 0.47721259842495806
-optimal coefficients of the lasso solution: 0.8989898989898991 and 0.10101010101010088
-\end{sphinxVerbatim}
-
 \sphinxAtStartPar
-In the figure above the optimal solution (without regularization) is at (1.5, 0.5) and is indicated by \(\hat{b}\). This solution is associated with 0 mean squared error (MSE).
-The contour lines indicate the mse\sphinxhyphen{}error corresponding to the respective choice of the parameter values.
-The yellow ball like line and the red triangular line indicate parameter values corresponding to a penalty budget of 1 for the ridge and the lasso respectively. The best solution is given by the point on the line associated with the least mse\sphinxhyphen{}error. These points are also indicated.
-As can be seen, the ridge regression shrinks both parameters whereas the lasso drives the \(b_2\) estimate towards zero and the \(b_1\) estimate towards one.
-
-
-\chapter{Elastic net}
-\label{\detokenize{Regression_Techniques:elastic-net}}
-\sphinxAtStartPar
-The ridge regression and the lasso tend to shrink parameters quiet differently. A compromise that gaines huge popularity is a combination of the two:
-\$\( \lambda\sum_j (\alpha b_j^2 + (1-\alpha)|b_j|)\)\(
-Besides \)\textbackslash{}lambda\( which gears the amount of regularization, a new parameter, \)\textbackslash{}alpha\( weights the contribution of the \)l\_2\( penalty originating from ridge regession and the \)l\_1\$ penalty due to lasso regression.
-We will use elastic net in our data example.
+Im Übungs\sphinxhyphen{}Notebook zu den Boston house\sphinxhyphen{}prices werden wir ElasticNet verwenden.
 
 
 \chapter{Interaction}
 \label{\detokenize{Regression_Techniques:interaction}}
 \sphinxAtStartPar
-If the effect of one variable on the outcome depends on the value of another variable. As an example we could try to model the probability that someone is going to buy a house. A very important variable for buying a house will be the monthly income. Another one could be the marital status (single, maried, maried with kids). Maried persons with kids will be very inclined to buy a house if the income situation is favorable. Singles, even with high income will not be considering buying a house. So, the effect of income is different for the levels of marital status:
-
-\noindent\sphinxincludegraphics{{Regression_Techniques_49_0}.png}
+Interaktionen sind ein weiteres wichtiges Konzept in der linearen Regression. Hier ist der Effekt einer Variablen auf die abhängige Variable \(y\) abhängig von dem Wert einer anderen Variable.
 
 \sphinxAtStartPar
-This introducing example comprised categorical variables. Interaction effects may also exist for continuous variables. In this case it is just harder to visualize. Again, we will construct our own data example and build a strong interaction into it. To properly visualize the data, we have to put one variable into bins. However, the scatter plot allows for an intuitive understanding of the interaction of two continuous variables.
+In unterem Beispiel versuchen wir die Wahrscheinlichkeit zu modellieren, dass eine Person ein Haus kauft. Natürlich ist das monatliche Einkommen eine wichtige Variable und desto höher dieses, desto wahrscheinlicher auch, dass besagte Person ein Haus kauft. Eine andere wichtige Variable ist der Zivilstand. Verheiratet Personen mit Kindern im Haushalt tendieren stark zu Hauskauf, besonders wenn das monatliche Einkommen hoch ist. Auf der anderen Seite werden Singles, auch wenn sie ein hohes Einkommen haben, eher nicht zum Hauskauf tendieren.
+Wir sehen also, die Variable “monatliches Einkommen” \sphinxstylestrong{interagiert} mit der Variable “Zivilstand”:
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_48_0}.png}
+
+\sphinxAtStartPar
+Das obige Beispiel beinhaltete kategorielle Variablen. Beispiele wie diese trifft man oft im Bereich der Varianzanalysen (ANOVA) an.
+Interaktions\sphinxhyphen{}Effekte bestehen aber auch für kontinuierliche Variablen. In diesem Fall ist es aber etwas komplizierter die Effekte zu visualisieren.
+Wir werden jetzt unseren eigenen Datensatz so erzeugen, dass er einen deutlichen Interaktions\sphinxhyphen{}Effekt aufweist. Damit der Effekt zwischen 2 kontinuierlichen Variablen überhaut in 2D dargestellt werden kann, musss eine der beiden Variablen wieder diskretisiert werden, d.h. wir müssen für sie wieder Kategorien bilden.
+Im nächsten Rechenbeispiel versuchen wir dann, die Parameter, die zur Generierung der Daten gedient haben mit einer Linearen\sphinxhyphen{}Regressions\sphinxhyphen{}Analyse wieder zu finden.
+Die Daten wurden nach folgendem Modell generiert:
+\begin{equation*}
+y = 2\cdot x + -2\cdot m + -7\cdot (x\cdot m) + \text{np.random.normal(loc = 0, scale = 4, size = n)}
+\end{equation*}
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{np.random.normal(loc=0, scale=4, size=n)}} ist der Random\sphinxhyphen{}Error\sphinxhyphen{}Term, den wir hinzufügen, damit die Daten nicht alle auf einer Lienie liegen. \sphinxcode{\sphinxupquote{loc=0}} besagt, dass der Mittelwert unseres zufälligen Fehlers \(0\) ist, \sphinxcode{\sphinxupquote{scale=4}}, dass die Varianz der Werte \(4\) ist und \sphinxcode{\sphinxupquote{size=n}} gibt die Anzahl der zu generierenden zufälligen Werte an
+
+\sphinxAtStartPar
+Folgliche haben wir also die Koeffizienten:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\(b_x = 2\)
+
+\item {} 
+\sphinxAtStartPar
+\(b_m = -2\)
+
+\item {} 
+\sphinxAtStartPar
+\(b_{x\cdot m} = -7\)
+
+\end{itemize}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{g+gt}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
-\PYG{n+ne}{ModuleNotFoundError}\PYG{g+gWhitespace}{                       }Traceback (most recent call last)
-\PYG{o}{\PYGZlt{}}\PYG{n}{ipython}\PYG{o}{\PYGZhy{}}\PYG{n+nb}{input}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{25}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{32891}\PYG{n}{ff7e5e0}\PYG{o}{\PYGZgt{}} \PYG{o+ow}{in} \PYG{o}{\PYGZlt{}}\PYG{n}{module}\PYG{o}{\PYGZgt{}}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1} \PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{2} \PYG{n}{n} \PYG{o}{=} \PYG{l+m+mi}{500}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{3} \PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{n}{size}\PYG{o}{=}\PYG{n}{n}\PYG{p}{)}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{4} \PYG{n}{m} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{loc} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{scale} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{)}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{5} 
+\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+\PYG{n}{n} \PYG{o}{=} \PYG{l+m+mi}{500}
+\PYG{n}{x} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{n}{size}\PYG{o}{=}\PYG{n}{n}\PYG{p}{)}
+\PYG{n}{m} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{loc} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{scale} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{)}
 
-\PYG{n+ne}{ModuleNotFoundError}: No module named \PYGZsq{}seaborn\PYGZsq{}
+\PYG{c+c1}{\PYGZsh{}  lin effects + interaction + random error}
+\PYG{n}{y} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{x} \PYG{o}{+} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{m} \PYG{o}{+} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{7}\PYG{o}{*}\PYG{p}{(}\PYG{n}{x}\PYG{o}{*}\PYG{n}{m}\PYG{p}{)} \PYG{o}{+} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{loc} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{scale} \PYG{o}{=} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{)}
+
+\PYG{n}{newM} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{cut}\PYG{p}{(}\PYG{n}{m}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{labels} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{small}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{average}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{large}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
+
+
+\PYG{n}{toy} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{x}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{:} \PYG{n}{x}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{y}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{:} \PYG{n}{y}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{moderator}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{:} \PYG{n}{newM}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
+\PYG{n}{sns}\PYG{o}{.}\PYG{n}{lmplot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{x}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{y}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{hue}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{moderator}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{toy}\PYG{p}{)}\PYG{p}{;}
 \end{sphinxVerbatim}
 
+\noindent\sphinxincludegraphics{{Regression_Techniques_50_0}.png}
+
 \sphinxAtStartPar
-As can be seen, the interaction effect is build into the example data, by simply multiplying two variables. Lets see, if we can recover the coefficients. We will also see that the model fit is better when the interaction term is included:
+Interaktions\sphinxhyphen{}Terme können gebildet werden, indem man zwei Variablen elemente\sphinxhyphen{}weise miteinander multipliziert.
+Durch die Hinzuname weiterer Terme sollte die Modell\sphinxhyphen{}Anpassung eigentlich besser werden \sphinxhyphen{} besonders wenn ein starker Interaktionsterm in den Daten vorliegt, so wie wir ihn eingebaut haben.
+Vergleichen wir die Koeffizienten, so wie sie im Linearen\sphinxhyphen{}Modell gefunden werden mit denen, die zur Erzeugung unseres Datensatzes gedient haben. Gar nicht schlecht, oder? Die zufälligen Fehler mit der grossen Varianz sorgen natürlich dafür, dass sie dennoch von den ‘generating parameters’ verschieden sind.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LinearRegression}
@@ -834,84 +926,105 @@ As can be seen, the interaction effect is build into the example data, by simply
      \PYG{o}{+} \PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{we used for generating the data}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+without considering the interaction, the mse is: 21.027778912546122
+considering the interaction, the mse drops to: 15.46963918621246
+
+the coefficients are given by [ 2.30055754 \PYGZhy{}1.20686064 \PYGZhy{}7.89087321]; compare these values
+ to the values we used for generating the data
+\end{sphinxVerbatim}
+
 
 \section{some considerations}
 \label{\detokenize{Regression_Techniques:some-considerations}}
 \sphinxAtStartPar
-Let’s assume, we have a data set with 70 different variables. Since we do not know anything about the relationsship of the variables to the dependent variable (y), nor of the variables among each other, we are inclined to construct a lot of new variables:
+Die Überlegung hier veranschaulicht, dass es schon bei moderater Variablen\sphinxhyphen{}Anzahl sehr viele mögliche Interaktions\sphinxhyphen{}Terme gibt. Für die normale Lineare Regression würde die grosse Anzahl dieser Terme zum Verhängnis werden, weil dann wieder der Fall eintreten könnte indem wir die Daten overfitten oder gar mehr Variablen als Beobachtunge zur Verfügung stehen. Auch in diesem Fall kann auf die vorgestellten\textasciicircum{} Regularisierungs\sphinxhyphen{}Verfahren (ElasticNet, Ridge und Lasso) zurückgegriffen werden:
+
+\sphinxAtStartPar
+Nehmen wir an, wir haben ein data\sphinxhyphen{}set mit 70 verschiedenen Variablen. Weil wir nichts über die Beziehungen der Variablen zur abhängigen Variable \(y\) noch über die Beziehungen der Variablen untereinander wissen, sind wir geneigt eine Menge zusätzlicher ‘features’ für unser Modell zu erzeugen:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-we can add all 70 quadratic terms (\(x_j^2\))
+wir können 70 quadratische Terme hinzufügen (\(x_j^2\))
 
 \item {} 
 \sphinxAtStartPar
-we can add all 70 cubic terms (\(x_j^3\))
+wir können 70 kubische Terme aufnehmen (\(x_j^3\))
 
 \item {} 
 \sphinxAtStartPar
-we could add all \(\binom{70}{2} = 2415\) first\sphinxhyphen{}order interactions among the 70 variables
+wir können auch \(\binom{70}{2} = 2415\) Interaktionen erster Ordnung zwischen den 70 Variablen annehmen
 
 \item {} 
 \sphinxAtStartPar
-instead, we could add all first\sphinxhyphen{}order interactions among the 210 variables including the quadratic and the cubic terms: \(\binom{210}{2} = 21945\)
+anstatt dessen könnte wir auch die Interaktions\sphinxhyphen{}Terme der 210 (70 Variablen + 70 quadratische Terme + 70 kubische Terme) Variablen mit aufnhemne: \(\binom{210}{2} = 21945\)
 
 \item {} 
 \sphinxAtStartPar
-besides quadratic and cubic transformations, there my be other transformations leading to better results, like the log\sphinxhyphen{}transform.
+neben quadratisch und kubischen Termen gibt es auch viele andere linearisierende Transformation, die unter Umständen zu besseren ergebnissen führen wie beispielsweise die log\sphinxhyphen{}Transformation. Im praktischen Beipiel des Bosten house\sphinxhyphen{}prices data\sphinxhyphen{}Sets werden wir die \sphinxcode{\sphinxupquote{box\sphinxhyphen{}cox\sphinxhyphen{}Transformation}} kennen lernen.
 
 \end{itemize}
 
 \sphinxAtStartPar
-As you can see, the number of possible variables can grow very fast, when considering all possible effects that might be present in the data. Sometimes, there exists second\sphinxhyphen{}order interaction effects, that were not mentioned in the considerations above.
-All these variables would likely lead to severe overfitting if we would naively include them in our linear regression model. \sphinxstylestrong{That’s why we introduced regularization techniques like the elastic net and its components, the ridge and the lasso}.
+Wie wir gesehen haben, kann die Anzahl möglicher Variablen sehr schnell wachsen, wenn man alle Effekte berücksichtigt, die ausschlaggebend sein könnten. Manchmal existieren sogar Interaktionseffekte zweiter Ordnund, d.h. drei Variablen sind dann daran beteiligt. 
+Würden wir alle möglichen Variablen berücksichtigen, die sich derart bilden lassen, dann würde dies auch bei grossen Daten\sphinxhyphen{}Sets zu ausgeprägten ‘overfitting’ führen. \sphinxstylestrong{Aus diesem Grund wurden die regularization techniques wie das  ElasticNet und seine Komponenten, die Ridge Regression und die Lasso Regression eingeführt}.
 
 
-\chapter{How confident are we about our predictions}
-\label{\detokenize{Regression_Techniques:how-confident-are-we-about-our-predictions}}
+\chapter{Wie zuversichtlich sind wir hinsichtlich unserer Modell\sphinxhyphen{}Vorhersagen}
+\label{\detokenize{Regression_Techniques:wie-zuversichtlich-sind-wir-hinsichtlich-unserer-modell-vorhersagen}}
 \sphinxAtStartPar
-Essentially, there are two questions that one could ask after fitting a linear model:
+Selten werden wir mit unserem Modell genau die Koeffizienten schätzen können, die in der gesamten Population (alle Daten, die wir erheben könnten) anzutreffen sind. Viel öfter ist unsere Stichprobe nicht repräsentativ für die gesamte Population oder sie ist schlicht zu klein und zufällige, normalverteilte Fehler in unseren Daten beeinflussen die Schätzung der Koeffizienten. Dies umsomehr, desto mehr Variablen wir in user Modell aufnehmen.
+Wie können wir nun die Güte unserer Schätzung beurteilen? Hier sind mindestens zwei verschieden Fragen denkbar:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
-How confident are we about the estimated parameters \(\mathbf{b}\)? This is most often asked by statisticians because for them, the interpretation of the coefficients is of paramount interest.
+Wie sicher sind wir mit Hinblick auf die geschätzen Koeffizienten \(\mathbf{b}\)?. Diese Frage ist besonders für Wissenschaftler wichtig, da die Antwort dafür ausschlaggebend ist, ob eine Hypothese beibehalten oder verworfen werden muss.
 
 \item {} 
 \sphinxAtStartPar
-How confident are we about the predictions? This is asked in machine learning because we want to apply the model to unseen data and use the predictions in our business process.
-Here, we have to deal with two different questions:
-\begin{itemize}
-\item {} 
-\sphinxAtStartPar
-How much will the mean response, our prediction \sphinxhyphen{} the regression line \sphinxhyphen{} vary?
-
-\item {} 
-\sphinxAtStartPar
-How much variation is in the observations \(y\) given the level of \(X\)?
+Wie sicher sind wir uns bezüglich einzelner Vorhersagen. Dies spielt die grösste Rolle im Machine Learning Umfeld, da wir das trainierte Modell gerne in unsere Business\sphinxhyphen{}Abläufe integrieren würden.
 
 \end{itemize}
+
+\sphinxAtStartPar
+Diese beiden Fragestellungen lassen sich mit Hinblick auf die Regression auch wie folgt formulieren:
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+Wie sehr ist die ‘mean response’, unsere Regressions\sphinxhyphen{}Funktion von der Stichprobe abhängig. Variiert Erstere sehr stark und umfasst unter Umständen sogar den Wert \(0\), dann können diese Effekte (Koeffizienten) nicht interpretiert werden.
+
+\item {} 
+\sphinxAtStartPar
+Wie sehr können Beobachtungen \(y\) für eine gegebene Kombination von Variablen\sphinxhyphen{}Werten in \(\mathbf{X}\) variieren? Ist diese Variation sehr gross, so werden wir auch grosse Fehler in unseren Business\sphinxhyphen{}Process einbauen
 
 \end{itemize}
 
 
 \section{Recap of assumptions underlying regression}
-\label{\detokenize{Regression_Techniques:recap-of-assumptions-underlying-regression}}\begin{itemize}
+\label{\detokenize{Regression_Techniques:recap-of-assumptions-underlying-regression}}
+\sphinxAtStartPar
+Dies sind Linearität (der Zusammenhang einer Variablen und der abhängigen Variablen ist linear, d.h. der selbe Steigungsparamter gilt für alle Bereiche der Variablen), Homoskedastizität (die Fehler der Regression – die Residuen – sind in allen Bereichen von X normal verteilt mit gleicher Varianz) und Normalität der Residuen bei gegebenem Wert von X.
+Diese Voraussetzungen sind in vielen Fällen nicht erfüllt und auch bekannterweise verletzt.
+\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{Linearity}: The regression line is a good fit for the relation between \(\mathbf{X}\) and \(\mathbf{y}\), i.e., if there is a quadratic trend in the data and we fit a model without quadratic term, the assumptions are not met (–> \sphinxstylestrong{bias}).
+\sphinxstylestrong{Linearity}: Die Regression\sphinxhyphen{}Funktion ist eine gute Annäherung für die Beziehung zwischen \(\mathbf{X}\) and \(\mathbf{y}\), d.h. ist ein quadratischer Trend in den Daten und wir haben keine quadratischen Effekte in das Modell aufgenommen, so sind die Annahmen nicht erfüllt. Die Linearität besagt nämlich, dass für den Zusammenhang einer Variablen \(x\) und der abhängigen Variablen \(y\) der selbe Steigungs\sphinxhyphen{}Koeffizient \(b_x\) für all Bereich für \(x\) gelten muss. Ansonsten hat das Modell einen \sphinxstylestrong{bias}, es schätzt einen Koeffizienten systematisch falsch.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{Homoscedasticity}: The variance of the residuals is identical for all values of \(\mathbf{X}\).
+\sphinxstylestrong{Homoscedasticity}: Die Varianz unseres Vorhersagefehlers (Residuen) ist für alle Bereiche einer Variablen \(x\) identisch.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{Normality}: The  values of \(\mathbf{y}\) given a certain \(\mathbf{x}\), i.e. of \(\mathbf{y}|\mathbf{x}\) are normaly distributed.
+\sphinxstylestrong{Normality}: Die Werte der abhängigen Variablen \(\mathbf{y}\) sind für einen gegeben Wert von \(\mathbf{x}\) normal verteilt: \(\mathbf{y}|\mathbf{x} \sim N(\mu, \sigma)\)
 
 \end{itemize}
 
 \sphinxAtStartPar
+In der nächsten Graphik werden die Voraussetzungen der linearen Regression veranschaulicht:
 Image taken from \sphinxhref{https://janhove.github.io/analysis/2019/04/11/assumptions-relevance}{here}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_56_0}.png}
 
 \sphinxAtStartPar
 Now, with respect to our confidence need:
@@ -971,6 +1084,40 @@ If someone has a strong interest in these more statistical models, I can recomme
 \PYG{n}{obsCIs\PYGZus{}lin} \PYG{o}{=} \PYG{n}{dt\PYGZus{}lin}\PYG{p}{[}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}lower}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{obs\PYGZus{}ci\PYGZus{}upper}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{]}
 \end{sphinxVerbatim}
 
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R\PYGZhy{}squared:                       0.584
+Model:                            OLS   Adj. R\PYGZhy{}squared:                  0.538
+Method:                 Least Squares   F\PYGZhy{}statistic:                     12.64
+Date:                Wed, 14 Jul 2021   Prob (F\PYGZhy{}statistic):            0.00616
+Time:                        22:43:16   Log\PYGZhy{}Likelihood:                \PYGZhy{}49.385
+No. Observations:                  11   AIC:                             102.8
+Df Residuals:                       9   BIC:                             103.6
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P\PYGZgt{}|t|      [0.025      0.975]
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}
+const         \PYGZhy{}8.4903     15.410     \PYGZhy{}0.551      0.595     \PYGZhy{}43.351      26.370
+x1             8.0791      2.272      3.556      0.006       2.939      13.219
+==============================================================================
+Omnibus:                        4.018   Durbin\PYGZhy{}Watson:                   1.670
+Prob(Omnibus):                  0.134   Jarque\PYGZhy{}Bera (JB):                1.165
+Skew:                           0.156   Prob(JB):                        0.559
+Kurtosis:                       1.437   Cond. No.                         14.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+(\PYGZhy{}10.0, 115.77315979942053)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_63_1}.png}
+
 \sphinxAtStartPar
 The same plot is derived for an equation including a quadratic term:
 
@@ -994,6 +1141,41 @@ The same plot is derived for an equation including a quadratic term:
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{ols\PYGZus{}result\PYGZus{}quad}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
 \end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R\PYGZhy{}squared:                       0.783
+Model:                            OLS   Adj. R\PYGZhy{}squared:                  0.728
+Method:                 Least Squares   F\PYGZhy{}statistic:                     14.39
+Date:                Wed, 14 Jul 2021   Prob (F\PYGZhy{}statistic):            0.00224
+Time:                        22:43:17   Log\PYGZhy{}Likelihood:                \PYGZhy{}45.820
+No. Observations:                  11   AIC:                             97.64
+Df Residuals:                       8   BIC:                             98.83
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P\PYGZgt{}|t|      [0.025      0.975]
+\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}
+const         35.3379     20.074      1.760      0.116     \PYGZhy{}10.952      81.628
+x1           \PYGZhy{}12.1493      7.688     \PYGZhy{}1.580      0.153     \PYGZhy{}29.879       5.580
+x2             1.6857      0.624      2.701      0.027       0.247       3.125
+==============================================================================
+Omnibus:                        9.915   Durbin\PYGZhy{}Watson:                   2.828
+Prob(Omnibus):                  0.007   Jarque\PYGZhy{}Bera (JB):                4.642
+Skew:                           1.313   Prob(JB):                       0.0982
+Kurtosis:                       4.798   Cond. No.                         234.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+(\PYGZhy{}10.0, 115.77315979942053)
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_67_1}.png}
 
 
 \section{Bootstrap}
@@ -1031,6 +1213,12 @@ With real, messy data it is rather seldom to meet all the assumptions underlying
 \PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
 \PYG{n}{y\PYGZus{}hat} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZlt{}matplotlib.legend.Legend at 0x7f305c0a5990\PYGZgt{}
+\end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_70_1}.png}
 
 
 \chapter{Extension: logistic regression and the GLM}
@@ -1136,6 +1324,8 @@ https://pypi.org/project/glmnet\sphinxhyphen{}python/
 \sphinxAtStartPar
 We can also cast linear regression into a neural network context. The network has no hidden layer. The activation function in the output neuron is either the identity function \(y=x\) for classical linear regression or the logistic function for logistic regression.
 
+\noindent\sphinxincludegraphics{{Regression_Techniques_79_0}.png}
+
 
 \section{classical linear regression}
 \label{\detokenize{Regression_Techniques:classical-linear-regression}}
@@ -1148,6 +1338,8 @@ In neurall network context, the vector \)\textbackslash{}mathbf\{\textbackslash{
 
 \sphinxAtStartPar
 Why are the weight\sphinxhyphen{}vectors \(\mathbf{W}\) in upper\sphinxhyphen{}case?In a regression\sphinxhyphen{}context, we usually use lower\sphinxhyphen{}case letters like \(\mathbf{\beta}\) or \(\mathbf{b}\)?
+
+\noindent\sphinxincludegraphics{{Regression_Techniques_82_0}.png}
 
 
 \section{logistic regression}

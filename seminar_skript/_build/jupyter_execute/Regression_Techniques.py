@@ -89,7 +89,7 @@ Image('../images/first_derivative.png')
 
 # Die Parameter einer linearen Regression können analytisch berechnet werden. Dazu wird der quadrierte Fehler $(y_i-\hat{y}_i)^2$ über alle Messwerte aufsummiert. Diese Summe wird nach den Parametern abgeleitet und gleich $0$ gesetzt. Somit erhält man die Stelle an der die quadratische Funktion keine Steigung (erste Ableitung ist Steigung) hat. Weil eine quadratische Funktion als einzige Nullstelle der Steigung ein Minimum hat, erhalten wir somit die Parameter an dem Minimum unserer quadratischen Fehlerfunktion.
 
-# ## derivative of the error term $(y - \hat{y})^2$:
+# ### derivative of the error term $(y - \hat{y})^2$:
 # * für $\hat{y}$ können wir auch schreiben: $a + b\cdot x$, dies ist die Vorhersage mit Hilfe der Regression-Gerade (der Geraden-Gleichung):
 # 
 # $$\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}$$
@@ -125,18 +125,21 @@ cov_xy =(1/X.shape[0]) * np.dot((X - np.mean(X)).T,y - np.mean(y))[0][0]
 var_x = (1/X.shape[0]) * np.dot((X - np.mean(X)).T,X - np.mean(X))[0][0]
 b = cov_xy/var_x
 a = np.mean(y)-b*np.mean(X)
-print(f'\nour empirical b parameter is: {b}')
-print(f'our empircial a parameter is: {a}')
+print(f'\nour self-computed b parameter is: {b}')
+print(f'our self-computed a parameter is: {a}')
 
 
 # ## multivariate case: more than one x variable
+# Für Multivariate Lineare Regression kann die Schreibweise mit Matrizen zusammengefasst werden. Dafür kann es lohnend sein, sich die Matrizen-Multiplikation noch einmal kurz anzusehen. 
+# 
+# 
 # \begin{align*}
 #     y_1&=a+b_1\cdot x_{11}+b_2\cdot x_{21}+\cdots + b_p\cdot x_{p1}\\
 #     y_2&=a+b_1\cdot x_{12}+b_2\cdot x_{22}+\cdots + b_p\cdot x_{p2}\\
 #     \ldots& \ldots\\
 #     y_i&=a+b_1\cdot x_{1i}+b_2\cdot x_{2i}+\cdots + b_p\cdot x_{pi}\\
 # \end{align*}
-
+# 
 # \begin{equation*}
 #     \begin{bmatrix}
 #       y_1\\
@@ -166,8 +169,7 @@ print(f'our empircial a parameter is: {a}')
 #     \end{bmatrix}
 # \end{equation*}
 
-# Next, we can include the constant term $a$ into the vector $b$. This is done by adding an all-ones column to $\mathbf{X}$: 
-#     
+# Den konstanten inercept Term ($a$) können wir mit in den Vektor der Parameter $\mathbf{b}$ aufnehmen, indem wir in $\mathbf{X}$ eine Einser-Spalte hinzufügen. Somit wird die Schreibweise sehr kompakt und der intercept $a$ wird nicht mehr explizit aufgeführt:    
 # \begin{equation*}
 #      \begin{bmatrix}
 #       y_1\\
@@ -196,11 +198,11 @@ print(f'our empircial a parameter is: {a}')
 #     \end{bmatrix}
 #   \end{equation*}
 #   
-# In matrix notation this is written:
-# $$\mathbf{y} = \mathbf{X}\mathbf{b}$$
+# In Matrizen-Schreibweise können wir jetzt einfach schreiben:
+# $\mathbf{y} = \mathbf{X}\mathbf{b}$
 
 # ## derivation of $\mathbf{b}$ for the matrix notation
-# We apply the same steps as for the derivation above:
+# Anschliessend wird die Berechnung der Parameter der Multivariaten Regression in Matrizen-Schreibweise erläutert.  Konzeptionell ist dies nicht vom univariaten Fall verschieden. Diese Formel wird nur hergeleitet um demonstrieren zu können, wie das Ergebnis der expliziten Berechnung in Python mit dem aus der sklearn Klasse `LinearRegression` übereinstimmt. 
 # * we expand the error term:
 # 
 #   \begin{align*}
@@ -223,16 +225,23 @@ print(f'our empircial a parameter is: {a}')
 #     \mathbf{b}=&(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}\quad
 #   \end{align*}
 #   
-# For the last step, we need the inverse of a matrix: $(\mathbf{X}'\mathbf{X})^{-1}$
+# Hierbei bedarf es der Inversion des Kreuzproduktes der Variablen-Matrix $(\mathbf{X}'\mathbf{X})^{-1}$. Die Matrizen-Inversion ist für grosse Anzahl von Variablen mathematisch sehr aufwändig und kann unter Umständen zu Ungenauigkeiten führen. In der Vergangenheit wurde viel an Algorithmen geforscht um die Inversion schneller und stabiler zu machen. Oftmals stehen Fehlermeldungen in Zusammenhang mit diesem Berechnungsschritt.
 
 # ## Polynomial regression as an example for more than one variable
-# In order to easily demonstrate multiple linear regression, we can derive a new variable out of the variable x. For example we could take log(x) or -- as done here -- take the square of it $x^2$ (the quadratic term):<br> $y = a + b_1 x + b_2 x^2$
+# Um einfach Multivariate Lineare Regression an einem Beispiel zeigen zu können wird die quadratische Regression (ein Spezial-Fall der Multivariaten Regression) eingeführt. Eine neue Variable entsteht durch das Quadrieren der bisherigen univiaraten Variable x. Das Praktische ist, dass sich der Sachverhalt der Multivariaten Regression noch immer sehr schön 2-dimensional darstellen lässt.<br> 
+# $y = a + b_1 x + b_2 x^2$
 # 
-# Some important points are:
-# * we now have two variables, i.e. we can apply our formula for matrix notation
-# * more variables will probably lead to a better fit
-# * the resulting regression line is not a straight line. __The term "linear" in linear regression signifies that the equation is linear in its parameters a, $\textbf{b}_\textbf{1}$, $\textbf{b}_\textbf{2}$. It does not mean that the regression line has to be a straight linear line!!__
 # 
+# Hier ist zu beachten:
+# * wir haben jetzt zwei Variablen und können folglich unsere Formel in Matrizen-Schreibweise anwenden
+# * mehr Variablen führen hoffentlich zu einem besseren Modell
+# * durch den quadratischen Term ist die resultierende Regressions-Funktion keine Gerade mehr.<br>
+# __Der Ausdruck "linear" in Linearer Regression bedeutet dass die Funktion linear in den Parametern
+#  $a, \mathbf{b}_\mathbf{1}, \mathbf{b}_\mathbf{2}$ ist. Für alle Werte einer Variablen $\mathbf{x_1}$ gilt der gleiche Parameter $\mathbf{b_1}$.<br>
+# Es bedeutet nicht, dass die Regressions-Funktion durch eine gerade Linie gegeben ist!__
+# 
+# 
+# Nachfolgend fügen wir die weitere Variable durch Quadrieren der bisherigen Variable hinzu und berechnen abermals das Lineare Modell aus `sklearn.linear_model`.
 
 # In[7]:
 
@@ -263,6 +272,16 @@ axes.plot(X[:,0], y, 'ro', x[:,0], y_hat.reshape((-1,)))
 axes.set_ylim([np.min(y)-5, np.max(y) +5])
 
 
+# Jetzt berechnen wir die Parameter der Multiplen Linearen Regression mit Hilfe der hergeleiteten Formeln. Hierfür fügen wir zu den bisherigen Variablen $x$ und $x^2$ noch eine Einser-Spalte für den intercpet ein. `np.dot` berechnet das dot-product zweier Variablen. Um das Kreuzprodukt von $\mathbf{X}$ berechnen zu können, muss eine der beiden Matrizen transponiert werden. Dies geschieht durch `.T`.<br>
+# `inv` invertiert das Kreuzprodukt.<br>
+# 
+# 
+# `coefs = np.dot(np.dot(inv(np.dot(X_intercept.T,X_intercept)),X_intercept.T),y)` ist gleichbedeutend mit:
+# 
+# \begin{equation*}
+# \mathbf{b}=(\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}
+# \end{equation*}
+
 # In[9]:
 
 
@@ -281,7 +300,10 @@ print(f'our coefs already include the intercept: {coefs}')
 
 
 # ### Overfitting
-# We continue with adding variables and exagerate a little bit
+# 
+# Nun wird diese Vorgehensweise für weitere Terme höherer Ordnung angewendet. Graphisch lässt sich zeigen, dass die Anpassung des Modells an die Daten immer besser wird, die Vorhersage für __neue Datenpunkte__ aber sehr schlecht sein dürfte. Das Polynom hat an vielen Stellen Schlenker und absurde Kurven eingebaut. Dies ist ein erstes Beispiel für __“overfitting”__.<br>  
+# Einen ‘perfekten’ fit erhält man, wenn man genausoviele Paramter (10 Steigunskoeffizienten + intercept) hat wie Daten-Messpunkte. 
+# 
 # 
 # The important points to note here:
 # * the fit to our empirical y-values gets better
@@ -349,13 +371,14 @@ axes.set_ylim([np.min(y)-10, np.max(y) +20])
 
 
 # ## What happens if we have more variables than data points?
-# The short answer: a unique solution is not possible because there are infinitifely many possible ways to adjust $p$ parameters to accommodate $n$ observations when $p > n$.
 # 
-# The long answer: inversion of the matrix $\mathbf{X}'\mathbf{X}$ is not possible.
+# Gibt es mehr Parameter als Datenpunkte, existieren unendlich viele Lösungen und das Problem ist nicht mehr eindeutig lösbar. Früher gelang die Inversion des Kreuzproduktes der Variablen $\mathbf{X}'\mathbf{X}$ nicht. Mittlerweile gibt es Näherungsverfahren, die dennoch Ergebnisse liefern - wenn auch sehr Ungenaue.
 # 
-# However, there are decompositions for matrix inversions that allow to invert singular matrices. Numpy is using such a decomposition, called LU-decomposition.
+# Mittlerweile gibt es aber mathematische Näherungsverfahren die es ermöglichen auch singuläre Matrizen zu invertieren.
+# `numpy` verwendet hierfür die sogenannte LU-decomposition.
 # 
-# One way to see in python that the solution is erroneous is to use the scipy.linalg.solve package and solve for the matix S that solves $(\mathbf{X}'\mathbf{X})^{-1} \mathbf{S} = \mathbf{I}$.<br> $\mathbf{I}$ is called the eye-matrix with 1s in the diagonale and zeros otherwise:
+# One way to see in python that the solution is erroneous is to use the `scipy.linalg.solve` package and solve for the matix S that solves $(\mathbf{X}'\mathbf{X})^{-1} \mathbf{S} = \mathbf{I}$.<br> $\mathbf{I}$ is called the eye-matrix wih 1s in the diagonale and zeros otherwise:
+# 
 # $$
 # \mathbf{I}=\left[
 # \begin{array}{ccc}
@@ -366,6 +389,11 @@ axes.set_ylim([np.min(y)-10, np.max(y) +20])
 # \right]
 # $$
 # 
+# Die entscheidende Zeile im nachfolgenden Code ist:<br>
+# `S = solve(inv(np.dot(X.T, X)), np.eye(13))`
+# 
+# Sie besagt: gib mir die Matrix $\mathbf{S}$, die multipliziert mit $(\mathbf{X}'\mathbf{X})^{-1}$ die Matrix $\mathbf{I}$ gibt.<br>
+# Für unseren Fall von mehr Variablen als Beobachtungspunkten werden wir gewarnt, dass das Ergebnis falsch sein könnte. Mit älteren Mathematik- oder Statistik-Programmen ist dies überhaupt nicht möglich.
 
 # In[15]:
 
@@ -387,46 +415,70 @@ model.fit(X, y)
 S = solve(inv(np.dot(X.T, X)), np.eye(13))
 
 
-# # statistical package R
-# The R statistical package is behaving still in another way. No warning is issued but coefficients are only computed for 11 variables (intercept included).
+# #### statistical package R
+# In der statistischen Programmiersprache R wird keine Warnung herausgegeben. Es werden einfach nur soviele Koeffizienten (intercept ist auch ein Koeffizient) berechnet, wie möglich ist. Alle weiteren Koeffizienten sind `NA`.
 
 # In[16]:
 
 
+warnings.filterwarnings("ignore")
 Image("../images/R_inverse_example.png")
 # <img alt="taken from homepage of 20 newsgroups" caption="The different categories of the newsgroup posts" id="20_newsgroups" src="../images/R_inverse_example.png" width="640" height="640">
 
 
 # # Dealing with overfitting
-# As we could see, if there are many variables and only few observations, classical linear regression tends to overfit heavily.<br>
-# One solution for this problem is to shrink the coefficients $b_1, b_2, b_3, \ldots$. This can be achieved by making the error bigger with bigger coefficients. The algorithm strives to reduce the error and hence has to shrink the coefficients to lower values.
+# Wie wir gesehen haben tendiert klassische Lineare Regression zu 'overfitting' sobald es wenige Datenpunkte gibt und mehrere Koeffizienten berechnet werden. <br>
+# Eine Lösung für dieses Problem ist, die Koeffizienten $b_1, b_2, b_3, \ldots$ kleiner zu machen. Dies kann erreicht werden, wenn der Fehler der Regression mit grösseren Koeffizienten auch grösser wird. Um nun das Minimum der Fehlerfunktion zu finden ist ein probates Mittel, die Koeffizienten kleiner zu machen und somit implizit 'overfitting' zu verhindern.<br>
+# Parameter können jetzt nur noch sehr gross werden, wenn dadurch gleichzeitig der Fehler stark reduziert werden kann.
+# 
+# Nachfolgend wird ein Strafterm ('penalty') für grosse Parameter eingeführt. Im Falle der Ridge-Regression gehen die Koeffizienten quadriert in die Fehlerfunktion mit ein. Der Gewichtungsfaktor $\lambda$ bestimmt die Höhe des Strafterms und ist ein zusätzlicher Parameter für den -- je nach Datensatz -- ein optimaler Wert gefunden werden muss.
 
 # ## Ridge regression
 # 
 # Remember this formula:
-# $$\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}$$
+# \begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 = \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\end{equation*}
 # 
 # To make the error term bigger, we could simply add $\lambda\cdot b^2$ to the error:
 # 
-# $$\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda b^2$$
+# \begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda b^2\end{equation*}
 # 
 # The parameter $\lambda$ is for scaling the amount of shrinkage.
+# Die beiden Ausdrücke 
+# \begin{equation}\sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}\label{eq:fehler}\end{equation} und 
+# \begin{equation}\lambda b^2\label{eq:ridge_error}\end{equation} 
+# sind wie Antagonisten. Der Koeffizient $b$ darf nur gross werden, wenn er es vermag $\eqref{eq:fehler}$ stark zu verkleinern, so dass der Zugewinn in $\eqref{eq:fehler}$ den Strafterm in $\eqref{eq:ridge_error}$ überwiegt.
+# 
 # 
 # For two variables we can write:
 # 
-# $$\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b_1^2 + \lambda b_2^2= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda b_1^2 + \lambda b_2^2$$
+# \begin{equation*}\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b_1^2 + \lambda b_2^2= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda b_1^2 + \lambda b_2^2\end{equation*}
 # 
 # And in matrix notation for an arbitrary number of variables:
 # \begin{align*}
 #     \text{min}=&(\mathbf{y}-\hat{\mathbf{y}})^2 + \lambda \mathbf{b}^2=(\mathbf{y}-\mathbf{X}\mathbf{b})'(\mathbf{y}-\mathbf{X}\mathbf{b}) + \lambda \mathbf{b}'\mathbf{b}
-#   \end{align*}
+# \end{align*}
+#   
+#   
 
-# Interestingly, this error term has a closed form solution, i.e. there is a analytical solution and we do not have to resort to iterative algorithms. However, remember that we included the intercept parameter $a$ in $\mathbf{b}$ and added an extra column with ones to the matrix $\mathbf{X}$. By computing $\lambda \mathbf{b}'\mathbf{b}$ we would also shrink the intercept parameter - what is not meaningfull since its effect is to account for the means of the variables: $a=\bar{y} - b\bar{x}$<br>
-# In order to remove this term, we have to center the variables. When $\bar{y}=0$ and $\bar{x}=0$ then $a$ vanishes.<br>
-# The solution for $\mathbf{b}$ is then given as:
-# $$\hat{\mathbf{b}} = (\mathbf{X}'\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}'\mathbf{y}$$
+# Interessanterweise gibt es für diesen Fall ebenfalls eine exakte analytische Lösung. <br>
+# Allerdings haben wir den intercept Koeffizienten $a$ mit in $\mathbf{b}$ aufgenommen und die zusätzliche Spalte mit lauter Einsern in $\mathbf{X}$ hinzugefügt. Wenn wir nun $\lambda \mathbf{b}'\mathbf{b}$ berechnen, den quadrierten Strafterm für den Parametervektor, dann würden wir auch $a$ bestrafen. Die Rolle von $a$ ist aber, die Höhenlage der Regressionsfunktion zu definieren (die Stelle an der die Funktion die y-Achse schneidet).<br>
+# Der intercept $a$ kann allerdings aus der Gleichung genommen werden, wenn die Variablen vorher standardisiert werden (Mittelwert $\bar{x} = 0$ und $\bar{y} = 0$). Jetzt verschwindet $a$ von ganz allein, wenn wir die standardisierten Mittelwerte in die Gleichung für $a$ einfügen:<br>
 # 
-# Following Hastie et al., originally, this was introduced to cope the rank deficency problems. When the algorithm was first proposed, it was not possible to invert a square matrix not of full rank. Hence, adding a small positive amount to its diagonal solved this problem. This can be demonstrated with our numerical example:
+# \begin{equation*}
+# a=\bar{y} - b\bar{x} = 0 - b\cdot 0 = 0
+# \end{equation*}
+# <br>
+# 
+# Nun muss $a$ nicht mehr berücksichtigt werden und die Lösung für $\mathbf{b}$ ergibt sich zu:
+# 
+# \begin{equation*}\hat{\mathbf{b}} = (\mathbf{X}'\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}'\mathbf{y}\end{equation*}
+# 
+# Nach Hastie et al., wurde dieses Verfahren ursprünglich verwendet um 'rank deficiency' Probleme zu beheben. Wenn Die Spalten oder Zeilen einer Matrix nicht lineare unabhängig sind, so hat die Matrix nicht vollen Rang. Beispielsweise kann sich eine Spalte durch Addition anderer Spalten ergeben. In diesem Fall funktionierte die Matrix Inversion nicht zufriedenstellend. Als Lösung hat man gefunden, dass es ausreichend ist, einen kleinen positiven Betrag zu den Diagonal-Elementen der Matrix zu addieren.<br>
+# Dies wird nachfolgend in einem numerischen Beispiel gezeigt:<br>
+#   - `np.c_` fügt die einzelenne Variablen zu einer Matrix zusammen
+#   - `np.dot(X.T, X)` ist das bekannte Kreuzprodukt der transponierten Matrix $\mathbf{X'}$ und $\mathbf{X}$
+#   - `np.linalg.matrix_rank` gibt uns den Rang der Matrix
+#   - `np.eye(7) * 2` erstellt eine Diagonal-Matrix mit 2 in der Diagonalen und 0 überall sonst
 
 # In[17]:
 
@@ -452,9 +504,11 @@ np.diag(np.dot(X_7.T, X_7))
 
 
 # ### example of ridge regression
-# Next, we will apply ridge regression as implemented in the python sklearn library and compare the results to the analytical solution. Note, that we have to center the variables.
+# Next, we will apply ridge regression as implemented in the python `sklearn` library and compare the results to the linear algebra solution. Note, that we have to center the variables.
 # * we can center $\mathbf{X}$ and $\mathbf{y}$ and display the result in the centered coordinate system
 # * or we can center $\mathbf{X}$ and add the mean of $\mathbf{y}$ to the predicted values to display the result in the original coordinate system. This approaches allows for an easy comparison to the overfitted result
+# 
+# Die Zeile `Xc = X - np.mean(X, axis=0)` standardisiert die Variablen auf den Mittelwert von 0
 
 # In[19]:
 
@@ -464,6 +518,7 @@ y = np.load('/home/martin/python/fhnw_lecture/scripts/regression_y.pickle.npy')
 X = np.load('/home/martin/python/fhnw_lecture/scripts/regression_X.pickle.npy')
 
 X = np.c_[X, X**2, X**3, X**4, X**5, X**6, X**7]
+# here is the necessary standardization:
 Xc = X - np.mean(X, axis=0)
 
 # for plotting purpose
@@ -497,7 +552,7 @@ plt.title(label='ridge regression for polynome of 7th degree and $\lambda=2$',
 axes = f.add_subplot(111)
 
 axes.plot(X[:,0], y, 'ro')
-axes.plot( x[:,0], y_hat.reshape((-1,)), 'b-', label='ridge regression')          
+axes.plot( x[:,0], y_hat.reshape((-1,)), 'b-', label='ridge regression')
 #axes = plt.gca()
 axes.set_ylim([np.min(y)-10, np.max(y) +20])
 
@@ -512,17 +567,17 @@ leg = axes.legend()
 
 # ## Lasso
 # 
-# To make the error term bigger, alternatively, we could add the absolute value $\lambda\cdot |b|$ to the error:
+# Alternativ zu einem quadratischen Strafterm $b^2$ könnte man auch den absoluten Wert nehmen $|b|$. In diesem Fall erhält man die sog.~Lasso Regression; $\lambda\cdot |b|$ wird zum Vorhersage-Fehler addiert:
 # 
-# $$\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda b^2= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda |b|$$
+# $$\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda |b|= \sum_i^{n}[y_i - (a + b\cdot x_i)]^{2}+ \lambda |b|$$
 # 
-# For two variables we can write:
+# Für zwei Variablen würde man folglich schreiben:
 # 
 # $$\sum_i^{n}(y_i - \hat{y_i})^2 + \lambda |b_1| + \lambda |b_2|= \sum_i^{n}[y_i - (a + b_1\cdot x_{i1} + b_2\cdot x_{i2})]^{2}+ \lambda |b_1| + \lambda |b_2|$$
 #   
-# Unfortunately, and contrarily to ridge regression, there exists no closed form expression for computing the coefficients for the lasso.
-
-# ### lasso regression
+# Leider gibt es im Gegesatz zur Ridge Regression keine eindeutige analytische Lösung um die Koeffizienten der Lasso Regression zu erhalten. Hier kommen iterative Verfahren zum Einsatz, wie wir sie in Session 2 kennen lernen werden.
+# 
+# #### Vergleich der Koeffizienten der Lasso Regression mit denen der Ridge Regression
 # Next, we will apply lasso regression as implemented in the python sklearn library and compare the results to the unconstraint regression results.<br>
 # As before, we have to center the variables (-> see discussion above)
 
@@ -553,6 +608,9 @@ print(f'the parameters of the ridge regression:\n'     + f'{np.transpose(params_
 print(f'the parameters of the lasso regression:\n'     + f'{params_lasso}')
 
 
+# Ridge Regression tendiert dazu alle Koeffizienten im gleichen Mass zu verkleinern. Lasso führt oft zu Lösungen, bei denen einige Koeffizienten ganz zu $0$ konvergiert sind. Wenn man die Ergebnisse im obigen Beispiel betrachtet, fällt einem auf dass für Lasso eigentlich nur zwei Koeffizienten verschieden von $0$ sind (for $X^2$ and $X^3$).<br>
+# Die Werte alle anderen Koeffizienten sind kleiner als $0.000747 = 7.47\text{e}-04$.
+
 # In[22]:
 
 
@@ -577,13 +635,14 @@ leg = axes.legend()
 
 
 # ## the difference between ridge and lasso
-# Ridge regression tends to shrink all parameters in an equal manner. Lasso often leads to solutions with some parameters converged to zero. Hence lasso can also be a variable selection algorithm. Compare the results for our little toy example. Essentially, lasso has only two parameters (for $X^2$ and $X^3$) that are different from zero. All other parameters' absolute values are smaller than $0.0007$.
-# To see why lasso shrinks parameters to zero, we will:
-# * generate a random dataset $y = 1.5 \cdot x_1 + 0.5 \cdot x_2$
-# * compute mean squared error (MSE) for a grid of different values for $b_1$ and $b_2$
-# * plot error contour
-# * show the geometric shape of the penalties: $\lambda \sum_j b_j^2$ and $\lambda \sum_j |b_j|$
-# * indicate the optimal point for the combination of penalty and MSE-error
+# 
+# 
+# In der folgenden graphischen Darstellung haben die __wahren Koeffizienten__ die Werte $b_1=1.5,\quad b_2=0.5$. Für ein grid aus beliebigen Werten für $b_1$ und $b_2$ wird der __mean squared error__ (MSE) berechnet und der Fehler als Kontur graphisch dargestellt. Wie man sieht, wird der Fehler umso geringer, je näher die Koeffizienten im grid an den wahren Koeffizienten liegen.<br>
+# Als nächstes werden alle Koeffizienten-Kombinationen aus $b_1$ und $b_2$ eingetragen, deren Strafterm ($b_1^2 + b_2^2$
+# im Falle von Ridge und $b_1 + b_2$ im Falle von Lasso) den Wert von $1.0$ nicht übersteigt. Die Lösung, die den __wahren Koeffizienten__ am nähesten ist, wird jeweils durch einen Punkt eingezeichnet.<br>
+# 
+# Hierbei sieht man, dass sich die besten Lösungen von 
+# Ridge auf einem Halbkreis bewegen, die von Lasso auf einem Dreieck. An der Stelle, an der die Lasso-Lösung der eigentlichen Lösung (b=1.5, b2=0.5) am Nähesten ist, ist ein Parameter ($b_2$) fast $0$. Das zeigt die Tendenz von Lasso, einige Parameter gegen $0$ zu schrumpfen. Dieses Verhalten kann man sich zum Beispiel bei Variablen-Selektion zu Nutzen machen.<br>
 
 # In[23]:
 
@@ -602,7 +661,7 @@ model = LinearRegression()
 model.fit(X, Y)
 model.intercept_ # essentiall zero
 model.coef_ # essentially 0.2 and 0.5
-print(f'the model parameters from data generation could be recovered: {model.coef_}')
+#print(f'the model parameters from data generation could be recovered: {model.coef_}')
 
 # make regular grid of values for b_1 and b_2
 b1 = np.linspace(beta1 - 0.9, beta1 + 0.9, 100)
@@ -672,19 +731,31 @@ print(f'optimal coefficients of the ridge solution: {np.concatenate((values, val
 print(f'optimal coefficients of the lasso solution: {np.concatenate((values, values))[index_lasso]}'      f' and {np.concatenate((constraint_l1, -constraint_l1))[index_lasso]}')
 
 
-# In the figure above the optimal solution (without regularization) is at (1.5, 0.5) and is indicated by $\hat{b}$. This solution is associated with 0 mean squared error (MSE).<br> 
-# The contour lines indicate the mse-error corresponding to the respective choice of the parameter values.<br>
-# The yellow ball like line and the red triangular line indicate parameter values corresponding to a penalty budget of 1 for the ridge and the lasso respectively. The best solution is given by the point on the line associated with the least mse-error. These points are also indicated.<br>
-# As can be seen, the ridge regression shrinks both parameters whereas the lasso drives the $b_2$ estimate towards zero and the $b_1$ estimate towards one.
-
-# # Elastic net
-# The ridge regression and the lasso tend to shrink parameters quiet differently. A compromise that gaines huge popularity is a combination of the two:
-# $$ \lambda\sum_j (\alpha b_j^2 + (1-\alpha)|b_j|)$$
-# Besides $\lambda$ which gears the amount of regularization, a new parameter, $\alpha$ weights the contribution of the $l_2$ penalty originating from ridge regession and the $l_1$ penalty due to lasso regression.<br>
-# We will use elastic net in our data example.
+# # ElasticNet
+# 
+# 
+# Aus der Physik kommend werden die Strafterme von Ridge und Lasso als $\text{L}_2$ und $\text{L}_1$ bezeichnet. Eigentlich ist die $\text{L}_2$-Norm die Quadratwurzel der Summe der quadrierten Elemente eines Vectors und die $\text{L}_1$-Norm nur die Summe der Vektorelemente.<br>
+# ElasticNet ist ein lineares Regressions-Verfahren, in welches sowohl die regularization-terms von Lasso ($\text{L}_1$), als auch von Ridge ($\text{L}_2$) eingehen. Hier gibt es nicht nur einen $\lambda$-Paramter, der das Ausmass von regularization bestimmt, sondern einen zusätzlichen Parameter $\alpha$, der das Verhältnis von $\text{L}_1$ und $\text{L}_2$ regularization angibt.
+# 
+# Weil Ridge Regression und Lasso die Koeffizienten sehr unterschiedlich regulieren, ist als Kompromiss die Kombination aus beiden Methoden sehr beliebt geworden. 
+# 
+# \begin{equation*}
+# \lambda\sum_j (\alpha b_j^2 + (1-\alpha)|b_j|)
+# \end{equation*}
+# 
+# Die Interpretation der beiden paramter $\lambda$ und $\alpha$ ist wie folgt:
+#  - $\lambda$ bestimmt das generelle Mass an regularisation
+#  - $\alpha$ gibt das Verhältnis an, mit dem diese beiden Strafterme indie regularisation einfliessen sollen
+# <br>
+# 
+# 
+# Im Übungs-Notebook zu den Boston house-prices werden wir ElasticNet verwenden.
 
 # # Interaction
-# If the effect of one variable on the outcome depends on the value of another variable. As an example we could try to model the probability that someone is going to buy a house. A very important variable for buying a house will be the monthly income. Another one could be the marital status (single, maried, maried with kids). Maried persons with kids will be very inclined to buy a house if the income situation is favorable. Singles, even with high income will not be considering buying a house. So, the effect of income is different for the levels of marital status:
+# Interaktionen sind ein weiteres wichtiges Konzept in der linearen Regression. Hier ist der Effekt einer Variablen auf die abhängige Variable $y$ abhängig von dem Wert einer anderen Variable. 
+# 
+# In unterem Beispiel versuchen wir die Wahrscheinlichkeit zu modellieren, dass eine Person ein Haus kauft. Natürlich ist das monatliche Einkommen eine wichtige Variable und desto höher dieses, desto wahrscheinlicher auch, dass besagte Person ein Haus kauft. Eine andere wichtige Variable ist der Zivilstand. Verheiratet Personen mit Kindern im Haushalt tendieren stark zu Hauskauf, besonders wenn das monatliche Einkommen hoch ist. Auf der anderen Seite werden Singles, auch wenn sie ein hohes Einkommen haben, eher nicht zum Hauskauf tendieren.<br>
+# Wir sehen also, die Variable "monatliches Einkommen" __interagiert__ mit der Variable "Zivilstand":
 
 # In[24]:
 
@@ -712,7 +783,22 @@ fig = interaction_plot(income, marital, probability,
                        legendtitle='marital status')
 
 
-# This introducing example comprised categorical variables. Interaction effects may also exist for continuous variables. In this case it is just harder to visualize. Again, we will construct our own data example and build a strong interaction into it. To properly visualize the data, we have to put one variable into bins. However, the scatter plot allows for an intuitive understanding of the interaction of two continuous variables.
+# Das obige Beispiel beinhaltete kategorielle Variablen. Beispiele wie diese trifft man oft im Bereich der Varianzanalysen (ANOVA) an.<br>
+# Interaktions-Effekte bestehen aber auch für kontinuierliche Variablen. In diesem Fall ist es aber etwas komplizierter die Effekte zu visualisieren.<br>
+# Wir werden jetzt unseren eigenen Datensatz so erzeugen, dass er einen deutlichen Interaktions-Effekt aufweist. Damit der Effekt zwischen 2 kontinuierlichen Variablen überhaut in 2D dargestellt werden kann, musss eine der beiden Variablen wieder diskretisiert werden, d.h. wir müssen für sie wieder Kategorien bilden.<br>
+# Im nächsten Rechenbeispiel versuchen wir dann, die Parameter, die zur Generierung der Daten gedient haben mit einer Linearen-Regressions-Analyse wieder zu finden.<br>
+# Die Daten wurden nach folgendem Modell generiert:
+# 
+# \begin{equation*}
+# y = 2\cdot x + -2\cdot m + -7\cdot (x\cdot m) + \text{np.random.normal(loc = 0, scale = 4, size = n)}
+# \end{equation*}
+# 
+# `np.random.normal(loc=0, scale=4, size=n)` ist der Random-Error-Term, den wir hinzufügen, damit die Daten nicht alle auf einer Lienie liegen. `loc=0` besagt, dass der Mittelwert unseres zufälligen Fehlers $0$ ist, `scale=4`, dass die Varianz der Werte $4$ ist und `size=n` gibt die Anzahl der zu generierenden zufälligen Werte an
+# 
+# Folgliche haben wir also die Koeffizienten:
+#  - $b_x = 2$
+#  - $b_m = -2$
+#  - $b_{x\cdot m} = -7$
 
 # In[25]:
 
@@ -732,9 +818,11 @@ toy = pd.DataFrame({'x' : x, 'y' : y, 'moderator' : newM})
 sns.lmplot(x="x", y="y", hue="moderator", data=toy);
 
 
-# As can be seen, the interaction effect is build into the example data, by simply multiplying two variables. Lets see, if we can recover the coefficients. We will also see that the model fit is better when the interaction term is included:
+# Interaktions-Terme können gebildet werden, indem man zwei Variablen elemente-weise miteinander multipliziert.
+# Durch die Hinzuname weiterer Terme sollte die Modell-Anpassung eigentlich besser werden - besonders wenn ein starker Interaktionsterm in den Daten vorliegt, so wie wir ihn eingebaut haben.<br>
+# Vergleichen wir die Koeffizienten, so wie sie im Linearen-Modell gefunden werden mit denen, die zur Erzeugung unseres Datensatzes gedient haben. Gar nicht schlecht, oder? Die zufälligen Fehler mit der grossen Varianz sorgen natürlich dafür, dass sie dennoch von den 'generating parameters' verschieden sind.
 
-# In[ ]:
+# In[26]:
 
 
 from sklearn.linear_model import LinearRegression
@@ -752,32 +840,46 @@ print(f'\nthe coefficients are given by {model.coef_}; compare these values\n to
 
 
 # ### some considerations
-# Let's assume, we have a data set with 70 different variables. Since we do not know anything about the relationsship of the variables to the dependent variable (y), nor of the variables among each other, we are inclined to construct a lot of new variables:
-# * we can add all 70 quadratic terms ($x_j^2$)
-# * we can add all 70 cubic terms ($x_j^3$)
-# * we could add all $\binom{70}{2} = 2415$ first-order interactions among the 70 variables
-# * instead, we could add all first-order interactions among the 210 variables including the quadratic and the cubic terms: $\binom{210}{2} = 21945$
-# * besides quadratic and cubic transformations, there my be other transformations leading to better results, like the log-transform.
+# Die Überlegung hier veranschaulicht, dass es schon bei moderater Variablen-Anzahl sehr viele mögliche Interaktions-Terme gibt. Für die normale Lineare Regression würde die grosse Anzahl dieser Terme zum Verhängnis werden, weil dann wieder der Fall eintreten könnte indem wir die Daten overfitten oder gar mehr Variablen als Beobachtunge zur Verfügung stehen. Auch in diesem Fall kann auf die vorgestellten^ Regularisierungs-Verfahren (ElasticNet, Ridge und Lasso) zurückgegriffen werden:
 # 
-# As you can see, the number of possible variables can grow very fast, when considering all possible effects that might be present in the data. Sometimes, there exists second-order interaction effects, that were not mentioned in the considerations above.<br>
-# All these variables would likely lead to severe overfitting if we would naively include them in our linear regression model. __That's why we introduced regularization techniques like the elastic net and its components, the ridge and the lasso__.
+# Nehmen wir an, wir haben ein data-set mit 70 verschiedenen Variablen. Weil wir nichts über die Beziehungen der Variablen zur abhängigen Variable $y$ noch über die Beziehungen der Variablen untereinander wissen, sind wir geneigt eine Menge zusätzlicher 'features' für unser Modell zu erzeugen:
+# 
+# * wir können 70 quadratische Terme hinzufügen ($x_j^2$)
+# * wir können 70 kubische Terme aufnehmen ($x_j^3$)
+# * wir können auch $\binom{70}{2} = 2415$ Interaktionen erster Ordnung zwischen den 70 Variablen annehmen
+# * anstatt dessen könnte wir auch die Interaktions-Terme der 210 (70 Variablen + 70 quadratische Terme + 70 kubische Terme) Variablen mit aufnhemne: $\binom{210}{2} = 21945$
+# * neben quadratisch und kubischen Termen gibt es auch viele andere linearisierende Transformation, die unter Umständen zu besseren ergebnissen führen wie beispielsweise die log-Transformation. Im praktischen Beipiel des Bosten house-prices data-Sets werden wir die `box-cox-Transformation` kennen lernen.
+# 
+# 
+# Wie wir gesehen haben, kann die Anzahl möglicher Variablen sehr schnell wachsen, wenn man alle Effekte berücksichtigt, die ausschlaggebend sein könnten. Manchmal existieren sogar Interaktionseffekte zweiter Ordnund, d.h. drei Variablen sind dann daran beteiligt. <br>
+# Würden wir alle möglichen Variablen berücksichtigen, die sich derart bilden lassen, dann würde dies auch bei grossen Daten-Sets zu ausgeprägten 'overfitting' führen. __Aus diesem Grund wurden die regularization techniques wie das  ElasticNet und seine Komponenten, die Ridge Regression und die Lasso Regression eingeführt__.
 
-# # How confident are we about our predictions
-# Essentially, there are two questions that one could ask after fitting a linear model:
-# * How confident are we about the estimated parameters $\mathbf{b}$? This is most often asked by statisticians because for them, the interpretation of the coefficients is of paramount interest.
-# * How confident are we about the predictions? This is asked in machine learning because we want to apply the model to unseen data and use the predictions in our business process.
-#     Here, we have to deal with two different questions:
-#     * How much will the mean response, our prediction - the regression line - vary?
-#     * How much variation is in the observations $y$ given the level of $X$?
+# # Wie zuversichtlich sind wir hinsichtlich unserer Modell-Vorhersagen
+# 
+# Selten werden wir mit unserem Modell genau die Koeffizienten schätzen können, die in der gesamten Population (alle Daten, die wir erheben könnten) anzutreffen sind. Viel öfter ist unsere Stichprobe nicht repräsentativ für die gesamte Population oder sie ist schlicht zu klein und zufällige, normalverteilte Fehler in unseren Daten beeinflussen die Schätzung der Koeffizienten. Dies umsomehr, desto mehr Variablen wir in user Modell aufnehmen.<br>
+# Wie können wir nun die Güte unserer Schätzung beurteilen? Hier sind mindestens zwei verschieden Fragen denkbar:
+# 
+# * Wie sicher sind wir mit Hinblick auf die geschätzen Koeffizienten $\mathbf{b}$?. Diese Frage ist besonders für Wissenschaftler wichtig, da die Antwort dafür ausschlaggebend ist, ob eine Hypothese beibehalten oder verworfen werden muss.
+# * Wie sicher sind wir uns bezüglich einzelner Vorhersagen. Dies spielt die grösste Rolle im Machine Learning Umfeld, da wir das trainierte Modell gerne in unsere Business-Abläufe integrieren würden.
+# 
+# Diese beiden Fragestellungen lassen sich mit Hinblick auf die Regression auch wie folgt formulieren:
+#    * Wie sehr ist die 'mean response', unsere Regressions-Funktion von der Stichprobe abhängig. Variiert Erstere sehr stark und umfasst unter Umständen sogar den Wert $0$, dann können diese Effekte (Koeffizienten) nicht interpretiert werden.
+#    * Wie sehr können Beobachtungen $y$ für eine gegebene Kombination von Variablen-Werten in $\mathbf{X}$ variieren? Ist diese Variation sehr gross, so werden wir auch grosse Fehler in unseren Business-Process einbauen
+# 
 
 # ## Recap of assumptions underlying regression
-# * __Linearity__: The regression line is a good fit for the relation between $\mathbf{X}$ and $\mathbf{y}$, i.e., if there is a quadratic trend in the data and we fit a model without quadratic term, the assumptions are not met (--> __bias__).
-# * __Homoscedasticity__: The variance of the residuals is identical for all values of $\mathbf{X}$.
-# * __Normality__: The  values of $\mathbf{y}$ given a certain $\mathbf{x}$, i.e. of $\mathbf{y}|\mathbf{x}$ are normaly distributed.<br>
+# Dies sind Linearität (der Zusammenhang einer Variablen und der abhängigen Variablen ist linear, d.h. der selbe Steigungsparamter gilt für alle Bereiche der Variablen), Homoskedastizität (die Fehler der Regression -- die Residuen -- sind in allen Bereichen von X normal verteilt mit gleicher Varianz) und Normalität der Residuen bei gegebenem Wert von X.
+# Diese Voraussetzungen sind in vielen Fällen nicht erfüllt und auch bekannterweise verletzt. 
 # 
+# 
+# * __Linearity__: Die Regression-Funktion ist eine gute Annäherung für die Beziehung zwischen $\mathbf{X}$ and $\mathbf{y}$, d.h. ist ein quadratischer Trend in den Daten und wir haben keine quadratischen Effekte in das Modell aufgenommen, so sind die Annahmen nicht erfüllt. Die Linearität besagt nämlich, dass für den Zusammenhang einer Variablen $x$ und der abhängigen Variablen $y$ der selbe Steigungs-Koeffizient $b_x$ für all Bereich für $x$ gelten muss. Ansonsten hat das Modell einen __bias__, es schätzt einen Koeffizienten systematisch falsch.
+# * __Homoscedasticity__: Die Varianz unseres Vorhersagefehlers (Residuen) ist für alle Bereiche einer Variablen $x$ identisch.
+# * __Normality__: Die Werte der abhängigen Variablen $\mathbf{y}$ sind für einen gegeben Wert von $\mathbf{x}$ normal verteilt: $\mathbf{y}|\mathbf{x} \sim N(\mu, \sigma)$<br>
+# 
+# In der nächsten Graphik werden die Voraussetzungen der linearen Regression veranschaulicht:<br>
 # Image taken from [here](https://janhove.github.io/analysis/2019/04/11/assumptions-relevance)
 
-# In[ ]:
+# In[27]:
 
 
 Image('../images/homoscedasticity.png')
@@ -797,7 +899,7 @@ Image('../images/homoscedasticity.png')
 # 
 # If someone has a strong interest in these more statistical models, I can recommend this [source](http://web.vu.lt/mif/a.buteikis/wp-content/uploads/PE_Book/3-7-UnivarPredict.html).
 
-# In[ ]:
+# In[28]:
 
 
 import statsmodels.api as sm
@@ -824,13 +926,13 @@ meanCIs_lin = dt_lin[['mean_ci_lower', 'mean_ci_upper']]
 obsCIs_lin = dt_lin[['obs_ci_lower', 'obs_ci_upper']]
 
 
-# In[ ]:
+# In[29]:
 
 
 print(ols_result_lin.summary()) # beta-coefficients
 
 
-# In[ ]:
+# In[30]:
 
 
 ### figure for linear plot
@@ -854,7 +956,7 @@ axes.set_ylim([np.min(y)-10, np.max(y) +10])
 
 # The same plot is derived for an equation including a quadratic term:
 
-# In[ ]:
+# In[31]:
 
 
 X_intercept_quad = np.c_[X_intercept, X**2]
@@ -873,13 +975,13 @@ meanCIs_quad = dt_quad[['mean_ci_lower', 'mean_ci_upper']]
 obsCIs_quad = dt_quad[['obs_ci_lower', 'obs_ci_upper']]
 
 
-# In[ ]:
+# In[32]:
 
 
 print(ols_result_quad.summary())
 
 
-# In[ ]:
+# In[33]:
 
 
 ### figure for linear plot
@@ -904,7 +1006,7 @@ axes.set_ylim([np.min(y)-10, np.max(y) +10])
 # ## Bootstrap
 # With real, messy data it is rather seldom to meet all the assumptions underlying the theory of confidence intervals. A robust alternative, without any assumptions is the bootstrap. We view our data sample as the population and draw samples from it, with replacement. We fit the model to each of these samples and gather the statistics of relevance. Then we report the 2.5% quantile and the 97.5% quantile as the boundaries of our confidence interval with confidence level of $\alpha=5\%$.
 
-# In[ ]:
+# In[34]:
 
 
 from random import choices
@@ -936,7 +1038,7 @@ model.fit(X, y)
 y_hat = model.predict(x)
 
 
-# In[ ]:
+# In[35]:
 
 
 f = plt.figure(figsize=(5, 5), dpi=100)
@@ -1037,7 +1139,7 @@ axes.legend()
 # # Neural Network
 # We can also cast linear regression into a neural network context. The network has no hidden layer. The activation function in the output neuron is either the identity function $y=x$ for classical linear regression or the logistic function for logistic regression.
 
-# In[ ]:
+# In[36]:
 
 
 Image('../images/Regression_as_NN.png')
@@ -1053,7 +1155,7 @@ Image('../images/Regression_as_NN.png')
 
 # Why are the weight-vectors $\mathbf{W}$ in upper-case?<br>In a regression-context, we usually use lower-case letters like $\mathbf{\beta}$ or $\mathbf{b}$?
 
-# In[ ]:
+# In[37]:
 
 
 Image('../images/LogisticRegression_as_NN.png')
