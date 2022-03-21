@@ -1,0 +1,1 @@
+jupyter nbconvert Regression_Techniques.ipynb --to slides --no-prompt --TagRemovePreprocessor.remove_input_tags={"hide-input"} 

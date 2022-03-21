@@ -1,27 +1,5 @@
-# Welcome to your Jupyter Book
-
-This is a small sample book to give you a feel for how book content is
-structured.
-
-:::{note}
-Here is a note!
-:::
-
-And here is a code block:
+# 1 Session
 
 ```
-e = mc^2
+Der Input diese Skripts ist in der Vorbereitung eines Semiars entstanden, welches ich im Sommersemester 2021 zum ersten Mal an der FHNW gegeben habe.
 ```
-
-Check out the content pages bundled with this sample book to see more.
-
-I wonder if we can have some math formulae as well:
-
-$\alpha = 3$
-
-or like this:
-
-```
-$\alpha = 3$
-```
-and even the more advanced stuff?
