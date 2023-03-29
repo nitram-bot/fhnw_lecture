@@ -1,0 +1,96 @@
+\selectlanguage *{english}
+\contentsline {chapter}{\numberline {1}Data Modelling for data with temporal context}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Overfitting and Cross\sphinxhyphen {}Validation}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Cross\sphinxhyphen {}Validation}{7}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Date Leakage and Dependent Data}{9}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Sources of data leakage}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}train data contains features that are not available in production}{11}{section.5.1}%
+\contentsline {section}{\numberline {5.2}future data somehow slipped into the training set}{11}{section.5.2}%
+\contentsline {section}{\numberline {5.3}there is one feature that interacts with the target}{12}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Some more cases where we have data leakage:}{12}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Example: credit card applications}{13}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Solution:}{17}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Dependency between data\sphinxhyphen {}samples}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Some more cases where we have dependent data}{19}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}recent article summarizing errors when predicting COVID:}{20}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}How to fix it?}{20}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Data leakage Literature}{21}{subsection.6.1.3}%
+\contentsline {chapter}{\numberline {7}Creditcard\sphinxhyphen {}Fraud: imbalanced data}{23}{chapter.7}%
+\contentsline {section}{\numberline {7.1}the data\sphinxhyphen {}set is too large \sphinxhyphen {} we subsample the majority class}{23}{section.7.1}%
+\contentsline {chapter}{\numberline {8}what will our accuracy be ad hoc?}{25}{chapter.8}%
+\contentsline {chapter}{\numberline {9}get a model}{27}{chapter.9}%
+\contentsline {chapter}{\numberline {10}train / test split}{29}{chapter.10}%
+\contentsline {chapter}{\numberline {11}proper test set?}{35}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Strategies for the imbalanced case:}{37}{chapter.12}%
+\contentsline {section}{\numberline {12.1}oversample fraud}{37}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}Synthetic Minority Oversampling Technique = SMOTE}{37}{subsection.12.1.1}%
+\contentsline {subsection}{\numberline {12.1.2}Adaptive Synthetic Sampling = ADASYN}{38}{subsection.12.1.2}%
+\contentsline {subsection}{\numberline {12.1.3}Borderline\sphinxhyphen {}SMOTE}{39}{subsection.12.1.3}%
+\contentsline {subsection}{\numberline {12.1.4}Support\sphinxhyphen {}Vector\sphinxhyphen {}Machine\sphinxhyphen {}SMOTE = SVMSMOTE}{39}{subsection.12.1.4}%
+\contentsline {section}{\numberline {12.2}weigh minority class}{40}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Undersample Fraud}{41}{section.12.3}%
+\contentsline {section}{\numberline {12.4}do both: oversample minority class and undersample majority class}{42}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}SMOTE and Edited Nearest Neighbors = SMOTE\sphinxhyphen {}ENN}{42}{subsection.12.4.1}%
+\contentsline {subsection}{\numberline {12.4.2}SMOTETOMEK}{42}{subsection.12.4.2}%
+\contentsline {section}{\numberline {12.5}get best combination: sampling and hyper\sphinxhyphen {}parameters}{42}{section.12.5}%
+\contentsline {section}{\numberline {12.6}One\sphinxhyphen {}Class SVM}{43}{section.12.6}%
+\contentsline {chapter}{\numberline {13}Titanic \sphinxhyphen {} Machine Learning from Disaster}{45}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Predict survival on the Titanic and get familiar with ML basics}{45}{section.13.1}%
+\contentsline {section}{\numberline {13.2}continuous variables}{45}{section.13.2}%
+\contentsline {section}{\numberline {13.3}categorical or discrete variables}{45}{section.13.3}%
+\contentsline {section}{\numberline {13.4}ordinal variables}{46}{section.13.4}%
+\contentsline {chapter}{\numberline {14}Processing of Variable}{47}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Continuous Variables}{47}{section.14.1}%
+\contentsline {section}{\numberline {14.2}Categorical or discrete variables}{47}{section.14.2}%
+\contentsline {section}{\numberline {14.3}ordinal data}{48}{section.14.3}%
+\contentsline {chapter}{\numberline {15}Missing Data}{49}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Interactions}{50}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Standardization / Normalization}{50}{section.15.2}%
+\contentsline {chapter}{\numberline {16}not covered here}{53}{chapter.16}%
+\contentsline {chapter}{\numberline {17}Knowledge Discovery \sphinxhyphen {}> Data Mining \sphinxhyphen {}> Data Science \sphinxhyphen {}> Machine Learning}{55}{chapter.17}%
+\contentsline {chapter}{\numberline {18}Lineare Regression}{57}{chapter.18}%
+\contentsline {chapter}{\numberline {19}multivariate case: more than one x variable}{59}{chapter.19}%
+\contentsline {chapter}{\numberline {20}Polynomial regression as an example for more than one variable}{61}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Overfitting}{62}{section.20.1}%
+\contentsline {section}{\numberline {20.2}perfect fit: as many variables as data samples}{63}{section.20.2}%
+\contentsline {section}{\numberline {20.3}Bias\sphinxhyphen {}Variance Tradeoff}{64}{section.20.3}%
+\contentsline {chapter}{\numberline {21}Dealing with overfitting}{67}{chapter.21}%
+\contentsline {section}{\numberline {21.1}Ridge regression}{67}{section.21.1}%
+\contentsline {subsection}{\numberline {21.1.1}example of ridge regression}{68}{subsection.21.1.1}%
+\contentsline {section}{\numberline {21.2}Lasso}{68}{section.21.2}%
+\contentsline {subsection}{\numberline {21.2.1}kurzer Einschub: klassische Statistik vs. Machine Learning}{69}{subsection.21.2.1}%
+\contentsline {subsection}{\numberline {21.2.2}kurzer Einschub: klassische Statistik vs. Machine Learning}{69}{subsection.21.2.2}%
+\contentsline {chapter}{\numberline {22}Extension: logistic regression and the GLM}{71}{chapter.22}%
+\contentsline {section}{\numberline {22.1}exponential family of distributions}{71}{section.22.1}%
+\contentsline {subsection}{\numberline {22.1.1}Normalverteilung}{71}{subsection.22.1.1}%
+\contentsline {subsection}{\numberline {22.1.2}Poisson distribution}{72}{subsection.22.1.2}%
+\contentsline {subsection}{\numberline {22.1.3}Bernoulli distribution \(\Rightarrow \) logistic regression}{72}{subsection.22.1.3}%
+\contentsline {chapter}{\numberline {23}Neural Network}{73}{chapter.23}%
+\contentsline {section}{\numberline {23.1}classical linear regression}{74}{section.23.1}%
+\contentsline {section}{\numberline {23.2}logistic regression}{75}{section.23.2}%
+\contentsline {subsection}{\numberline {23.2.1}Weight decay}{75}{subsection.23.2.1}%
+\contentsline {chapter}{\numberline {24}Why trees?}{77}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Compare to linear Regression (logistic regression in this case)}{79}{section.24.1}%
+\contentsline {section}{\numberline {24.2}Splitting criteria}{81}{section.24.2}%
+\contentsline {chapter}{\numberline {25}Genetic Algorithms}{83}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Evolutionary Decision Trees:}{84}{section.25.1}%
+\contentsline {section}{\numberline {25.2}my opinion about evolutionary algorithms:}{84}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Random Forest}{85}{section.25.3}%
+\contentsline {subsection}{\numberline {25.3.1}Pros of Random Forest:}{85}{subsection.25.3.1}%
+\contentsline {subsection}{\numberline {25.3.2}Cons of Random Forest:}{85}{subsection.25.3.2}%
+\contentsline {chapter}{\numberline {26}Gradient Boosted Trees}{87}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Explanation of Gradient Boosted Trees:}{87}{section.26.1}%
+\contentsline {section}{\numberline {26.2}most important parameters for stochastic gradient\sphinxhyphen {}boosting:}{88}{section.26.2}%
+\contentsline {chapter}{\numberline {27}Clustering}{89}{chapter.27}%
+\contentsline {section}{\numberline {27.1}SOM}{90}{section.27.1}%
+\contentsline {section}{\numberline {27.2}Some considerations regarding the scale of used variables}{105}{section.27.2}%
+\contentsline {section}{\numberline {27.3}Spectral clustering}{107}{section.27.3}%
+\contentsline {section}{\numberline {27.4}Example: 20 newsgroups}{111}{section.27.4}%
+\contentsline {section}{\numberline {27.5}Organization}{111}{section.27.5}%
+\contentsline {chapter}{\numberline {28}Tf\sphinxhyphen {}idf}{113}{chapter.28}%
+\contentsline {section}{\numberline {28.1}Rand Index}{113}{section.28.1}%
+\contentsline {section}{\numberline {28.2}Connectivity / adjacency / affinity matrix}{114}{section.28.2}%
+\contentsline {chapter}{\numberline {29}our choice}{115}{chapter.29}%
+\contentsline {chapter}{\numberline {30}Approximate nearest neighbors}{117}{chapter.30}%
+\contentsline {chapter}{\numberline {31}DBSCAN}{123}{chapter.31}%
+\contentsline {chapter}{\numberline {32}SOM}{125}{chapter.32}%

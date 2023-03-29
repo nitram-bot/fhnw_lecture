@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro.md 
+chapters:
+        - file: dependent_data.ipynb 
+        - file: imbalanced_data.ipynb 
+        - file: Data_Basics.ipynb
+        - file: Regression_Techniques.ipynb
+        - file: Tree_Methods.ipynb
+        - file: Text_Clustering.ipynb 

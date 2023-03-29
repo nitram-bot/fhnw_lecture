@@ -3,10 +3,17 @@
 
 format: jb-book
 root: intro.md 
-chapters:
-- file: Regression_Techniques.ipynb
-- file: Model_Selection_and_Validation_Schemes.ipynb
-- file: dependent_data.ipynb
-  #- file: markdown
-  #- file: Kernel_Methods
-  #- file: notebooks
+parts:
+  - caption: intro
+    chapters:
+    - file: Overview.ipynb
+  - caption: Tree Methods
+    chapters:
+    - file: Tree_Methods.ipynb
+      #  - caption: Cross Validation, Stacking and Mean Encoding
+      #chapters:
+      #- file: Model_Selection_and_Validation_Schemes.ipynb
+      #- caption: Data Leakage and Data Dependence
+      #chapters:
+      #- file: dependent_data.ipynb
+#- file: notebooks

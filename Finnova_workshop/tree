@@ -1,0 +1,140 @@
+
+digraph G {
+    splines=line;
+    nodesep=0.1;
+    ranksep=.2;
+    rankdir=TD;
+    margin=0.0;
+    
+    node [margin="0.03" penwidth="0.5" width=.1, height=.1];
+    edge [arrowsize=.4 penwidth="0.3"]
+
+    node4 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_1@-0.76</font>>]
+	node2 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_2@4.08</font>>]
+	node8 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_1@0.10</font>>]
+	node11 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_1@0.21</font>>]
+	node7 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_2@2.57</font>>]
+	node1 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_1@-0.42</font>>]
+	node0 [margin="0" shape=none label=<<font face="Helvetica" color="#444443" point-size="12">x_2@6.26</font>>]
+    node4 -> leaf5 [penwidth=0.3 color="#444443" label=<>]
+	node4 -> leaf6 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                leaf5 -> leaf6 [style=invis]
+            }
+            
+	node2 -> leaf3 [penwidth=0.3 color="#444443" label=<>]
+	node2 -> node4 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                leaf3 -> node4 [style=invis]
+            }
+            
+	node8 -> leaf9 [penwidth=0.3 color="#444443" label=<>]
+	node8 -> leaf10 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                leaf9 -> leaf10 [style=invis]
+            }
+            
+	node11 -> leaf12 [penwidth=0.3 color="#444443" label=<>]
+	node11 -> leaf13 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                leaf12 -> leaf13 [style=invis]
+            }
+            
+	node7 -> node8 [penwidth=0.3 color="#444443" label=<>]
+	node7 -> node11 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                node8 -> node11 [style=invis]
+            }
+            
+	node1 -> node2 [penwidth=0.3 color="#444443" label=<>]
+	node1 -> node7 [penwidth=0.3 color="#444443" label=<>]
+	
+            {
+                rank=same;
+                node2 -> node7 [style=invis]
+            }
+            
+	node0 -> node1 [penwidth=0.3 color="#444443" label=<&le;>]
+	node0 -> leaf14 [penwidth=0.3 color="#444443" label=<&gt;>]
+	
+            {
+                rank=same;
+                node1 -> leaf14 [style=invis]
+            }
+            
+    leaf3 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf3_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf5 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf5_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf6 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf6_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf9 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf9_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf10 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf10_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf12 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf12_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf13 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf13_1247.svg"/></td>
+        </tr>
+        </table>>]
+	leaf14 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+        
+        <tr>
+                <td><img src="/tmp/leaf14_1247.svg"/></td>
+        </tr>
+        </table>>]
+
+    
+            subgraph cluster_legend {
+                style=invis;
+                legend [penwidth="0" margin="0" shape=box margin="0.03" width=.1, height=.1 label=<
+                
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td border="0" cellspacing="0" cellpadding="0"><img src="/tmp/legend_1247.svg"/></td>
+            </tr>
+        </table>
+        
+                >]
+            }
+            
+    
+}
+    

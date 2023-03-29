@@ -146,3 +146,4 @@ checklink/cookies.txt
 
 # dbs:
 *.sqlite
+seminar_skript/_build/*
