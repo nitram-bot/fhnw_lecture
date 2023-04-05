@@ -1,0 +1,12 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro.md 
+chapters:
+- file: Regression_Techniques.ipynb
+- file: Model_Selection_and_Validation_Schemes.ipynb
+- file: dependent_data.ipynb
+  #- file: Kernel_Methods.ipynb 
+  #- file: Kernel_Methods
+  #- file: notebooks
