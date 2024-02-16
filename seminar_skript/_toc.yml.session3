@@ -1,0 +1,26 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro.md 
+parts:
+  - caption: intro
+    chapters:
+    - file: Overview.ipynb
+    - file: Abschlussarbeit_bank_marketing.ipynb
+  - caption: Kernel Methods 
+    chapters:
+    - file: Kernel_Methods.ipynb
+  - caption: Auto-ML
+    chapters:
+    - file: AutoML.ipynb
+  - caption: Clustering
+    chapters:
+    - file: Text_Clustering.ipynb    
+      #  - caption: Cross Validation, Stacking and Mean Encoding
+      #chapters:
+      #- file: Model_Selection_and_Validation_Schemes.ipynb
+      #- caption: Data Leakage and Data Dependence
+      #chapters:
+      #- file: dependent_data.ipynb
+#- file: notebooks

@@ -7,9 +7,15 @@ parts:
   - caption: intro
     chapters:
     - file: Overview.ipynb
-  - caption: Tree Methods
+  - caption: Pretrained Neural Networks 
     chapters:
-    - file: Tree_Methods.ipynb
+    - file: Use_of_pretrained_NN.ipynb 
+  - caption: ChatGPT 
+    chapters:
+    - file: ChatGPT.ipynb
+  - caption: Tips for production 
+    chapters:
+    - file: Tips_for_production.ipynb 
       #  - caption: Cross Validation, Stacking and Mean Encoding
       #chapters:
       #- file: Model_Selection_and_Validation_Schemes.ipynb
