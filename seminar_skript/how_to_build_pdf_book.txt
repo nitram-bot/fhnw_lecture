@@ -1,0 +1,5 @@
+jupyter-book build . --builder pdflatex
+jupyter-book clean . --all
+
+if you want to exclude markdown-cells from being rendered in latex, you have to 
+convert them into 'raw' cells. In this way, they are being ignored.
