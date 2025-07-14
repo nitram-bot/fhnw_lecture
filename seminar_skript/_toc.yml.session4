@@ -1,0 +1,25 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro.md 
+parts:
+  - caption: intro
+    chapters:
+    - file: Overview.ipynb
+  - caption: Pretrained Neural Networks 
+    chapters:
+    - file: Use_of_pretrained_NN.ipynb 
+  - caption: ChatGPT 
+    chapters:
+    - file: ChatGPT.ipynb
+  - caption: Tips for production 
+    chapters:
+    - file: Tips_for_production.ipynb 
+      #  - caption: Cross Validation, Stacking and Mean Encoding
+      #chapters:
+      #- file: Model_Selection_and_Validation_Schemes.ipynb
+      #- caption: Data Leakage and Data Dependence
+      #chapters:
+      #- file: dependent_data.ipynb
+#- file: notebooks

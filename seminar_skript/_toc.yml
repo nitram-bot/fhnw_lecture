@@ -13,9 +13,9 @@ parts:
   - caption: ChatGPT 
     chapters:
     - file: ChatGPT.ipynb
-  - caption: Tips for production 
-    chapters:
-    - file: Tips_for_production.ipynb 
+      #  - caption: Tips for production 
+      #chapters:
+      #- file: Tips_for_production.ipynb 
       #  - caption: Cross Validation, Stacking and Mean Encoding
       #chapters:
       #- file: Model_Selection_and_Validation_Schemes.ipynb

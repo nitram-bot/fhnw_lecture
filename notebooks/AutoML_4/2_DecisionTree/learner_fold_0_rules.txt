@@ -1,0 +1,16 @@
+if (OverallQual > 6.5) and (OverallQual <= 7.5) and (GrLivArea <= 2093.5) then response: 12.164 | based on 167 samples
+
+if (OverallQual <= 6.5) and (GarageCars <= 1.5) and (1stFlrSF > 875.5) then response: 11.761 | based on 157 samples
+
+if (OverallQual <= 6.5) and (GarageCars > 1.5) and (GrLivArea <= 1393.0) then response: 11.842 | based on 148 samples
+
+if (OverallQual <= 6.5) and (GarageCars > 1.5) and (GrLivArea > 1393.0) then response: 12.07 | based on 140 samples
+
+if (OverallQual <= 6.5) and (GarageCars <= 1.5) and (1stFlrSF <= 875.5) then response: 11.524 | based on 93 samples
+
+if (OverallQual > 6.5) and (OverallQual > 7.5) and (GrLivArea > 1813.5) then response: 12.705 | based on 84 samples
+
+if (OverallQual > 6.5) and (OverallQual > 7.5) and (GrLivArea <= 1813.5) then response: 12.429 | based on 58 samples
+
+if (OverallQual > 6.5) and (OverallQual <= 7.5) and (GrLivArea > 2093.5) then response: 12.483 | based on 29 samples
+
